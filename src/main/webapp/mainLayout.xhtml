@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Bound Maven</title>
+    </h:head>
+    <h:body>
+        <f:view locale="#{locale.locale}" xmlns:f="http://xmlns.jcp.org/jsf/core"> 
+        <p:layout fullPage="true">
+            
+            <p:layoutUnit position="north" style="">
+                <ui:insert name="header-left">
+                  <div style="float: left; margin: 5px"> 
+                      <ui:include src="Sections/Login/login.xhtml"/> 
+                  </div>   
+                </ui:insert>
+               
+                
+                <ui:insert name="header-center">
+                   
+                    
+                    
+                </ui:insert>
+               
+                
+                
+                
+                <ui:insert name="header-right">
+                   <div style="float: right; margin: 5px">    
+                     <ui:include src="Sections/Login/locale.xhtml"/> 
+                     
+                   </div>  
+                </ui:insert> 
+            </p:layoutUnit>
+            
+            
+            <p:layoutUnit position="center">
+                <ui:insert name="mainContent">
+                  <!--<ui:include src="Sections/Menu/mainMenu.xhtml"/>--> 
+               
+                </ui:insert>                       
+                      
+            </p:layoutUnit>    
+            
+            <p:layoutUnit position="earth">
+                <ui:insert name="footer">
+                   
+                    
+                    
+                </ui:insert>
+            </p:layoutUnit>
+                      
+            
+        </p:layout> 
+        
+        
+     </f:view>   
+    </h:body>
+</html>
+
