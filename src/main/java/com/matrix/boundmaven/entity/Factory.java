@@ -42,7 +42,7 @@ public class Factory implements Serializable {
     @Basic(fetch = FetchType.EAGER,optional = false)
     @NotNull
     @Size(min = 2,max = 45)
-    @Column(length = 45, nullable = false, name = "FACTORY_NAME")
+    @Column(length = 45, nullable = false, name = "FACTORY_NAME",unique = true)
     private String factoryName;
     
     @Basic(fetch = FetchType.LAZY, optional = true)

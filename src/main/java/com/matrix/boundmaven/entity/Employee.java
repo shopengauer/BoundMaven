@@ -7,15 +7,19 @@ package com.matrix.boundmaven.entity;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
@@ -61,17 +65,16 @@ public class Employee implements Serializable {
     
     // Сделать отдельные ENTITY
     
-    @Basic(optional = false, fetch = FetchType.EAGER)
-    @NotNull
-    @Size(min = 0, max = 45)
-    @Column(name = "DEPARTMENT", nullable = false, length = 45)
-    private String department;
-        
-    
+    @ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "FK_DEPARTMENT_ID", referencedColumnName = "DEPARTMENT_ID")
+    private Department department;
+     
  
     @Basic(optional = false, fetch = FetchType.EAGER)
     @NotNull
-    @Column
+    @NotBlank
+    @Size(min = 2,max = 45,message = "{jobTitleLength.messages}")
+    @Column(name = "JOBTITLE", nullable = false,length = 45)
     private String jobTitle;
 
     
@@ -86,11 +89,11 @@ public class Employee implements Serializable {
     
         
 
-    public String getDepartment() {
+    public Department getDepartment() {
         return department;
     }
 
-    public void setDepartment(String department) {
+    public void setDepartment(Department department) {
         this.department = department;
     }
 
@@ -124,6 +127,14 @@ public class Employee implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     
