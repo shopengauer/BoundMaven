@@ -15,13 +15,13 @@
 
                         <f:facet name="left">
                             <!--<p:commandButton value="Добавить" type="button"/>-->
-                            <p:menuButton value="#{msgs.add}">
+                            <p:menuButton value="#{msgs.add}" rendered="false">
                                 <p:menuitem value="#{msgs.device}" outcome="addDeviceClient"/>
                                 <p:menuitem value="#{msgs.factory}"/>
                                 <p:menuitem value="#{msgs.users}"/>
                             </p:menuButton>
 
-                            <p:menuButton value="Работник">
+                            <p:menuButton value="Работник" rendered="false">
                                 <p:menuitem value="Добавить отдел" outcome="addDepartmentClient"/>
                                 <p:menuitem value="Редактировать"/>
                                 <p:menuitem value="Удалить"/>
@@ -29,7 +29,7 @@
                             </p:menuButton>
 
                             <p:button value="Add more"/>   
-                            <p:commandButton value="#{msgs.logout} Васся" ajax="false" action="#{login.logout}"/>
+                            <p:commandButton value="#{msgs.logout}" ajax="false" action="#{login.logout}"/>
                          
                         </f:facet>
                     </p:toolbar>
