@@ -6,7 +6,8 @@
     </context-param>
       <context-param>
         <param-name>primefaces.THEME</param-name>
-        <param-value>cupertino</param-value>
+        <param-value>bluesky</param-value>
+        <!--<param-value>afternoon</param-value>-->
     </context-param>
  
     <error-page>
@@ -29,6 +30,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
+        <!--<welcome-file>faces/menuLayoutClient.xhtml</welcome-file>-->
         <welcome-file>faces/mainLayout.xhtml</welcome-file>
     </welcome-file-list>
 </web-app>

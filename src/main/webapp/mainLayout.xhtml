@@ -11,9 +11,12 @@
         <f:view locale="#{locale.locale}" xmlns:f="http://xmlns.jcp.org/jsf/core"> 
         <p:layout fullPage="true">
             
-            <p:layoutUnit position="north" style="">
+            <p:layoutUnit position="north">
+               
+               
                 <ui:insert name="header-left">
                   <div style="float: left; margin: 5px"> 
+                      
                       <ui:include src="Sections/Login/login.xhtml"/> 
                   </div>   
                 </ui:insert>
@@ -30,8 +33,8 @@
                 
                 <ui:insert name="header-right">
                    <div style="float: right; margin: 5px">    
-                     <ui:include src="Sections/Login/locale.xhtml"/> 
-                     
+                     <!--<ui:include src="Sections/Login/locale.xhtml"/>--> 
+                      
                    </div>  
                 </ui:insert> 
             </p:layoutUnit>
@@ -39,21 +42,31 @@
             
             <p:layoutUnit position="center">
                 <ui:insert name="mainContent">
-                  <!--<ui:include src="Sections/Menu/mainMenu.xhtml"/>--> 
+                 
                
                 </ui:insert>                       
                       
             </p:layoutUnit>    
             
-            <p:layoutUnit position="earth">
-                <ui:insert name="footer">
-                   
-                    
-                    
-                </ui:insert>
-            </p:layoutUnit>
+           
+                <ui:insert name="westMenu">
+                  
+               
+                </ui:insert>                       
                       
-            
+             
+            <ui:insert name="footer">
+                <p:layoutUnit position="south">
+                    <div style="float: left">
+                         <ui:include src="Sections/Login/locale.xhtml"/>   
+                    </div>
+                
+                <div style="float: right">
+                    <img src="img/matrix.png"/>  
+                </div>
+
+            </p:layoutUnit>  
+            </ui:insert>
         </p:layout> 
         
         

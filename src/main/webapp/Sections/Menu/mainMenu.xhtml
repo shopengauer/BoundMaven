@@ -10,11 +10,11 @@
     <h:body>
        <ui:composition>
             <f:view locale="#{locale.locale}" xmlns:f="http://xmlns.jcp.org/jsf/core">
-                <h:form rendered="#{login.login}">
-                    <p:toolbar>
+                <h:form rendered="true"> 
+                    <p:toolbar id="main_toolbar" style="padding: 5px">
 
                         <f:facet name="left">
-                            <p:commandLink value="#{msgs.logout} Васся" ajax="false" action="#{login.logout}"/>    <!--<p:commandButton value="Добавить" type="button"/>-->
+                            <!--<p:commandButton value="Добавить" type="button"/>-->
                             <p:menuButton value="#{msgs.add}">
                                 <p:menuitem value="#{msgs.device}" outcome="addDeviceClient"/>
                                 <p:menuitem value="#{msgs.factory}"/>
@@ -27,6 +27,10 @@
                                 <p:menuitem value="Удалить"/>
                                 <p:menuitem value="Посмотреть"/>
                             </p:menuButton>
+
+                            <p:button value="Add more"/>   
+                            <p:commandButton value="#{msgs.logout} Васся" ajax="false" action="#{login.logout}"/>
+                         
                         </f:facet>
                     </p:toolbar>
                 </h:form>

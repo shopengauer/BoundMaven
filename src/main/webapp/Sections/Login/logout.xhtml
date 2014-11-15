@@ -11,7 +11,7 @@
         <ui:composition>
             <f:view locale="#{locale.locale}" xmlns:f="http://xmlns.jcp.org/jsf/core">
                 <h:form>   
-                    <p><p:commandLink value="#{msgs.logout} #{login.user.firstname}" ajax="false" action="#{login.logout}"/></p>
+                    <p><p:commandButton value="#{msgs.logout} #{login.user.firstname}" ajax="false" action="#{login.logout}"/></p>
                 </h:form>
             </f:view>
         </ui:composition>

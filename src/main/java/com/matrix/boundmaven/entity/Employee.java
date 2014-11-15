@@ -63,6 +63,9 @@ public class Employee implements Serializable {
     private String account;
 
     
+    
+    
+    
     // Сделать отдельные ENTITY
     
     @ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)

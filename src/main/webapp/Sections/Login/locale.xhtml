@@ -11,10 +11,12 @@
         <ui:composition>
             <f:view locale="#{locale.locale}" xmlns:f="http://xmlns.jcp.org/jsf/core">
             <h:form>  
+                 
                 <h:panelGrid columns="2"> 
                     <p:commandLink value = "#{msgs.rus}" ajax="false" action="#{locale.russianAction}"/>
                     <p:commandLink value = "#{msgs.eng}" ajax="false" action="#{locale.englishAction}"/> 
                 </h:panelGrid>
+             
             </h:form>
             
             </f:view>

@@ -1,14 +1,16 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./mainLayout.xhtml">
+                template="./mainLayout.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
  
     <ui:define name="header-left">
          
     </ui:define> 
 
     <ui:define name="header-center">
-        <div style="float: left; margin: 10px"> 
+        <div style="float: left; margin: 5px"> 
             <ui:include src="Sections/Menu/mainMenu.xhtml"/>
         </div>
     </ui:define>
@@ -18,6 +20,27 @@
               <ui:include src="Sections/Forms/addDeviceForm.xhtml"/>
         </div>  
     </ui:define>
+    
+    <ui:define name="westMenu">
+        <p:layoutUnit position="west">
+           <h:form>   
+            <p:menu toggleable="true" >
+                <p:submenu label="Ajax">
+                    <p:menuitem value="Save"  icon="ui-icon-disk" />
+                    <p:menuitem value="Update"  icon="ui-icon-arrowrefresh-1-w"/>
+                </p:submenu>
+                <p:submenu label="Non-Ajax">
+                    <p:menuitem value="Delete"  update="messages" ajax="false" icon="ui-icon-close"/>
+                </p:submenu>
+                <p:submenu label="Navigations">
+                    <p:menuitem value="External" url="http://www.primefaces.org" icon="ui-icon-home"/>
+                    <p:menuitem value="Internal" icon="ui-icon-star"/>
+                </p:submenu>
+            </p:menu>
+          </h:form>  
+        </p:layoutUnit>
+    </ui:define>
+    
 <!--
     <ui:define name="footer">
         footer
