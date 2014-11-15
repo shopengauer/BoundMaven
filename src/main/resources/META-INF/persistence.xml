@@ -3,8 +3,8 @@
   <persistence-unit name="BoundMavenPU" transaction-type="JTA">
     <jta-data-source>java:/jboss/jdbc/bound</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <validation-mode>NONE</validation-mode>
     <properties>
-      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
 </persistence>
