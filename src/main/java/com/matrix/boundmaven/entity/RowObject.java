@@ -6,51 +6,54 @@
 package com.matrix.boundmaven.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Василий
+ * @author Vasiliy
  */
 @Entity
-@Table(name = "DEVICE_VERSION")
-public class DeviceVersion implements Serializable {
-    
+@Table(name = "ROWOBJECTS")
+public class RowObject implements Serializable {
     private static final long serialVersionUID = 1L;
-    
     @Id
     @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "DEVICE_VERSION_ID")
+    @Column(name = "ROWOBJECT_ID")
     private Long id;
 
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1,max = 45)
-    @Column(name = "DEVICE_VERSION",nullable = false)
-    private String deviceVersion;
+    private String cod;
+    private String smd;
+    private String voltage;
+    private String current;
+   
+    
+    
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "ROWOBJECT_DOCFILES", joinColumns = @JoinColumn(name = "ROWOBJECT_DOCFILE_ID"))
+    private List<Scheme> rowObjectDocFiles;
+    
+    
+   // @ManyToOne
+   // @JoinColumn(name = "FK_BOMFILE_ID", referencedColumnName = "BOMFILE_ID")
+   // private BomFile bomFile;
      
+    @OneToMany(mappedBy = "rowObject")
+    private List<RowObjectPartRef> rowObjectPartRefs;
     
-    @Basic(optional = false,fetch = FetchType.LAZY)
-    @Size(max = 255)
-    @Column(name = "DEVICE_VERSION_DESCRIPTION",length = 255)
-    private String deviceCVersionDescription;
-    
-       
-    @OneToMany(mappedBy = "deviceVersion",fetch = FetchType.LAZY)
-    private Collection<Device> devices;
     
     
     public Long getId() {
@@ -61,24 +64,6 @@ public class DeviceVersion implements Serializable {
         this.id = id;
     }
 
-    public String getDeviceVersion() {
-        return deviceVersion;
-    }
-
-    public void setDeviceVersion(String deviceVersion) {
-        this.deviceVersion = deviceVersion;
-    }
-
-    @XmlTransient 
-    public Collection<Device> getDevices() {
-        return devices;
-    }
-
-    public void setDevices(Collection<Device> devices) {
-        this.devices = devices;
-    }
-
-       
     @Override
     public int hashCode() {
         int hash = 0;
@@ -89,10 +74,10 @@ public class DeviceVersion implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DeviceVersion)) {
+        if (!(object instanceof RowObject)) {
             return false;
         }
-        DeviceVersion other = (DeviceVersion) object;
+        RowObject other = (RowObject) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -101,7 +86,7 @@ public class DeviceVersion implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.full.DeviceVersion[ id=" + id + " ]";
+        return "com.matrix.boundmaven.entity.RowObject[ id=" + id + " ]";
     }
     
 }
