@@ -3,47 +3,37 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.matrix.boundmaven.entity;
+package com.matrix.boundmaven.entity.partreference;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 /**
  *
  * @author Vasiliy
  */
 @Entity
-@Table(name = "BOMFILES")
-public class BomFile implements Serializable {
+public class RowObjectPartRef implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "BOMFILE_ID")
     private Long id;
-
+    
+    private String partReferenceName;
     
     
-        
     @ManyToOne
-    @JoinColumn(name = "FK_DEVICE_ID",referencedColumnName = "DEVICE_ID")
-    private Device device;
+    @JoinColumn(name = "FK_ROWOBJECT_ID",referencedColumnName = "ROWOBJECT_ID")
+    private RowObject rowObject;
     
-    @OneToMany(mappedBy = "bomFile",fetch = FetchType.LAZY)
-    private List<RowObjectPartRef>  rowObjectPartRefs;
-    
-    
-    
-    
+    @ManyToOne
+    @JoinColumn(name = "FK_BOMFILE_ID", referencedColumnName = "BOMFILE_ID")
+    private BomFile bomFile; 
     
     public Long getId() {
         return id;
@@ -63,10 +53,10 @@ public class BomFile implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof BomFile)) {
+        if (!(object instanceof RowObjectPartRef)) {
             return false;
         }
-        BomFile other = (BomFile) object;
+        RowObjectPartRef other = (RowObjectPartRef) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -75,7 +65,7 @@ public class BomFile implements Serializable {
 
     @Override
     public String toString() {
-        return "com.matrix.boundmaven.entity.BomFile[ id=" + id + " ]";
+        return "com.matrix.boundmaven.entity.RowObjectPartRef[ id=" + id + " ]";
     }
     
 }

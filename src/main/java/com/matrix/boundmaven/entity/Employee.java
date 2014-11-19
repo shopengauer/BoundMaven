@@ -6,16 +6,25 @@
 package com.matrix.boundmaven.entity;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
+import javax.persistence.AttributeOverride;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyColumn;
+import javax.persistence.MapKeyEnumerated;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -52,7 +61,7 @@ public class Employee implements Serializable {
     
     @Basic(optional = false, fetch = FetchType.EAGER)
     @NotNull
-    @Size(min = 6,max = 45)
+    @Size(min = 4,max = 45)
     @Column(name = "PASSWORD", nullable = false)
     private String password;
 
@@ -62,8 +71,27 @@ public class Employee implements Serializable {
     @Column(name = "ACCOUNT", nullable = false, unique = true, length = 45)
     private String account;
 
+//    @Basic(optional = false, fetch = FetchType.EAGER)
+//    @NotNull
+//    @Size(min = 2,max = 45)
+//    @Column(name = "JOBTITLE", nullable = false, length = 45)
+//    private String jobTitle;
+//    
+    @ElementCollection
+    @CollectionTable(name = "EMAILS",joinColumns = @JoinColumn(name = "EMOLOYEE_EMAIL_ID"))
+    @Column(name = "EMAIL")
+    private List<String> emails;
+    
+    @ElementCollection
+    @CollectionTable(name = "EMPLOYEE_PHONE")
+    @MapKeyEnumerated(EnumType.STRING)
+    @MapKeyColumn(name = "PHONE_TYPE")
+    @Column(name = "PHONE_NUM")
+    private Map<PhoneType,String> phoneNumbers;
     
     
+    //@ElementCollection
+   // @CollectionTable()
     
     
     // Сделать отдельные ENTITY
@@ -72,23 +100,10 @@ public class Employee implements Serializable {
     @JoinColumn(name = "FK_DEPARTMENT_ID", referencedColumnName = "DEPARTMENT_ID")
     private Department department;
      
- 
-    @Basic(optional = false, fetch = FetchType.EAGER)
-    @NotNull
-    @NotBlank
-    @Size(min = 2,max = 45,message = "{jobTitleLength.messages}")
-    @Column(name = "JOBTITLE", nullable = false,length = 45)
-    private String jobTitle;
-
+    @ManyToOne(optional = false,fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "FK_JOBTITLE_ID",referencedColumnName = "JOBTITLE_ID")
+    private JobTitle  jobTitle;
     
-    
-    public String getJobTitle() {
-        return jobTitle;
-    }
-
-    public void setJobTitle(String jobTitle) {
-        this.jobTitle = jobTitle;
-    }
     
         
 

@@ -5,7 +5,7 @@
  */
 package com.matrix.boundmaven.session;
 
-import com.matrix.boundmaven.entity.SubContract;
+import com.matrix.boundmaven.entity.contract.SubContract;
 import java.util.List;
 import javax.ejb.Local;
 

@@ -5,7 +5,7 @@
  */
 package com.matrix.boundmaven.session;
 
-import com.matrix.boundmaven.entity.DeviceVersion;
+import com.matrix.boundmaven.entity.techobjects.DeviceVersion;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

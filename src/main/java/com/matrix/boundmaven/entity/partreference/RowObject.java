@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.matrix.boundmaven.entity;
+package com.matrix.boundmaven.entity.partreference;
 
 import java.io.Serializable;
 import java.util.List;
@@ -35,17 +35,25 @@ public class RowObject implements Serializable {
     @Column(name = "ROWOBJECT_ID")
     private Long id;
 
+    
     private String cod;
-    private String smd;
+    private String pack;
+    private String description;
+    private String value;
     private String voltage;
     private String current;
-   
+    private String power;
+    private String tolerance;
+    private String manufacture;
+    private String rohs;
+           
+           
     
     
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "ROWOBJECT_DOCFILES", joinColumns = @JoinColumn(name = "ROWOBJECT_DOCFILE_ID"))
-    private List<Scheme> rowObjectDocFiles;
-    
+//    @ElementCollection(fetch = FetchType.LAZY)
+//    @CollectionTable(name = "ROWOBJECT_DOCFILES", joinColumns = @JoinColumn(name = "ROWOBJECT_DOCFILE_ID"))
+//    private List<TechDocs> rowObjectDocFiles;
+//    
     
    // @ManyToOne
    // @JoinColumn(name = "FK_BOMFILE_ID", referencedColumnName = "BOMFILE_ID")

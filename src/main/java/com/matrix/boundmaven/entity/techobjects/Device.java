@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.matrix.boundmaven.entity;
+package com.matrix.boundmaven.entity.techobjects;
 
+import com.matrix.boundmaven.entity.contract.Contract;
+import com.matrix.boundmaven.entity.Time;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
@@ -17,7 +19,6 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +26,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlTransient;
@@ -46,45 +46,68 @@ public class Device implements Serializable {
     @Column(name = "DEVICE_ID")
     private Long id;
   
+    // Device Name 
+    
     @Basic(fetch = FetchType.EAGER,optional = false)
     @NotNull
     @Size(min = 1,max = 45)
     @Column(name = "DEVICE_NAME", length = 45, nullable = false, unique = true)
     private String deviceName;
     
+    // Признак того является ли устройсво верхним уровнем
+    
+    @Basic(optional = false)
+    @Column(name = "PARENT_DEVICE",nullable = false)
+    private boolean isParentDevice;
+    
+    
     @Size(min = 0,max = 255)
     @Basic(fetch = FetchType.LAZY,optional = true)
     @Column(name = "DEVICE_DESCRIPTION", length = 255)    
     private String deviceDescription;
-
-    @Embedded
-    @AttributeOverrides({@AttributeOverride(name = "insertTime", column = @Column(name = "DEVICE_INSERT_TIME",nullable = false,updatable = false)),
-                         @AttributeOverride(name = "updateTime", column = @Column(name = "DEVICE_UPDATE_TIME"))})
-    private Time time;
     
-    
-    @ElementCollection
-    @CollectionTable(name = "DEVICE_SCHEMES",joinColumns = @JoinColumn(name = "DEVICE_SCHEMES_ID"))
-    private List<Scheme> schemes;
-       
-    @OneToMany(mappedBy = "device", fetch = FetchType.LAZY)
-    private List<BomFile> bomFiles;
-    
-    
+    // Device Type
     
     @ManyToOne(optional = false)
     @JoinColumn(name = "FK_DEVICE_TYPE_ID", referencedColumnName = "DEVICE_TYPE_ID")
     private DeviceType deviceType;
     
+    // Device Version
     
     @ManyToOne(optional = false)
     @JoinColumn(name = "FK_DEVICE_VERSION_ID", referencedColumnName = "DEVICE_VERSION_ID")
     private DeviceVersion deviceVersion;
-     
-   
+    
+    // Device Description 
+    
+    @OneToMany(mappedBy = "device")
+    private List<TechDocEntity> techDocEntities;
+
+    
+    // Отношение устройства к другим устройствам той же сущности
+    
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "PARENT_DEVICE_ID", referencedColumnName = "DEVICE_ID")
+    private Device parentDevice;
+    
+    @OneToMany(mappedBy = "parentDevice",fetch = FetchType.LAZY)
+    private List<Device> childDevices;
+    
+    
+    
+    @Embedded
+    @AttributeOverrides({@AttributeOverride(name = "insertTime", column = @Column(name = "DEVICE_INSERT_TIME",nullable = false,updatable = false)),
+                         @AttributeOverride(name = "updateTime", column = @Column(name = "DEVICE_UPDATE_TIME"))})
+    private Time time;
+    
+ //       
+//    @OneToMany(mappedBy = "device", fetch = FetchType.LAZY)
+//    private List<BomFile> bomFiles;
+//    
+//     
     @OneToMany(mappedBy = "device",fetch = FetchType.LAZY)
     private Collection<Contract> contracts;
- 
+// 
     
     public Long getId() {
         return id;

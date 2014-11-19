@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.matrix.boundmaven.entity;
+package com.matrix.boundmaven.entity.techobjects;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,11 +39,17 @@ public class DeviceType implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 2, max = 45)
-    @Column(name = "DEVICE_TYPE", nullable = false)
+    @Column(name = "DEVICE_TYPE", nullable = false, unique = true)
     private String deviceType;
     
+    @Basic(optional = true)
+    @Size(max = 255)
+    @Column(name = "DEVICE_TYPE_DESCRIPTION", length = 255)
+    private String deviceTypeDescription;
+    
+     
     @OneToMany(mappedBy = "deviceType",fetch = FetchType.LAZY)   
-    private Collection<Device> devices;
+    private List<Device> devices;
 
     
     public Long getId() {
@@ -61,12 +68,22 @@ public class DeviceType implements Serializable {
         this.deviceType = deviceType;
     }
 
+    public String getDeviceTypeDescription() {
+        return deviceTypeDescription;
+    }
+
+    public void setDeviceTypeDescription(String deviceTypeDescription) {
+        this.deviceTypeDescription = deviceTypeDescription;
+    }
+
+    
+    
     @XmlTransient
-    public Collection<Device> getDevices() {
+    public List<Device> getDevices() {
         return devices;
     }
 
-    public void setDevices(Collection<Device> devices) {
+    public void setDevices(List<Device> devices) {
         this.devices = devices;
     }
 

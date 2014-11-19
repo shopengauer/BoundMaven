@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.matrix.boundmaven.entity;
+package com.matrix.boundmaven.entity.techobjects;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,18 +40,18 @@ public class DeviceVersion implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1,max = 45)
-    @Column(name = "DEVICE_VERSION",nullable = false)
+    @Column(name = "DEVICE_VERSION", nullable = false, unique = true)
     private String deviceVersion;
      
     
-    @Basic(optional = false,fetch = FetchType.LAZY)
+    @Basic(optional = false)
     @Size(max = 255)
     @Column(name = "DEVICE_VERSION_DESCRIPTION",length = 255)
-    private String deviceCVersionDescription;
+    private String deviceVersionDescription;
     
        
     @OneToMany(mappedBy = "deviceVersion",fetch = FetchType.LAZY)
-    private Collection<Device> devices;
+    private List<Device> devices;
     
     
     public Long getId() {
@@ -69,12 +70,22 @@ public class DeviceVersion implements Serializable {
         this.deviceVersion = deviceVersion;
     }
 
+    public String getDeviceVersionDescription() {
+        return deviceVersionDescription;
+    }
+
+    public void setDeviceVersionDescription(String deviceVersionDescription) {
+        this.deviceVersionDescription = deviceVersionDescription;
+    }
+
+    
+    
     @XmlTransient 
-    public Collection<Device> getDevices() {
+    public List<Device> getDevices() {
         return devices;
     }
 
-    public void setDevices(Collection<Device> devices) {
+    public void setDevices(List<Device> devices) {
         this.devices = devices;
     }
 

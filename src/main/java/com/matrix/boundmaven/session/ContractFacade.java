@@ -5,7 +5,7 @@
  */
 package com.matrix.boundmaven.session;
 
-import com.matrix.boundmaven.entity.Contract;
+import com.matrix.boundmaven.entity.contract.Contract;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

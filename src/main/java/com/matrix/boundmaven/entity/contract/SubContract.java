@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.matrix.boundmaven.entity;
+package com.matrix.boundmaven.entity.contract;
 
+import com.matrix.boundmaven.entity.Employee;
+import com.matrix.boundmaven.entity.Time;
 import java.io.Serializable;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;

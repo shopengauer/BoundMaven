@@ -16,6 +16,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -32,7 +33,7 @@ public class EmployeeBean implements Serializable {
     
     @EJB DepartmentFacade departmentFacade;
     
-     
+      private UploadedFile file;
      
     @Size(min = 2,max = 45,message = "{firstnameLength.message}")
     @NotBlank(message = "{notBlankFirstname.message}")
@@ -56,7 +57,8 @@ public class EmployeeBean implements Serializable {
     
     private String departmentName;
      
-    
+    @NotBlank
+    @Size(min = 2,max = 45,message = "{jobTitleLength.messages}")
     private String jobTitle;
     
     

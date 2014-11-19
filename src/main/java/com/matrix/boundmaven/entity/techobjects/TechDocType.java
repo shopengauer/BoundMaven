@@ -3,37 +3,41 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.matrix.boundmaven.entity;
+package com.matrix.boundmaven.entity.techobjects;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author Vasiliy
  */
 @Entity
-public class RowObjectPartRef implements Serializable {
+@Table(name = "TECHDOC_TYPE")
+public class TechDocType implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "TECHDOC_TYPE_ID")
     private Long id;
+
     
-    private String partReferenceName;
+    private String techDocType;
+    private String techDocTarget;  // составное устройство или отдельная деталь
+          
+    private String techDocTypeDescription;
     
     
-    @ManyToOne
-    @JoinColumn(name = "FK_ROWOBJECT_ID",referencedColumnName = "ROWOBJECT_ID")
-    private RowObject rowObject;
-    
-    @ManyToOne
-    @JoinColumn(name = "FK_BOMFILE_ID", referencedColumnName = "BOMFILE_ID")
-    private BomFile bomFile; 
+     @OneToMany(mappedBy = "techDocType")
+     private List<TechDocEntity> techDocEntitys; 
     
     public Long getId() {
         return id;
@@ -53,10 +57,10 @@ public class RowObjectPartRef implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof RowObjectPartRef)) {
+        if (!(object instanceof TechDocType)) {
             return false;
         }
-        RowObjectPartRef other = (RowObjectPartRef) object;
+        TechDocType other = (TechDocType) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -65,7 +69,7 @@ public class RowObjectPartRef implements Serializable {
 
     @Override
     public String toString() {
-        return "com.matrix.boundmaven.entity.RowObjectPartRef[ id=" + id + " ]";
+        return "com.matrix.boundmaven.entity.SchemeType[ id=" + id + " ]";
     }
     
 }
