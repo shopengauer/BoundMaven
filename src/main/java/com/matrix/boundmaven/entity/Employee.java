@@ -14,6 +14,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.FetchType;
@@ -104,7 +105,8 @@ public class Employee implements Serializable {
     @JoinColumn(name = "FK_JOBTITLE_ID",referencedColumnName = "JOBTITLE_ID")
     private JobTitle  jobTitle;
     
-    
+    @Embedded
+    private Time ctime;
         
 
     public Department getDepartment() {

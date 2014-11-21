@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -45,16 +46,20 @@ public class Department implements Serializable {
     @Column(name = "DEPARTMENT_ID")
     private Long id;
     
-    @Basic(optional = false, fetch = FetchType.EAGER)
+    @Basic(optional = false)
     @NotNull
     @Size(min = 0, max = 45)
     @Column(name = "DEPARTMENT_NAME", nullable = false, length = 45, unique = true)
     private String departmentName;
    
-    @Basic(optional = true,fetch = FetchType.LAZY)
+    @Basic(optional = true)
     @Size(max = 255)
     @Column(name = "DEPARTMENT_DESCRIPTION")
     private String description;
+    
+    
+    @Embedded
+    private Time ctime;
     
     
     @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)

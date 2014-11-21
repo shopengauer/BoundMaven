@@ -69,10 +69,13 @@ public class TechDocFilesBundleEntity implements Serializable {
     @JoinColumn(name = "FK_TECHDOC_FILE_TYPE_ID", referencedColumnName = "TECHDOC_FILE_TYPE_ID")
     private TechDocFileTypeEntity techDocFileTypeEntity;
     
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false)// TRUE ?????
     @JoinColumn(name = "FK_TECHDOC_ENTITY_ID", referencedColumnName = "TECHDOC_ENTITY_ID")
     private TechDocEntity techDocEntity;
 
+    
+    
+    
     public String getTechDocFileName() {
         return techDocFileName;
     }

@@ -5,12 +5,14 @@
  */
 package com.matrix.boundmaven.entity.partreference;
 
+import com.matrix.boundmaven.entity.Time;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -31,6 +33,7 @@ import javax.validation.constraints.Size;
 @Table(name = "ROWOBJECTS")
 public class RowObject implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Id
     @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -89,6 +92,9 @@ public class RowObject implements Serializable {
     private String rohs;
            
            
+    @Embedded
+    private Time ctime;
+    
     
     
 //    @ElementCollection(fetch = FetchType.LAZY)

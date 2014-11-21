@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -36,15 +37,16 @@ public class JobTitle implements Serializable {
     private Long id;
  
     
-    @Basic(optional = false, fetch = FetchType.EAGER)
+    @Basic(optional = false)
     @NotNull
     @Size(min = 2, max = 45)
     @Column(name = "JOBTITLE_NAME",nullable = false,unique = true)
     private String jobTitleName;
     
     
-    @Basic(optional = true,fetch = FetchType.EAGER)
-    
+    @Basic(optional = true)
+    @Size(min = 2, max = 45)
+    @Column(name = "SALARY")
     private int salary;
     
     @ManyToOne(optional = true)
@@ -54,7 +56,8 @@ public class JobTitle implements Serializable {
     @OneToMany(mappedBy = "jobTitle",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     private List<Employee> employees; 
     
-    
+    @Embedded
+    private Time ctime;
     
     public Long getId() {
         return id;
