@@ -6,12 +6,16 @@
 package com.matrix.boundmaven.entity.partreference;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -20,20 +24,39 @@ import javax.persistence.ManyToOne;
 @Entity
 public class RowObjectPartRef implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ROWOBJECT_PART_REFERENCE_ID", unique = true)
     private Long id;
     
+    @Basic(optional = false)
+    @NotNull
+    @Size(max = 255)
+    @Column(name = "PART_REFERENCE_NAME")
     private String partReferenceName;
+   
+//    @Basic(optional = false)
+//    @NotNull
+//    @Column(name = "QUANTITY",nullable = false)
+//    private int quantity;
+//    
     
-    
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "FK_ROWOBJECT_ID",referencedColumnName = "ROWOBJECT_ID")
     private RowObject rowObject;
+     
     
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "FK_BOMFILE_ID", referencedColumnName = "BOMFILE_ID")
     private BomFile bomFile; 
+    
+    
+    
+    
+    
+    
+    
     
     public Long getId() {
         return id;

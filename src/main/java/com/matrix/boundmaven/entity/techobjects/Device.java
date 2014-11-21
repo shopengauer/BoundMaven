@@ -7,6 +7,7 @@ package com.matrix.boundmaven.entity.techobjects;
 
 import com.matrix.boundmaven.entity.contract.Contract;
 import com.matrix.boundmaven.entity.Time;
+import com.matrix.boundmaven.entity.partreference.BomFile;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
@@ -26,6 +27,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlTransient;
@@ -48,7 +50,7 @@ public class Device implements Serializable {
   
     // Device Name 
     
-    @Basic(fetch = FetchType.EAGER,optional = false)
+    @Basic(optional = false)
     @NotNull
     @Size(min = 1,max = 45)
     @Column(name = "DEVICE_NAME", length = 45, nullable = false, unique = true)
@@ -57,12 +59,13 @@ public class Device implements Serializable {
     // Признак того является ли устройсво верхним уровнем
     
     @Basic(optional = false)
-    @Column(name = "PARENT_DEVICE",nullable = false)
-    private boolean isParentDevice;
+    @NotNull
+    @Column(name = "IS_PARENT_DEVICE",nullable = false)
+    private Boolean isParentDevice;
     
     
-    @Size(min = 0,max = 255)
-    @Basic(fetch = FetchType.LAZY,optional = true)
+    @Basic(optional = true)
+    @Size(min = 0, max = 255)
     @Column(name = "DEVICE_DESCRIPTION", length = 255)    
     private String deviceDescription;
     
@@ -94,20 +97,23 @@ public class Device implements Serializable {
     private List<Device> childDevices;
     
     
-    
     @Embedded
-    @AttributeOverrides({@AttributeOverride(name = "insertTime", column = @Column(name = "DEVICE_INSERT_TIME",nullable = false,updatable = false)),
-                         @AttributeOverride(name = "updateTime", column = @Column(name = "DEVICE_UPDATE_TIME"))})
-    private Time time;
+    private Time ctime;
     
- //       
-//    @OneToMany(mappedBy = "device", fetch = FetchType.LAZY)
-//    private List<BomFile> bomFiles;
-//    
-//     
+    @OneToMany(mappedBy = "device", fetch = FetchType.LAZY)
+    private List<BomFile> bomFiles;
+    
+    
     @OneToMany(mappedBy = "device",fetch = FetchType.LAZY)
     private Collection<Contract> contracts;
-// 
+    
+//    @AttributeOverrides({@AttributeOverride(name = "insertTime", column = @Column(name = "DEVICE_INSERT_TIME",nullable = false,updatable = false)),
+//                         @AttributeOverride(name = "updateTime", column = @Column(name = "DEVICE_UPDATE_TIME"))})
+    
+   
+        
+    
+ 
     
     public Long getId() {
         return id;
@@ -118,11 +124,11 @@ public class Device implements Serializable {
     }
 
     public Time getTime() {
-        return time;
+        return ctime;
     }
 
     public void setTime(Time time) {
-        this.time = time;
+        this.ctime = time;
     }
 
     public DeviceType getDeviceType() {
@@ -166,6 +172,54 @@ public class Device implements Serializable {
 
     public void setContracts(Collection<Contract> contracts) {
         this.contracts = contracts;
+    }
+
+    public Boolean getIsParentDevice() {
+        return isParentDevice;
+    }
+
+    public void setIsParentDevice(Boolean isParentDevice) {
+        this.isParentDevice = isParentDevice;
+    }
+
+    public List<TechDocEntity> getTechDocEntities() {
+        return techDocEntities;
+    }
+
+    public void setTechDocEntities(List<TechDocEntity> techDocEntities) {
+        this.techDocEntities = techDocEntities;
+    }
+
+    public Device getParentDevice() {
+        return parentDevice;
+    }
+
+    public void setParentDevice(Device parentDevice) {
+        this.parentDevice = parentDevice;
+    }
+
+    public List<Device> getChildDevices() {
+        return childDevices;
+    }
+
+    public void setChildDevices(List<Device> childDevices) {
+        this.childDevices = childDevices;
+    }
+
+    public Time getCtime() {
+        return ctime;
+    }
+
+    public void setCtime(Time ctime) {
+        this.ctime = ctime;
+    }
+
+    public List<BomFile> getBomFiles() {
+        return bomFiles;
+    }
+
+    public void setBomFiles(List<BomFile> bomFiles) {
+        this.bomFiles = bomFiles;
     }
     
    

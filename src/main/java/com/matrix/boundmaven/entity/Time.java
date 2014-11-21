@@ -10,6 +10,7 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -26,12 +27,12 @@ public class Time implements Serializable{
     
    @Basic(optional = false) 
    @Temporal(TemporalType.TIMESTAMP)
-  // @Column(name = "INSERT_TIME", nullable = false, updatable = false)
+   @Column(name = "INSERT_TIME", nullable = false, updatable = false)
    private Date insertTime;
    
-   @Basic(optional = false)
+   @Basic(optional = true)
    @Temporal(TemporalType.TIMESTAMP)
-   //@Column(name = "UPDATE_TIME", nullable = true, updatable = true)
+   @Column(name = "UPDATE_TIME", nullable = true, updatable = true)
    private Date updateTime;
  
    @PrePersist

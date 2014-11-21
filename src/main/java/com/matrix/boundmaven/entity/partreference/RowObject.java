@@ -20,6 +20,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -35,16 +37,55 @@ public class RowObject implements Serializable {
     @Column(name = "ROWOBJECT_ID")
     private Long id;
 
-    
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1,max = 45)
+    @Column(name = "COD", nullable = false, length = 45,unique = true)
     private String cod;
+   
+    @Basic
+    @Size(min = 0, max = 45)
+    @Column(name = "PACK")
     private String pack;
+    
+    @Basic
+    @Size(min = 0, max = 255)
+    @Column(name = "DESCRIPTION")
     private String description;
+    
+    @Basic
+    @Size(max = 45)
+    @Column(name = "VALUE")
     private String value;
+    
+    @Basic
+    @Size(max = 45)
+    @Column(name = "VOLTAGE")
     private String voltage;
+    
+    @Basic
+    @Size(max = 45)
+    @Column(name = "CURRENT")
     private String current;
+    
+    @Basic
+    @Size(max = 45)
+    @Column(name = "POWER")
     private String power;
+    
+    @Basic
+    @Size(max = 45)
+    @Column(name = "TOLERANCE")
     private String tolerance;
+    
+    @Basic
+    @Size(max = 45)
+    @Column(name = "MANUFACTURE")
     private String manufacture;
+    
+    @Basic
+    @Size(max = 45)
+    @Column(name = "ROHS")
     private String rohs;
            
            

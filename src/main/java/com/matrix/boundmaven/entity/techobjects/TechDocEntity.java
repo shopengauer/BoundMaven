@@ -5,10 +5,14 @@
  */
 package com.matrix.boundmaven.entity.techobjects;
 
+import com.matrix.boundmaven.entity.Time;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
@@ -18,6 +22,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -29,39 +34,53 @@ import javax.validation.constraints.Size;
 @Table(name = "TECHDOC_ENTITY")
 public class TechDocEntity implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TECHDOC_ENTITY_ID")
     private Long id;
-
+    
+    @Basic(optional = false)
+    @Size(min = 2,max = 45)
+    @Column(name = "TECHDOC_NAME", nullable = false)
+    private String techDocName;
+    
+    @Basic(optional = false)
+    @Column(name = "TECHDOC_COD",unique = true)
+    private String techDocCod;
+    
+    @Basic 
+    @Column(name = "TECHDOC_DESCRIPTION")
+    private String techDocDescription;
+    
+   
+   ////////////////// techdoc files bundle(extra bundle exlusive for current device) ////////////////////////////// 
+    
+   @ElementCollection(fetch = FetchType.LAZY)
+   @CollectionTable(name = "TECHDOC_FILES_BUNDLE",joinColumns = @JoinColumn(name = "TECHDOC_FILES_ID"))
+   private List<TechDocFilesBundle> techDocFilesBundle;
+    
+    /////////////////////////////////////////////////////////////////////
+       
+    ////////////////// tech doc files reusable //////////////////////////
+   
+    @OneToMany(mappedBy = "techDocEntity")
+    private List<TechDocFilesBundleEntity> techDocFilesBundleEntities;
+   
+   
+   /////////////////////////////////////////////////////////////////////
+      
     @ManyToOne(optional = false)
     @JoinColumn(name = "FK_TECHDOC_TYPE_ID",referencedColumnName = "TECHDOC_TYPE_ID")
     private TechDocType techDocType;
-    
-   
-    @Basic(optional = false, fetch = FetchType.EAGER)
-    @Size()
-    private String techDocName;
-       
-    private String techDocCod;
-    
-    private String techDocFileName;    
-    
-    private String techDocDescription;
-    
-    
-    
-    @Lob
-    @Column(name = "TECHDOC_FILE",length = 20947787)
-    private Byte[] techDocFile; 
     
     
     @ManyToOne(optional = false)
     @JoinColumn(name = "FK_DEVICE_ID",referencedColumnName = "DEVICE_ID")
     private Device device;
     
-   
-    
+    @Embedded
+    private Time ctime;
     
     public Long getId() {
         return id;
@@ -71,6 +90,65 @@ public class TechDocEntity implements Serializable {
         this.id = id;
     }
 
+    public String getTechDocName() {
+        return techDocName;
+    }
+
+    public void setTechDocName(String techDocName) {
+        this.techDocName = techDocName;
+    }
+
+    public String getTechDocCod() {
+        return techDocCod;
+    }
+
+    public void setTechDocCod(String techDocCod) {
+        this.techDocCod = techDocCod;
+    }
+
+    public String getTechDocDescription() {
+        return techDocDescription;
+    }
+
+    public void setTechDocDescription(String techDocDescription) {
+        this.techDocDescription = techDocDescription;
+    }
+
+    public List<TechDocFilesBundle> getTechDocFilesBundle() {
+        return techDocFilesBundle;
+    }
+
+    public void setTechDocFilesBundle(List<TechDocFilesBundle> techDocFilesBundle) {
+        this.techDocFilesBundle = techDocFilesBundle;
+    }
+
+    public List<TechDocFilesBundleEntity> getTechDocFilesBundleEntities() {
+        return techDocFilesBundleEntities;
+    }
+
+    public void setTechDocFilesBundleEntities(List<TechDocFilesBundleEntity> techDocFilesBundleEntities) {
+        this.techDocFilesBundleEntities = techDocFilesBundleEntities;
+    }
+
+    public TechDocType getTechDocType() {
+        return techDocType;
+    }
+
+    public void setTechDocType(TechDocType techDocType) {
+        this.techDocType = techDocType;
+    }
+
+    public Device getDevice() {
+        return device;
+    }
+
+    public void setDevice(Device device) {
+        this.device = device;
+    }
+
+     
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;

@@ -5,11 +5,13 @@
  */
 package com.matrix.boundmaven.entity.techobjects;
 
+import com.matrix.boundmaven.entity.Time;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -44,11 +46,12 @@ public class DeviceVersion implements Serializable {
     private String deviceVersion;
      
     
-    @Basic(optional = false)
-    @Size(max = 255)
-    @Column(name = "DEVICE_VERSION_DESCRIPTION",length = 255)
+    @Basic
+    @Column(name = "DEVICE_VERSION_DESCRIPTION")
     private String deviceVersionDescription;
     
+    @Embedded
+    private Time ctime;
        
     @OneToMany(mappedBy = "deviceVersion",fetch = FetchType.LAZY)
     private List<Device> devices;

@@ -40,6 +40,8 @@ public class BomFile implements Serializable {
     @JoinColumn(name = "FK_DEVICE_ID",referencedColumnName = "DEVICE_ID")
     private Device device;
     
+      
+    
     @OneToMany(mappedBy = "bomFile",fetch = FetchType.LAZY)
     private List<RowObjectPartRef>  rowObjectPartRefs;
     
