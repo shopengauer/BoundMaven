@@ -5,6 +5,7 @@
  */
 package com.matrix.boundmaven.entity.techobjects;
 
+import com.matrix.boundmaven.entity.Employee;
 import com.matrix.boundmaven.entity.Time;
 import java.io.Serializable;
 import java.util.List;
@@ -78,6 +79,13 @@ public class TechDocEntity implements Serializable {
     @ManyToOne(optional = false)
     @JoinColumn(name = "FK_DEVICE_ID",referencedColumnName = "DEVICE_ID")
     private Device device;
+    
+    
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "FK_EMPLOYEE_ID",referencedColumnName = "EMPLOYEE_ID")
+    private Employee employee;
+        
+    
     
     @Embedded
     private Time ctime;

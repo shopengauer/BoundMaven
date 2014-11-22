@@ -5,6 +5,7 @@
  */
 package com.matrix.boundmaven.entity.techobjects;
 
+import com.matrix.boundmaven.entity.Employee;
 import com.matrix.boundmaven.entity.Time;
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -74,6 +75,10 @@ public class TechDocFilesBundleEntity implements Serializable {
     private TechDocEntity techDocEntity;
 
     
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "FK_EMPLOYEE_ID",referencedColumnName = "EMPLOYEE_ID")
+    private Employee employee;
+        
     
     
     public String getTechDocFileName() {

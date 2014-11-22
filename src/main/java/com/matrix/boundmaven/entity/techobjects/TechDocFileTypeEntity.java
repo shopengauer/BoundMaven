@@ -5,6 +5,7 @@
  */
 package com.matrix.boundmaven.entity.techobjects;
 
+import com.matrix.boundmaven.entity.Employee;
 import com.matrix.boundmaven.entity.Time;
 import java.io.Serializable;
 import java.util.List;
@@ -16,6 +17,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -50,6 +53,12 @@ public class TechDocFileTypeEntity implements Serializable {
     
     @Embedded
     private Time ctime;
+    
+    
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "FK_EMPLOYEE_ID",referencedColumnName = "EMPLOYEE_ID")
+    private Employee employee;
+        
 
     public String getTechDocFileTypeName() {
         return techDocFileTypeName;

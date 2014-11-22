@@ -5,6 +5,7 @@
  */
 package com.matrix.boundmaven.entity.techobjects;
 
+import com.matrix.boundmaven.entity.Employee;
 import com.matrix.boundmaven.entity.Time;
 import java.io.Serializable;
 import java.util.List;
@@ -16,6 +17,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -54,7 +57,13 @@ public class DeviceType implements Serializable {
     @OneToMany(mappedBy = "deviceType",fetch = FetchType.LAZY)   
     private List<Device> devices;
 
-       
+    
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "FK_EMPLOYEE_ID",referencedColumnName = "EMPLOYEE_ID")
+    private Employee employee;
+        
+    
+    
     public Long getId() {
         return id;
     }

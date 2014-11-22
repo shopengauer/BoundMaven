@@ -8,6 +8,7 @@ package com.matrix.boundmaven.entity.partreference;
 import com.matrix.boundmaven.entity.techobjects.Device;
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,7 +33,8 @@ public class BomFile implements Serializable {
     @Column(name = "BOMFILE_ID")
     private Long id;
 
-    
+    @Basic(optional = false)
+    @Column(name = "BOM_FILENAME")
     private String bomFileName;
     
         

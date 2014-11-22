@@ -5,6 +5,7 @@
  */
 package com.matrix.boundmaven.entity.techobjects;
 
+import com.matrix.boundmaven.entity.Employee;
 import com.matrix.boundmaven.entity.contract.Contract;
 import com.matrix.boundmaven.entity.Time;
 import com.matrix.boundmaven.entity.partreference.BomFile;
@@ -110,10 +111,11 @@ public class Device implements Serializable {
 //    @AttributeOverrides({@AttributeOverride(name = "insertTime", column = @Column(name = "DEVICE_INSERT_TIME",nullable = false,updatable = false)),
 //                         @AttributeOverride(name = "updateTime", column = @Column(name = "DEVICE_UPDATE_TIME"))})
     
-   
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "FK_EMPLOYEE_ID",referencedColumnName = "EMPLOYEE_ID")
+    private Employee employee;
         
     
- 
     
     public Long getId() {
         return id;

@@ -5,10 +5,16 @@
  */
 package com.matrix.boundmaven.entity;
 
+import com.matrix.boundmaven.entity.techobjects.Device;
+import com.matrix.boundmaven.entity.techobjects.DeviceType;
+import com.matrix.boundmaven.entity.techobjects.DeviceVersion;
+import com.matrix.boundmaven.entity.techobjects.TechDocEntity;
+import com.matrix.boundmaven.entity.techobjects.TechDocFileTypeEntity;
+import com.matrix.boundmaven.entity.techobjects.TechDocFilesBundleEntity;
+import com.matrix.boundmaven.entity.techobjects.TechDocType;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
-import javax.persistence.AttributeOverride;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
@@ -29,7 +35,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
@@ -109,6 +114,29 @@ public class Employee implements Serializable {
     private Time ctime;
         
 
+    @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
+    private List<Device> devices;
+    
+    @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
+    private List<DeviceType> deviceTypes;
+    
+    @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
+    private List<DeviceVersion> deviceVersions;
+    
+    @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
+    private List<TechDocEntity> techDocEntitys;
+        
+    @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
+    private List<TechDocFileTypeEntity> techDocFileTypeEntitys;
+    
+    @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
+    private List<TechDocFilesBundleEntity> techDocFilesBundleEntitys;
+    
+    @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
+    private List<TechDocType> techDocTypes;
+    
+    
+    
     public Department getDepartment() {
         return department;
     }
