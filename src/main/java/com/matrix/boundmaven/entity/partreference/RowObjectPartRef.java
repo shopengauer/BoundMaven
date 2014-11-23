@@ -5,6 +5,7 @@
  */
 package com.matrix.boundmaven.entity.partreference;
 
+import com.matrix.boundmaven.entity.techobjects.Device;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -27,7 +28,7 @@ public class RowObjectPartRef implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ROWOBJECT_PART_REFERENCE_ID", unique = true)
+    @Column(name = "ROWOBJECT_PART_REFERENCE_ID")
     private Long id;
     
     @Basic(optional = false)
@@ -35,27 +36,14 @@ public class RowObjectPartRef implements Serializable {
     @Size(max = 255)
     @Column(name = "PART_REFERENCE_NAME")
     private String partReferenceName;
-   
-//    @Basic(optional = false)
-//    @NotNull
-//    @Column(name = "QUANTITY",nullable = false)
-//    private int quantity;
-//    
-    
+
     @ManyToOne(optional = false)
-    @JoinColumn(name = "FK_ROWOBJECT_ID",referencedColumnName = "ROWOBJECT_ID")
+    @JoinColumn(name = "FK_ROWOBJECT_ID", referencedColumnName = "ROWOBJECT_ID")
     private RowObject rowObject;
-     
-    
+
     @ManyToOne(optional = false)
-    @JoinColumn(name = "FK_BOMFILE_ID", referencedColumnName = "BOMFILE_ID")
-    private BomFile bomFile; 
-    
-    
-    
-    
-    
-    
+    @JoinColumn(name = "FK_DEVICE_ID", referencedColumnName = "DEVICE_ID")
+    private Device device;
     
     
     public Long getId() {
@@ -66,6 +54,32 @@ public class RowObjectPartRef implements Serializable {
         this.id = id;
     }
 
+    public String getPartReferenceName() {
+        return partReferenceName;
+    }
+
+    public void setPartReferenceName(String partReferenceName) {
+        this.partReferenceName = partReferenceName;
+    }
+
+    public RowObject getRowObject() {
+        return rowObject;
+    }
+
+    public void setRowObject(RowObject rowObject) {
+        this.rowObject = rowObject;
+    }
+
+    public Device getDevice() {
+        return device;
+    }
+
+    public void setDevice(Device device) {
+        this.device = device;
+    }
+
+     
+    
     @Override
     public int hashCode() {
         int hash = 0;

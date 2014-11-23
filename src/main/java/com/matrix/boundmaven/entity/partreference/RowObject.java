@@ -6,6 +6,7 @@
 package com.matrix.boundmaven.entity.partreference;
 
 import com.matrix.boundmaven.entity.Time;
+import com.matrix.boundmaven.entity.techobjects.Device;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -18,6 +19,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -43,7 +45,7 @@ public class RowObject implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1,max = 45)
-    @Column(name = "COD", nullable = false, length = 45,unique = true)
+    @Column(name = "COD", nullable = false, length = 45, unique = true)
     private String cod;
    
     @Basic
@@ -94,23 +96,12 @@ public class RowObject implements Serializable {
            
     @Embedded
     private Time ctime;
-    
-    
-    
-//    @ElementCollection(fetch = FetchType.LAZY)
-//    @CollectionTable(name = "ROWOBJECT_DOCFILES", joinColumns = @JoinColumn(name = "ROWOBJECT_DOCFILE_ID"))
-//    private List<TechDocs> rowObjectDocFiles;
-//    
-    
-   // @ManyToOne
-   // @JoinColumn(name = "FK_BOMFILE_ID", referencedColumnName = "BOMFILE_ID")
-   // private BomFile bomFile;
+   
      
     @OneToMany(mappedBy = "rowObject")
     private List<RowObjectPartRef> rowObjectPartRefs;
     
-    
-    
+   
     public Long getId() {
         return id;
     }

@@ -30,7 +30,6 @@ public class TechDocFilesBundle implements Serializable {
     @Enumerated(EnumType.STRING)
     private TechDocFileType techDocFileType; 
     
-    
     @Basic(optional = false)
     @NotNull
     @Size(min = 2,max = 45)

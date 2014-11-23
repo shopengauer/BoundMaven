@@ -127,13 +127,104 @@ public class Employee implements Serializable {
     private List<TechDocEntity> techDocEntitys;
         
     @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
+    private List<TechDocType> techDocTypes;
+    
+    
+    @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
     private List<TechDocFileTypeEntity> techDocFileTypeEntitys;
     
     @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
     private List<TechDocFilesBundleEntity> techDocFilesBundleEntitys;
+
+    public List<String> getEmails() {
+        return emails;
+    }
+
+    public void setEmails(List<String> emails) {
+        this.emails = emails;
+    }
+
+    public Map<PhoneType, String> getPhoneNumbers() {
+        return phoneNumbers;
+    }
+
+    public void setPhoneNumbers(Map<PhoneType, String> phoneNumbers) {
+        this.phoneNumbers = phoneNumbers;
+    }
+
+    public JobTitle getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(JobTitle jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+
+    public Time getCtime() {
+        return ctime;
+    }
+
+    public void setCtime(Time ctime) {
+        this.ctime = ctime;
+    }
+
+    public List<Device> getDevices() {
+        return devices;
+    }
+
+    public void setDevices(List<Device> devices) {
+        this.devices = devices;
+    }
+
+    public List<DeviceType> getDeviceTypes() {
+        return deviceTypes;
+    }
+
+    public void setDeviceTypes(List<DeviceType> deviceTypes) {
+        this.deviceTypes = deviceTypes;
+    }
+
+    public List<DeviceVersion> getDeviceVersions() {
+        return deviceVersions;
+    }
+
+    public void setDeviceVersions(List<DeviceVersion> deviceVersions) {
+        this.deviceVersions = deviceVersions;
+    }
+
+    public List<TechDocEntity> getTechDocEntitys() {
+        return techDocEntitys;
+    }
+
+    public void setTechDocEntitys(List<TechDocEntity> techDocEntitys) {
+        this.techDocEntitys = techDocEntitys;
+    }
+
+    public List<TechDocType> getTechDocTypes() {
+        return techDocTypes;
+    }
+
+    public void setTechDocTypes(List<TechDocType> techDocTypes) {
+        this.techDocTypes = techDocTypes;
+    }
+
+    public List<TechDocFileTypeEntity> getTechDocFileTypeEntitys() {
+        return techDocFileTypeEntitys;
+    }
+
+    public void setTechDocFileTypeEntitys(List<TechDocFileTypeEntity> techDocFileTypeEntitys) {
+        this.techDocFileTypeEntitys = techDocFileTypeEntitys;
+    }
+
+    public List<TechDocFilesBundleEntity> getTechDocFilesBundleEntitys() {
+        return techDocFilesBundleEntitys;
+    }
+
+    public void setTechDocFilesBundleEntitys(List<TechDocFilesBundleEntity> techDocFilesBundleEntitys) {
+        this.techDocFilesBundleEntitys = techDocFilesBundleEntitys;
+    }
     
-    @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
-    private List<TechDocType> techDocTypes;
+   
     
     
     

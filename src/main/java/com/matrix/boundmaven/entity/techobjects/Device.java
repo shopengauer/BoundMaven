@@ -6,18 +6,12 @@
 package com.matrix.boundmaven.entity.techobjects;
 
 import com.matrix.boundmaven.entity.Employee;
-import com.matrix.boundmaven.entity.contract.Contract;
 import com.matrix.boundmaven.entity.Time;
-import com.matrix.boundmaven.entity.partreference.BomFile;
+import com.matrix.boundmaven.entity.partreference.RowObjectPartRef;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Basic;
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,10 +22,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.TableGenerator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -53,7 +45,7 @@ public class Device implements Serializable {
     
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1,max = 45)
+    @Size(min = 2,max = 45)
     @Column(name = "DEVICE_NAME", length = 45, nullable = false, unique = true)
     private String deviceName;
     
@@ -100,17 +92,11 @@ public class Device implements Serializable {
     
     @Embedded
     private Time ctime;
+   
     
-    @OneToMany(mappedBy = "device", fetch = FetchType.LAZY)
-    private List<BomFile> bomFiles;
-    
-    
-    @OneToMany(mappedBy = "device",fetch = FetchType.LAZY)
-    private Collection<Contract> contracts;
-    
-//    @AttributeOverrides({@AttributeOverride(name = "insertTime", column = @Column(name = "DEVICE_INSERT_TIME",nullable = false,updatable = false)),
-//                         @AttributeOverride(name = "updateTime", column = @Column(name = "DEVICE_UPDATE_TIME"))})
-    
+    @OneToMany(mappedBy = "device")
+    private List<RowObjectPartRef> rowObjectPartRefs;
+     
     @ManyToOne(optional = false)
     @JoinColumn(name = "FK_EMPLOYEE_ID",referencedColumnName = "EMPLOYEE_ID")
     private Employee employee;
@@ -167,14 +153,14 @@ public class Device implements Serializable {
         this.deviceDescription = deviceDescription;
     }
   
-    @XmlTransient 
-    public Collection<Contract> getContracts() {
-        return contracts;
-    }
-
-    public void setContracts(Collection<Contract> contracts) {
-        this.contracts = contracts;
-    }
+//    @XmlTransient 
+//    public Collection<Contract> getContracts() {
+//        return contracts;
+//    }
+//
+//    public void setContracts(Collection<Contract> contracts) {
+//        this.contracts = contracts;
+//    }
 
     public Boolean getIsParentDevice() {
         return isParentDevice;
@@ -215,15 +201,15 @@ public class Device implements Serializable {
     public void setCtime(Time ctime) {
         this.ctime = ctime;
     }
-
-    public List<BomFile> getBomFiles() {
-        return bomFiles;
-    }
-
-    public void setBomFiles(List<BomFile> bomFiles) {
-        this.bomFiles = bomFiles;
-    }
-    
+//
+//    public List<BomFile> getBomFiles() {
+//        return bomFiles;
+//    }
+//
+//    public void setBomFiles(List<BomFile> bomFiles) {
+//        this.bomFiles = bomFiles;
+//    }
+//    
    
     @Override
     public int hashCode() {

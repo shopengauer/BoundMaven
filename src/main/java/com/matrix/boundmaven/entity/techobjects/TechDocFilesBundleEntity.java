@@ -12,8 +12,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -75,7 +73,7 @@ public class TechDocFilesBundleEntity implements Serializable {
     private TechDocEntity techDocEntity;
 
     
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     @JoinColumn(name = "FK_EMPLOYEE_ID",referencedColumnName = "EMPLOYEE_ID")
     private Employee employee;
         

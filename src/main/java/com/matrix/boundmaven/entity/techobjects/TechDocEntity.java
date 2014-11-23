@@ -58,7 +58,7 @@ public class TechDocEntity implements Serializable {
    ////////////////// techdoc files bundle(extra bundle exlusive for current device) ////////////////////////////// 
     
    @ElementCollection(fetch = FetchType.LAZY)
-   @CollectionTable(name = "TECHDOC_FILES_BUNDLE",joinColumns = @JoinColumn(name = "TECHDOC_FILES_ID"))
+   @CollectionTable(name = "TECHDOC_FILES_BUNDLE", joinColumns = @JoinColumn(name = "TECHDOC_FILES_ID"))
    private List<TechDocFilesBundle> techDocFilesBundle;
     
     /////////////////////////////////////////////////////////////////////
