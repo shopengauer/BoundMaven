@@ -41,16 +41,59 @@ public class TechDocFilesBundle implements Serializable {
     @Size(min = 2,max = 45)
     @Column(name = "TECHDOC_FILECOD", length = 45,nullable = false)
     private String techDocFileCod; 
-    
-    
-    
+     
     @Basic
     @Column(name = "TECHDOC_FILENAME_DESCRIPTION")
     private String techDocFileNameDesc;
-   
-     
+      
     @Lob
     @Basic(optional = true,fetch = FetchType.LAZY)
     @Column(name = "TECHDOC_FILE")
     private Byte[] techDocFile; 
+
+    public TechDocFileType getTechDocFileType() {
+        return techDocFileType;
+    }
+
+    public void setTechDocFileType(TechDocFileType techDocFileType) {
+        this.techDocFileType = techDocFileType;
+    }
+
+    public String getTechDocFileName() {
+        return techDocFileName;
+    }
+
+    public void setTechDocFileName(String techDocFileName) {
+        this.techDocFileName = techDocFileName;
+    }
+
+    public String getTechDocFileCod() {
+        return techDocFileCod;
+    }
+
+    public void setTechDocFileCod(String techDocFileCod) {
+        this.techDocFileCod = techDocFileCod;
+    }
+
+    public String getTechDocFileNameDesc() {
+        return techDocFileNameDesc;
+    }
+
+    public void setTechDocFileNameDesc(String techDocFileNameDesc) {
+        this.techDocFileNameDesc = techDocFileNameDesc;
+    }
+
+    public Byte[] getTechDocFile() {
+        return techDocFile;
+    }
+
+    public void setTechDocFile(Byte[] techDocFile) {
+        this.techDocFile = techDocFile;
+    }
+
+
+
+
+
+
 }

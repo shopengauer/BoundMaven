@@ -111,6 +111,24 @@ public class Device implements Serializable {
         this.id = id;
     }
 
+    public List<RowObjectPartRef> getRowObjectPartRefs() {
+        return rowObjectPartRefs;
+    }
+
+    public void setRowObjectPartRefs(List<RowObjectPartRef> rowObjectPartRefs) {
+        this.rowObjectPartRefs = rowObjectPartRefs;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+       
+    
     public Time getTime() {
         return ctime;
     }

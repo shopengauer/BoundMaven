@@ -31,7 +31,9 @@ import javax.validation.constraints.Size;
 @Table(name = "TECHDOC_FILES_BUNDLE_ENTITY")
 public class TechDocFilesBundleEntity implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Id
+    @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TECHDOC_FILES_BUNDLE_ENTITY_ID")
     private Long id;
@@ -76,9 +78,24 @@ public class TechDocFilesBundleEntity implements Serializable {
     @ManyToOne(optional = true)
     @JoinColumn(name = "FK_EMPLOYEE_ID",referencedColumnName = "EMPLOYEE_ID")
     private Employee employee;
+
+    public String getTechDocFileCod() {
+        return techDocFileCod;
+    }
+
+    public void setTechDocFileCod(String techDocFileCod) {
+        this.techDocFileCod = techDocFileCod;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
         
-    
-    
+     
     public String getTechDocFileName() {
         return techDocFileName;
     }

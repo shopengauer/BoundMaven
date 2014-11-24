@@ -74,6 +74,24 @@ public class DeviceVersion implements Serializable {
         this.id = id;
     }
 
+    public Time getCtime() {
+        return ctime;
+    }
+
+    public void setCtime(Time ctime) {
+        this.ctime = ctime;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    
+    
     public String getDeviceVersion() {
         return deviceVersion;
     }

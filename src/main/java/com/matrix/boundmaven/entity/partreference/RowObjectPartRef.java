@@ -54,6 +54,8 @@ public class RowObjectPartRef implements Serializable {
         this.id = id;
     }
 
+    
+    
     public String getPartReferenceName() {
         return partReferenceName;
     }

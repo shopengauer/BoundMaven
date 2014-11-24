@@ -53,36 +53,31 @@ public class Employee implements Serializable {
     private Long id;
 
     
-    @Basic(optional = false,fetch = FetchType.EAGER)
+    @Basic(optional = false)
     @NotNull
     @Size(min = 2,max = 45)
     @Column(name = "FIRSTNAME", nullable = false, length = 45)
     private String firstName;
     
-    @Basic(optional = false,fetch = FetchType.EAGER)
+    @Basic(optional = false)
     @NotNull
     @Size(min = 2,max = 45)
     @Column(name = "LASTNAME", nullable = false, length = 45)
     private String lastName;
     
-    @Basic(optional = false, fetch = FetchType.EAGER)
+    @Basic(optional = false)
     @NotNull
     @Size(min = 4,max = 45)
-    @Column(name = "PASSWORD", nullable = false)
+    @Column(name = "PASSWORD", nullable = false,length = 45)
     private String password;
 
-    @Basic(optional = false,fetch = FetchType.EAGER )
+    @Basic(optional = false)
     @NotNull
     @Size(min = 2, max = 45)
     @Column(name = "ACCOUNT", nullable = false, unique = true, length = 45)
     private String account;
 
-//    @Basic(optional = false, fetch = FetchType.EAGER)
-//    @NotNull
-//    @Size(min = 2,max = 45)
-//    @Column(name = "JOBTITLE", nullable = false, length = 45)
-//    private String jobTitle;
-//    
+
     @ElementCollection
     @CollectionTable(name = "EMAILS",joinColumns = @JoinColumn(name = "EMOLOYEE_EMAIL_ID"))
     @Column(name = "EMAIL")
@@ -95,13 +90,7 @@ public class Employee implements Serializable {
     @Column(name = "PHONE_NUM")
     private Map<PhoneType,String> phoneNumbers;
     
-    
-    //@ElementCollection
-   // @CollectionTable()
-    
-    
-    // Сделать отдельные ENTITY
-    
+       
     @ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "FK_DEPARTMENT_ID", referencedColumnName = "DEPARTMENT_ID")
     private Department department;
@@ -128,14 +117,15 @@ public class Employee implements Serializable {
         
     @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
     private List<TechDocType> techDocTypes;
-    
-    
+       
     @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
     private List<TechDocFileTypeEntity> techDocFileTypeEntitys;
     
     @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
     private List<TechDocFilesBundleEntity> techDocFilesBundleEntitys;
 
+    
+    
     public List<String> getEmails() {
         return emails;
     }

@@ -34,6 +34,7 @@ public class TechDocFileTypeEntity implements Serializable {
     private static final long serialVersionUID = 1L;
    
     @Id
+    @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TECHDOC_FILE_TYPE_ID")
     private Long id;
@@ -41,11 +42,11 @@ public class TechDocFileTypeEntity implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 2, max = 45)
-    @Column(name = "TECHDOC_FILE_TYPE_NAME",length = 45)
+    @Column(name = "TECHDOC_FILE_TYPE_NAME",length = 45,unique = true)
     private String techDocFileTypeName;
     
     @Basic 
-    @Column(name = "TECHDOC_FILE_TYPE_NAME")
+    @Column(name = "TECHDOC_FILE_TYPE_DESCRIPTION")
     private String techDocFileTypeDesc;
     
     @OneToMany(mappedBy = "techDocFileTypeEntity",fetch = FetchType.LAZY)
@@ -58,8 +59,16 @@ public class TechDocFileTypeEntity implements Serializable {
     @ManyToOne(optional = false)
     @JoinColumn(name = "FK_EMPLOYEE_ID",referencedColumnName = "EMPLOYEE_ID")
     private Employee employee;
-        
 
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+        
+  
     public String getTechDocFileTypeName() {
         return techDocFileTypeName;
     }

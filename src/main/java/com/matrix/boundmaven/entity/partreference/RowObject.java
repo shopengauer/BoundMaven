@@ -6,22 +6,15 @@
 package com.matrix.boundmaven.entity.partreference;
 
 import com.matrix.boundmaven.entity.Time;
-import com.matrix.boundmaven.entity.techobjects.Device;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -58,9 +51,9 @@ public class RowObject implements Serializable {
     @Column(name = "DESCRIPTION")
     private String description;
     
-    @Basic
+    @Basic(optional = false)
     @Size(max = 45)
-    @Column(name = "VALUE")
+    @Column(name = "VALUE",nullable = false)
     private String value;
     
     @Basic
@@ -101,6 +94,10 @@ public class RowObject implements Serializable {
     @OneToMany(mappedBy = "rowObject")
     private List<RowObjectPartRef> rowObjectPartRefs;
     
+    @OneToMany(mappedBy = "rowObject")
+    private List<RowObjectReplacement> rowObjectReplacements;
+    
+     
    
     public Long getId() {
         return id;
@@ -110,6 +107,113 @@ public class RowObject implements Serializable {
         this.id = id;
     }
 
+    public String getCod() {
+        return cod;
+    }
+
+    public void setCod(String cod) {
+        this.cod = cod;
+    }
+
+    public String getPack() {
+        return pack;
+    }
+
+    public void setPack(String pack) {
+        this.pack = pack;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getVoltage() {
+        return voltage;
+    }
+
+    public void setVoltage(String voltage) {
+        this.voltage = voltage;
+    }
+
+    public String getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(String current) {
+        this.current = current;
+    }
+
+    public String getPower() {
+        return power;
+    }
+
+    public void setPower(String power) {
+        this.power = power;
+    }
+
+    public String getTolerance() {
+        return tolerance;
+    }
+
+    public void setTolerance(String tolerance) {
+        this.tolerance = tolerance;
+    }
+
+    public String getManufacture() {
+        return manufacture;
+    }
+
+    public void setManufacture(String manufacture) {
+        this.manufacture = manufacture;
+    }
+
+    public String getRohs() {
+        return rohs;
+    }
+
+    public void setRohs(String rohs) {
+        this.rohs = rohs;
+    }
+
+    public Time getCtime() {
+        return ctime;
+    }
+
+    public void setCtime(Time ctime) {
+        this.ctime = ctime;
+    }
+
+    public List<RowObjectPartRef> getRowObjectPartRefs() {
+        return rowObjectPartRefs;
+    }
+
+    public void setRowObjectPartRefs(List<RowObjectPartRef> rowObjectPartRefs) {
+        this.rowObjectPartRefs = rowObjectPartRefs;
+    }
+
+    public List<RowObjectReplacement> getRowObjectReplacements() {
+        return rowObjectReplacements;
+    }
+
+    public void setRowObjectReplacements(List<RowObjectReplacement> rowObjectReplacements) {
+        this.rowObjectReplacements = rowObjectReplacements;
+    }
+
+    
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;

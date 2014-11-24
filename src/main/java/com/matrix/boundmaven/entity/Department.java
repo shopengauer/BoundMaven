@@ -29,17 +29,7 @@ import javax.validation.constraints.Size;
 public class Department implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public Department() {
-    }
-
-     
-    
-    public Department(String departmentName, String description) {
-        this.departmentName = departmentName;
-        this.description = description;
-    }
-     
-    
+      
     @Basic(optional = false)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,6 +57,23 @@ public class Department implements Serializable {
 
     @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
     private List<JobTitle> jobTitles; 
+
+    public Time getCtime() {
+        return ctime;
+    }
+
+    public void setCtime(Time ctime) {
+        this.ctime = ctime;
+    }
+
+    public List<JobTitle> getJobTitles() {
+        return jobTitles;
+    }
+
+    public void setJobTitles(List<JobTitle> jobTitles) {
+        this.jobTitles = jobTitles;
+    }
+    
     
     public List<Employee> getEmployees() {
         return employees;

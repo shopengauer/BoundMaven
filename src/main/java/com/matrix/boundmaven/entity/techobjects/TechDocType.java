@@ -64,8 +64,15 @@ public class TechDocType implements Serializable {
     @ManyToOne(optional = false)
     @JoinColumn(name = "FK_EMPLOYEE_ID",referencedColumnName = "EMPLOYEE_ID")
     private Employee employee;
-    
-    
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+       
     public String getTechDocType() {
         return techDocType;
     }

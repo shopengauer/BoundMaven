@@ -88,6 +88,22 @@ public class DeviceType implements Serializable {
         this.deviceTypeDescription = deviceTypeDescription;
     }
 
+    public Time getCtime() {
+        return ctime;
+    }
+
+    public void setCtime(Time ctime) {
+        this.ctime = ctime;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
     
     
     @XmlTransient
