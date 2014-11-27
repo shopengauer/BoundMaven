@@ -60,9 +60,11 @@ public class DepartmentBean {
     
     public String createDepartment(){
         
-      departmentFacade.createDepartment(departmentName, description);
+    //  departmentFacade.createDepartment(departmentName, description);
       return null;
     }
+    
+   
     
     
     

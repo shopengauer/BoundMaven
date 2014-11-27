@@ -6,42 +6,18 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
  
     <ui:define name="header-left">
-
-
-    </ui:define>
-
-    <ui:define name="header-center">
-        <div style="float: left; margin:5px"> 
+        <div style="float: left; margin: 5px"> 
             <ui:include src="Sections/Menu/mainMenu.xhtml"/>
         </div>
-    </ui:define> 
 
-   
-    <ui:define name="mainContent">
-
-        
-        
     </ui:define>
-
-    <ui:define name="westMenu">
+  
+    
+<!--    <ui:define name="westMenu">
         <p:layoutUnit position="west">
-           <h:form>   
-            <p:menu toggleable="true" >
-                <p:submenu label="Ajax">
-                    <p:menuitem value="Save"  icon="ui-icon-disk" outcome="admin/newjsf.xhtml"/>
-                    <p:menuitem value="Update"  icon="ui-icon-arrowrefresh-1-w"/>
-                </p:submenu>
-                <p:submenu label="Non-Ajax">
-                    <p:menuitem value="Delete"  update="messages" ajax="false" icon="ui-icon-close"/>
-                </p:submenu>
-                <p:submenu label="Navigations">
-                    <p:menuitem value="External" url="http://www.primefaces.org" icon="ui-icon-home"/>
-                    <p:menuitem value="Internal" icon="ui-icon-star"/>
-                </p:submenu>
-            </p:menu>
-          </h:form>  
+            <ui:include src="Sections/Menu/westMenu.xhtml"/>
         </p:layoutUnit>
-    </ui:define>
+    </ui:define>-->
 
 
 <!--    <ui:define name="footer">

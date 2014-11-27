@@ -12,9 +12,11 @@
         <ui:composition>
             <f:view locale="#{locale.locale}">   
                 <h:form>
-                    <p:inputText id="depName" placeholder="Enter deparment name" value="#{departmentBean.departmentName}"/> 
-                    <p:inputTextarea id ="depDesc" placeholder="Enter description" value="#{departmentBean.description}" maxlength="255"/>
-                    <p:commandButton id = "depBtn" ajax="false" value="#{msgs.create}" action="#{departmentBean.createDepartment}"/>  
+                    <h:panelGrid columns="1" cellpadding="5" cellspacing="5"> 
+                        <p:inputText id="depName" placeholder="Enter deparment name" value="#{departmentBean.departmentName}"/> 
+                        <p:inputTextarea id ="depDesc" placeholder="Enter description" value="#{departmentBean.description}" maxlength="255"/>
+                        <p:commandButton id = "depBtn" ajax="false" value="#{msgs.create}" action="#{departmentBean.createDepartment}"/>  
+                    </h:panelGrid>
                 </h:form>
             </f:view>
         </ui:composition>

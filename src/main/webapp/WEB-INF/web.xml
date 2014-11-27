@@ -4,11 +4,12 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
-    <context-param>
+<!--    <context-param>
         <param-name>primefaces.THEME</param-name>
         <param-value>bluesky</param-value>
-        <!--<param-value>afternoon</param-value>-->
-    </context-param>
+        <param-value>afternoon</param-value>
+    <param-value>cupertino</param-value>
+    </context-param>-->
     <error-page>
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
         <location>/mainLayout.xhtml</location>
@@ -59,8 +60,4 @@
         <role-name>Manager</role-name>
     </security-role>
 </web-app>
- <session-config>
-       <cookie-config>
-            <path>/</path>
-       </cookie-config>
-     </session-config>
+ 
