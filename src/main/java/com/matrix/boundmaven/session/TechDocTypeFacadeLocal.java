@@ -5,7 +5,7 @@
  */
 package com.matrix.boundmaven.session;
 
-import com.matrix.boundmaven.entity.Employee;
+import com.matrix.boundmaven.entity.techobjects.TechDocType;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -14,19 +14,19 @@ import javax.ejb.Local;
  * @author Vasiliy
  */
 @Local
-public interface EmployeeFacadeLocal {
+public interface TechDocTypeFacadeLocal {
 
-    void create(Employee employee);
+    void create(TechDocType techDocType);
 
-    void edit(Employee employee);
+    void edit(TechDocType techDocType);
 
-    void remove(Employee employee);
+    void remove(TechDocType techDocType);
 
-    Employee find(Object id);
+    TechDocType find(Object id);
 
-    List<Employee> findAll();
+    List<TechDocType> findAll();
 
-    List<Employee> findRange(int[] range);
+    List<TechDocType> findRange(int[] range);
 
     int count();
     

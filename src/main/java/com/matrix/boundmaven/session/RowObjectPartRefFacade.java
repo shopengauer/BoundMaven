@@ -5,7 +5,7 @@
  */
 package com.matrix.boundmaven.session;
 
-import com.matrix.boundmaven.entity.Employee;
+import com.matrix.boundmaven.entity.partreference.RowObjectPartRef;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author Vasiliy
  */
 @Stateless
-public class EmployeeFacade extends AbstractFacade<Employee> implements EmployeeFacadeLocal {
+public class RowObjectPartRefFacade extends AbstractFacade<RowObjectPartRef> implements RowObjectPartRefFacadeLocal {
     @PersistenceContext(unitName = "BoundMavenPU")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class EmployeeFacade extends AbstractFacade<Employee> implements Employee
         return em;
     }
 
-    public EmployeeFacade() {
-        super(Employee.class);
+    public RowObjectPartRefFacade() {
+        super(RowObjectPartRef.class);
     }
     
 }

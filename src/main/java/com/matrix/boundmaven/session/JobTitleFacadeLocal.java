@@ -5,7 +5,7 @@
  */
 package com.matrix.boundmaven.session;
 
-import com.matrix.boundmaven.entity.Employee;
+import com.matrix.boundmaven.entity.JobTitle;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -14,19 +14,19 @@ import javax.ejb.Local;
  * @author Vasiliy
  */
 @Local
-public interface EmployeeFacadeLocal {
+public interface JobTitleFacadeLocal {
 
-    void create(Employee employee);
+    void create(JobTitle jobTitle);
 
-    void edit(Employee employee);
+    void edit(JobTitle jobTitle);
 
-    void remove(Employee employee);
+    void remove(JobTitle jobTitle);
 
-    Employee find(Object id);
+    JobTitle find(Object id);
 
-    List<Employee> findAll();
+    List<JobTitle> findAll();
 
-    List<Employee> findRange(int[] range);
+    List<JobTitle> findRange(int[] range);
 
     int count();
     

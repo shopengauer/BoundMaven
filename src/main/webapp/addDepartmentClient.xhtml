@@ -1,22 +1,31 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./mainLayout.xhtml">
+                template="./mainLayout.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="header-left">
-         
-    </ui:define> 
-
-    <ui:define name="header-center">
-        <div style="float: left; margin: 10px"> 
+          
             <ui:include src="Sections/Menu/mainMenu.xhtml"/>
-        </div>
-    </ui:define>
- 
+          
+    </ui:define> 
+    
     <ui:define name="mainContent">
         <div style="float: left; margin: 30px"> 
               <ui:include src="Sections/Forms/addDepartmentForm.xhtml"/>
         </div>  
     </ui:define>
+ 
+ 
+    <ui:define name="westMenu">
+         
+        <p:layoutUnit position="west">
+            <ui:include src="Sections/Menu/westMenuDepartment.xhtml"/> 
+        </p:layoutUnit>
+        
+    </ui:define>
+    
+    
 
 </ui:composition>

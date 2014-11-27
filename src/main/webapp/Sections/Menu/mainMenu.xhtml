@@ -11,20 +11,20 @@
        <ui:composition>
             <f:view locale="#{locale.locale}" xmlns:f="http://xmlns.jcp.org/jsf/core">
                 <h:form rendered="true"> 
-                    <p:toolbar id="main_toolbar" style="padding: 5px">
+                    <p:toolbar id="mainToolbar">
 
                         <f:facet name="left">
                             <!--<p:commandButton value="Добавить" type="button"/>-->
-                            <p:menuButton value="#{msgs.add}" rendered="false">
+                            <p:menuButton value="#{msgs.documentation}" rendered="true">
                                 <p:menuitem value="#{msgs.device}" outcome="addDeviceClient"/>
-                                <p:menuitem value="#{msgs.factory}"/>
-                                <p:menuitem value="#{msgs.users}"/>
+                                <p:menuitem value="#{msgs.devType}"/>
+                                <p:menuitem value="#{msgs.devVersion}"/>
                             </p:menuButton>
 
-                            <p:menuButton value="Работник" rendered="false">
-                                <p:menuitem value="Добавить отдел" outcome="addDepartmentClient"/>
-                                <p:menuitem value="Редактировать"/>
-                                <p:menuitem value="Удалить"/>
+                            <p:menuButton value="#{msgs.enterprize}" rendered="true">
+                                <p:menuitem value="#{msgs.department}" outcome="addDepartmentClient"/>
+                                <p:menuitem value="#{msgs.employee}"/>
+                                <p:menuitem value="#{msgs.jobtitle}"/>
                                 <p:menuitem value="Посмотреть"/>
                             </p:menuButton>
 

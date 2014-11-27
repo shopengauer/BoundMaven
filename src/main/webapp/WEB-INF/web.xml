@@ -6,8 +6,10 @@
     </context-param>
     <context-param>
         <param-name>primefaces.THEME</param-name>
-        <param-value>bluesky</param-value>
+            <param-value>blitzer</param-value>
+        <!--<param-value>bluesky</param-value>-->
         <!--<param-value>afternoon</param-value>-->
+    <!--<param-value>cupertino</param-value>-->
     </context-param>
     <error-page>
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>

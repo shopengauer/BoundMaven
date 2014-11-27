@@ -5,7 +5,7 @@
  */
 package com.matrix.boundmaven.session;
 
-import com.matrix.boundmaven.entity.Employee;
+import com.matrix.boundmaven.entity.techobjects.TechDocFileTypeEntity;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author Vasiliy
  */
 @Stateless
-public class EmployeeFacade extends AbstractFacade<Employee> implements EmployeeFacadeLocal {
+public class TechDocFileTypeEntityFacade extends AbstractFacade<TechDocFileTypeEntity> implements TechDocFileTypeEntityFacadeLocal {
     @PersistenceContext(unitName = "BoundMavenPU")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class EmployeeFacade extends AbstractFacade<Employee> implements Employee
         return em;
     }
 
-    public EmployeeFacade() {
-        super(Employee.class);
+    public TechDocFileTypeEntityFacade() {
+        super(TechDocFileTypeEntity.class);
     }
     
 }

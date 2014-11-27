@@ -15,61 +15,49 @@
                
                
                 <ui:insert name="header-left">
-                  <div style="float: left; margin: 5px"> 
-                      
+               
                       <ui:include src="Sections/Login/login.xhtml"/> 
-                  </div>   
+              
                 </ui:insert>
-               
-                
                 <ui:insert name="header-center">
-                   
-                    
                     
                 </ui:insert>
-               
-                
-                
-                
-                <ui:insert name="header-right">
-                   <div style="float: right; margin: 5px">    
-                     <!--<ui:include src="Sections/Login/locale.xhtml"/>--> 
-                      
-                   </div>  
+               <ui:insert name="header-right">
+                     
                 </ui:insert> 
             </p:layoutUnit>
             
-            
+            <!--Формы для запонения и извлекаемый контент--> 
             <p:layoutUnit position="center">
                 <ui:insert name="mainContent">
                  
                
                 </ui:insert>                       
-                      
             </p:layoutUnit>    
             
-           
-                <ui:insert name="westMenu">
-                  
-               
-                </ui:insert>                       
-                      
+           <!--Меню управления--> 
+            <ui:insert name="westMenu">
+
+
+            </ui:insert>                       
+
              
+           
+          <!--Footer неизменный-->  
             <ui:insert name="footer">
                 <p:layoutUnit position="south">
                     <div style="float: left">
-                         <ui:include src="Sections/Login/locale.xhtml"/>   
+                        <ui:include src="Sections/Login/locale.xhtml"/>   
                     </div>
-                
-                <div style="float: right">
-                    <img src="img/matrix.png"/>  
-                </div>
 
-            </p:layoutUnit>  
+                    <div style="float: right">
+                        <h:link value='ООО"Матрица" 2014'/> 
+                    </div>
+
+                </p:layoutUnit>  
             </ui:insert>
         </p:layout> 
-        
-        
+       
      </f:view>   
     </h:body>
 </html>
