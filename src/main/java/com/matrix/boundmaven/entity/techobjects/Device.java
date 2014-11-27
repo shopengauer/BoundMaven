@@ -56,7 +56,7 @@ public class Device implements Serializable {
     
     @ManyToOne(optional = true)
     @JoinColumn(name = "FK_DEVICE_SERIES_ID",referencedColumnName = "DECICE_SERIES_ID")
-    private String deviceSeriesName;
+    private DeviceSeries deviceSeries;
     // Признак того является ли устройсво верхним уровнем
     
     @Basic(optional = false)

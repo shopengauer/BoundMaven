@@ -6,12 +6,15 @@
 package com.matrix.boundmaven.entity.techobjects;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -34,7 +37,8 @@ public class DeviceSeries implements Serializable {
     @Column(name = "DEVICE_SERIES_NAME",length = 45,unique = true)
     private String deviceSeriesName;
     
-    
+    @OneToMany(mappedBy = "deviceSeries",fetch = FetchType.LAZY)   
+    private List<Device> devices;
     
     
     public Long getId() {
@@ -45,6 +49,25 @@ public class DeviceSeries implements Serializable {
         this.id = id;
     }
 
+    public String getDeviceSeriesName() {
+        return deviceSeriesName;
+    }
+
+    public void setDeviceSeriesName(String deviceSeriesName) {
+        this.deviceSeriesName = deviceSeriesName;
+    }
+
+    public List<Device> getDevices() {
+        return devices;
+    }
+
+    public void setDevices(List<Device> devices) {
+        this.devices = devices;
+    }
+
+    
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;
