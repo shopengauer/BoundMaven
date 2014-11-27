@@ -11,7 +11,7 @@
        <ui:composition>
             <f:view locale="#{locale.locale}" xmlns:f="http://xmlns.jcp.org/jsf/core">
                 <h:form rendered="true"> 
-                    <p:toolbar id="main_toolbar" style="padding: 5px">
+                    <p:toolbar id="mainToolbar">
 
                         <f:facet name="left">
                             <!--<p:commandButton value="Добавить" type="button"/>-->
@@ -24,7 +24,7 @@
                             <p:menuButton value="#{msgs.enterprize}" rendered="true">
                                 <p:menuitem value="#{msgs.department}" outcome="addDepartmentClient"/>
                                 <p:menuitem value="#{msgs.employee}"/>
-                                <p:menuitem value="Удалить"/>
+                                <p:menuitem value="#{msgs.jobtitle}"/>
                                 <p:menuitem value="Посмотреть"/>
                             </p:menuButton>
 

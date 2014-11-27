@@ -11,23 +11,19 @@
         <f:view locale="#{locale.locale}" xmlns:f="http://xmlns.jcp.org/jsf/core"> 
         <p:layout fullPage="true">
             
-            <p:layoutUnit position="north" resizable="true" minSize="60">
+            <p:layoutUnit position="north">
                
                
                 <ui:insert name="header-left">
-                  <div style="float: left; margin: 5px"> 
+               
                       <ui:include src="Sections/Login/login.xhtml"/> 
-                  </div>   
+              
                 </ui:insert>
                 <ui:insert name="header-center">
-                    <div style="float: left;"> 
-                     
-                   </div>   
+                    
                 </ui:insert>
                <ui:insert name="header-right">
-                   <div style="float: right; margin: 5px;">    
-                      
-                   </div>  
+                     
                 </ui:insert> 
             </p:layoutUnit>
             
