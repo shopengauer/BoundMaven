@@ -49,6 +49,14 @@ public class Device implements Serializable {
     @Column(name = "DEVICE_NAME", length = 45, nullable = false, unique = true)
     private String deviceName;
     
+    @Basic
+    @Size(min = 2,max = 45)
+    @Column(name = "DEVICE_COD",length = 45, unique = true)
+    private String deviceCod;
+    
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "FK_DEVICE_SERIES_ID",referencedColumnName = "DECICE_SERIES_ID")
+    private String deviceSeriesName;
     // Признак того является ли устройсво верхним уровнем
     
     @Basic(optional = false)

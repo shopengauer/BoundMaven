@@ -3,25 +3,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <ui:composition>
-            <f:view locale="#{locale.locale}" xmlns:f="http://xmlns.jcp.org/jsf/core">
-            <h:form>
-                <p:panel menuTitle="Device" header="Device">
+       <ui:composition>
+            <f:view locale="#{locale.locale}">
                 <h:panelGrid columns="1" cellpadding="5" cellspacing="5">
-                    <p:inputText id = "nameDevice" placeholder="#{msgs.devName}" value="#{device.deviceName}"/>
-                    <p:inputText id = "codDevice" placeholder="#{msgs.devCod}" value="#{device.deviceName}"/>
+                    <p:inputText id = "versionDevice" placeholder="#{msgs.devVersion}" value="#{device.deviceName}"/>
                     <p:inputTextarea id="descDevice" placeholder="#{msgs.devDescription}" /> 
                     <p:commandButton id="submitDeviceForm" value="#{msgs.add}"/>
-                </h:panelGrid> 
-                </p:panel>
-            </h:form>
-          </f:view> 
-        </ui:composition>
+                </h:panelGrid>
+            </f:view>
+       </ui:composition>
     </h:body>
 </html>
 

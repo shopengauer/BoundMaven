@@ -15,25 +15,29 @@
 
                         <f:facet name="left">
                             <!--<p:commandButton value="Добавить" type="button"/>-->
-                            <p:menuButton value="#{msgs.documentation}" rendered="true">
-                                <p:menuitem value="#{msgs.device}" outcome="addDeviceClient"/>
-                                <p:menuitem value="#{msgs.devType}"/>
-                                <p:menuitem value="#{msgs.devVersion}"/>
-                            </p:menuButton>
+                            <p:button value="#{msgs.documentation}" rendered="true" outcome="addDeviceClient"/>
+<!--                                <p:menuitem value=" " outcome="addDeviceClient"/>
+                                <p:menuitem value=" "/>
+                                <p:menuitem value=" "/>
+                            </p:menuButton>-->
 
-                            <p:menuButton value="#{msgs.enterprize}" rendered="true">
-                                <p:menuitem value="#{msgs.department}" outcome="addDepartmentClient"/>
-                                <p:menuitem value="#{msgs.employee}"/>
-                                <p:menuitem value="#{msgs.jobtitle}"/>
-                                <p:menuitem value="Посмотреть"/>
-                            </p:menuButton>
+                            <!--<p:menuButton value=" " rendered="true" outcome="addDepartmentClient">-->
+                              <p:button value="#{msgs.enterprize}" outcome="addDepartmentClient"/>
+<!--                                <p:menuitem value=" "/>
+                                <p:menuitem value=" "/>
+                                <p:menuitem value="Посмотреть"/>-->
+                            <!--</p:menuButton>-->
 
                             <p:button value="Add more"/>
                              <p:button value="Add more"/> 
                               <p:button value="Add more"/> 
                             <p:commandButton value="#{msgs.logout}" ajax="false" action="#{login.logout}"/>
-                         
-                        </f:facet>
+                      </f:facet> 
+                      
+                      <f:facet name="right">
+                          <h:link value='ООО"Матрица" 2014' style="float: right; color: #ffffff; margin-top: 5px"/>
+                      </f:facet>
+                      
                     </p:toolbar>
                 </h:form>
                         
