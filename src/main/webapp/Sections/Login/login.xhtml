@@ -12,24 +12,15 @@
         <ui:composition>
             <f:view locale="#{locale.locale}" xmlns:f="http://xmlns.jcp.org/jsf/core">
                 <h:form>
-                    <!--<p:panel>-->
-                        <p:messages autoUpdate="true"/> 
-                        <h:panelGrid columns="5" cellpadding="2" cellspacing="2"> 
-                            <!--<p:outputLabel value="" for="inputName"/>-->
-                            <p:inputText id = "inputName" value="#{login.account}" placeholder="#{msgs.account}" autocomplete="false"/> 
-                        
-                            <!--<p:outputLabel value="" for = "inputPassword"/>-->
-                            <p:password id ="inputPassword" value="#{login.password}" placeholder="#{msgs.pw}"/>    
-                                          
-                            <p:commandButton id="loginBtn" ajax="false" value="#{msgs.login}" action="#{login.validateUser}"/>
-                        </h:panelGrid>
-                    <!--</p:panel>-->  
+                    <p:messages autoUpdate="true"/> 
+                    <h:panelGrid columns="5" cellpadding="2" cellspacing="2"> 
+                        <p:inputText id = "inputName" value="#{login.account}" placeholder="#{msgs.account}" autocomplete="false"/> 
+                        <p:password id ="inputPassword" value="#{login.password}" placeholder="#{msgs.pw}"/>    
+                        <p:commandButton id="loginBtn" ajax="false" value="#{msgs.login}" action="#{login.validateUser}"/>
+                    </h:panelGrid>
                 </h:form>
-                        
             </f:view>
         </ui:composition>
-        
-        
     </h:body>
 </html>
 

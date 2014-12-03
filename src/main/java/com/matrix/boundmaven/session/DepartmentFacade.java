@@ -6,6 +6,8 @@
 package com.matrix.boundmaven.session;
 
 import com.matrix.boundmaven.entity.Department;
+import com.matrix.boundmaven.entity.Time;
+import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,5 +29,18 @@ public class DepartmentFacade extends AbstractFacade<Department> implements Depa
     public DepartmentFacade() {
         super(Department.class);
     }
+
+    @Override
+    public void createDepartment(String departmentName, String departmentDescription) {
+         Department department = new Department();
+         department.setDepartmentName(departmentName);
+         department.setDescription(departmentDescription);
+         Time insertTime = new Time();
+         insertTime.setInsertTime(new Date());
+         department.setCtime(insertTime);
+         create(department);
+    }
+   
+    
     
 }

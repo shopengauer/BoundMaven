@@ -13,15 +13,23 @@
            <h:form>   
                <p:menu toggleable="true">
                    
-                    <p:menuitem value="Save"  icon="ui-icon-disk" outcome="admin/newjsf.xhtml"/>
-                       <p:menuitem value="Update"  icon="ui-icon-arrowrefresh-1-w"/>
-                       <p:submenu label="Ajax" rendered="false">
-                      
+                   <p:submenu label="#{msgs.department}" rendered="true">
+                       <p:menuitem value="#{msgs.addDev}"  icon="ui-icon-plus" outcome="addDeviceWin.xhtml" immediate="true"/>
+                       <p:menuitem value="#{msgs.addType}"  icon="ui-icon-plus" outcome="addDeviceTypeWin.xhtml" immediate="true"/>
+                       <p:menuitem value="#{msgs.addVersion}"  icon="ui-icon-plus" outcome="addDeviceVersionWin.xhtml" immediate="true"/>
+                   </p:submenu>                   
+                  
+                   <p:submenu label="#{msgs.doc}" rendered="true">
+                       <p:menuitem value="#{msgs.addDoc}"  icon=" ui-icon-circle-plus" immediate="true"/>
+                       <p:menuitem value="#{msgs.addType}"  icon="ui-icon-circle-plus" immediate="true"/>
+                       <p:menuitem value="#{msgs.addVersion}"  icon="ui-icon-circle-plus" immediate="true"/>
                    </p:submenu>
-                   <p:submenu label="Non-Ajax" rendered="true" style="background-color: burlywood">
-                       <p:menuitem value="Delete"  update="messages" ajax="false" icon="ui-icon-close"/>
+                  
+                   <p:submenu label="#{msgs.bom}" rendered="true">
+                       <p:menuitem value="#{msgs.add}" icon="ui-icon-plus" immediate="true"/>
+                       <p:menuitem value="#{msgs.view}" icon="ui-icon-plus" immediate="true"/>
                    </p:submenu>
-                   
+            
                </p:menu>
           </h:form>  
           </f:view>

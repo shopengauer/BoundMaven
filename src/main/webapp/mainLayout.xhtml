@@ -10,53 +10,39 @@
     <h:body>
         <f:view locale="#{locale.locale}" xmlns:f="http://xmlns.jcp.org/jsf/core"> 
         <p:layout fullPage="true">
-            
+           
             <p:layoutUnit position="north">
-               
-               
-                <ui:insert name="header-left">
-               
-                      <ui:include src="Sections/Login/login.xhtml"/> 
-              
+               <ui:insert name="header-left">
+                   <ui:include src="Sections/Login/login.xhtml"/> 
                 </ui:insert>
-                <ui:insert name="header-center">
-                    
-                </ui:insert>
-               <ui:insert name="header-right">
-                     
-                </ui:insert> 
             </p:layoutUnit>
             
             <!--Формы для запонения и извлекаемый контент--> 
-            <p:layoutUnit position="center">
-                <ui:insert name="mainContent">
+             
+             <p:layoutUnit position="center">
                  
-               
-                </ui:insert>                       
-            </p:layoutUnit>    
+             </p:layoutUnit>    
             
+           
            <!--Меню управления--> 
-            <ui:insert name="westMenu">
+<!--            <ui:insert name="westMenu">
 
 
-            </ui:insert>                       
+            </ui:insert>                       -->
 
              
            
-          <!--Footer неизменный-->  
-            <ui:insert name="footer">
+          <!--Footer неизменяемый-->  
+            
                 <p:layoutUnit position="south">
                     <div style="float: left">
                         <ui:include src="Sections/Login/locale.xhtml"/>   
                     </div>
-
                     <div style="float: right">
                         <h:link value='ООО"Матрица" 2014'/> 
                     </div>
-
                 </p:layoutUnit>  
-            </ui:insert>
-        </p:layout> 
+         </p:layout> 
        
      </f:view>   
     </h:body>

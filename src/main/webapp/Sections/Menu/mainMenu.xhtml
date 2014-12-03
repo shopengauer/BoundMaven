@@ -8,44 +8,44 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-       <ui:composition>
+        <ui:composition>
             <f:view locale="#{locale.locale}" xmlns:f="http://xmlns.jcp.org/jsf/core">
                 <h:form rendered="true"> 
                     <p:toolbar id="mainToolbar">
 
                         <f:facet name="left">
                             <!--<p:commandButton value="Добавить" type="button"/>-->
-                            <p:button value="#{msgs.documentation}" rendered="true" outcome="addDeviceClient"/>
-<!--                                <p:menuitem value=" " outcome="addDeviceClient"/>
-                                <p:menuitem value=" "/>
-                                <p:menuitem value=" "/>
-                            </p:menuButton>-->
+                            <p:button value="#{msgs.documentation}" rendered="true" 
+                                      outcome="westMenuDeviceTemplate" icon="ui-icon-document"/>
+                            <!--                                <p:menuitem value=" " outcome="addDeviceClient"/>
+                                                            <p:menuitem value=" "/>
+                                                            <p:menuitem value=" "/>
+                                                        </p:menuButton>-->
 
                             <!--<p:menuButton value=" " rendered="true" outcome="addDepartmentClient">-->
-                              <p:button value="#{msgs.enterprize}" outcome="addDepartmentClient"/>
-<!--                                <p:menuitem value=" "/>
-                                <p:menuitem value=" "/>
-                                <p:menuitem value="Посмотреть"/>-->
-                            <!--</p:menuButton>-->
-
+                            <p:button value="#{msgs.enterprize}" outcome="addDepartmentClient" 
+                                      icon="ui-icon-person"/>
+                            <p:menuButton value="Василий" rendered="true">
+                                <p:menuitem value="Посмотреть"/>
+                            </p:menuButton>
                             <p:button value="Add more"/>
-                             <p:button value="Add more"/> 
-                              <p:button value="Add more"/> 
+                            <p:button value="Add more"/> 
+                            <p:button value="Add more"/> 
                             <p:commandButton value="#{msgs.logout}" ajax="false" action="#{login.logout}"/>
-                      </f:facet> 
-                      
-                      <f:facet name="right">
-                          <h:link value='ООО"Матрица" 2014' style="float: right; color: #ffffff; margin-top: 5px"/>
-                      </f:facet>
-                      
+                        </f:facet> 
+
+                        <f:facet name="right">
+                            <h:link value='ООО"Матрица" 2014' style="float: right; color: #ffffff; margin-top: 5px"/>
+                        </f:facet>
+
                     </p:toolbar>
                 </h:form>
-                        
+
             </f:view>
         </ui:composition>
-        
-        
-        
+
+
+
     </h:body>
 </html>
 

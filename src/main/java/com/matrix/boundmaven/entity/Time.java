@@ -35,16 +35,16 @@ public class Time implements Serializable{
    @Column(name = "UPDATE_TIME", nullable = true, updatable = true)
    private Date updateTime;
  
-   @PrePersist
-   private void setInsertTime(){
-       this.insertTime = this.updateTime = new Date();
-   }
-   
-   @PreUpdate
-   private void setUpdateTime(){
-       this.updateTime = new Date();
-   }
-   
+//   @PrePersist
+//   private void setInsertTime(){
+//       this.insertTime = this.updateTime = new Date();
+//   }
+//   
+//   @PreUpdate
+//   private void setUpdateTime(){
+//       this.updateTime = new Date();
+//   }
+//   
    
     public Date getInsertTime() {
         return insertTime;

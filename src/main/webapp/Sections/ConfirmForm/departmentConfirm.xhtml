@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            Do you confirm this parameter?
+            <h:form>
+                <h:panelGrid columns="2">
+                    <p:outputLabel value="Department name:"/>
+                      #{departmentBean.departmentName} 
+                    <p:outputLabel value="Department description:"/>
+                      #{departmentBean.description} 
+                    <p:commandButton value="Edit" ajax="false" action="addDepartmentClient"/>
+                    <p:commandButton value="Confirm" ajax = "false" action="#{departmentBean.departmentConfirm}"/>
+                </h:panelGrid>
+            </h:form>
+        </ui:composition>
+        
+        
+    </h:body>
+</html>
+

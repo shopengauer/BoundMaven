@@ -11,13 +11,25 @@
     <h:body>
         <ui:composition>
             <f:view locale="#{locale.locale}">
-                <h:panelGrid columns="1" cellpadding="5" cellspacing="5">
-                   <p:inputText id = "typeDevice" placeholder="#{msgs.devType}" value="#{device.deviceName}"/>                 
-                   <p:inputTextarea id="descDevice" placeholder="#{msgs.devDescription}"/>
-                   <p:commandButton id="submitDeviceForm" value="#{msgs.add}"/>
-                </h:panelGrid>
+                <h:form> 
+                    <p:panel  header="#{msgs.devType}">
+                        
+                        <h:panelGrid columns="2" cellpadding="5" cellspacing="5">
+                            <p:outputLabel for="devType" value="#{msgs.entDevType}:"/>
+                            <p:inputText id = "devType" 
+                                         placeholder="#{msgs.devType}" value="#{deviceTypeBean.devTypeName}" size="45"/>                 
+                            <p:outputLabel for="devTypeDesc" value="#{msgs.entDevTypeDesc}:"/>
+                            <p:inputTextarea id="devTypeDesc" 
+                                             placeholder="#{msgs.devDescription}" value="#{deviceTypeBean.devTypeDesc} " cols="45"/>
+                            <p:commandButton id="submitDevTypeForm" value="#{msgs.add}"/>
+                            <p:commandButton id="cancelDevTypeForm" value="#{msgs.cancel}" 
+                                             immediate="true"/>
+                            
+                        </h:panelGrid>
+                    </p:panel> 
+                </h:form>
             </f:view>
-       </ui:composition>
+        </ui:composition>
     </h:body>
 </html>
 

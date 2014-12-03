@@ -13,10 +13,20 @@
             <h:form>
                 <p:panel menuTitle="Device" header="Device">
                 <h:panelGrid columns="1" cellpadding="5" cellspacing="5">
-                    <p:inputText id = "nameDevice" placeholder="#{msgs.devName}" value="#{device.deviceName}"/>
-                    <p:inputText id = "codDevice" placeholder="#{msgs.devCod}" value="#{device.deviceName}"/>
-                    <p:inputTextarea id="descDevice" placeholder="#{msgs.devDescription}" /> 
-                    <p:commandButton id="submitDeviceForm" value="#{msgs.add}"/>
+                    <p:inputText id = "nameDevice" placeholder="#{msgs.devName}" 
+                                 value="" maxlength="45" size="45"/>
+                    <p:inputText id = "codDevice" placeholder="#{msgs.devCod}" 
+                                 value="" maxlength="45" size="45"/>
+                    <p:selectOneMenu value="" effect="fold"> 
+                        <f:selectItem itemLabel="Select series" itemValue="" />
+                        <f:selectItem itemLabel="Extra" itemValue="Extra"/>
+                        <f:selectItem itemLabel="Hardlight" itemValue="Light"/>
+                        <f:selectItem itemLabel="Light" itemValue="Hardlight"/>
+                    </p:selectOneMenu>
+                    
+                    <p:inputTextarea id="descDevice" placeholder="#{msgs.devDescription}" cols="45" value=""/> 
+                    <p:commandButton id="submitDeviceForm" value="#{msgs.add}" icon="fa-save"/>
+                    <p:commandButton id="resetDeviceForm" type="reset" value="Reset"/>
                 </h:panelGrid> 
                 </p:panel>
             </h:form>

@@ -10,22 +10,23 @@
     <h:body>
         <ui:composition>
              <f:view locale="#{locale.locale}" xmlns:f="http://xmlns.jcp.org/jsf/core">
-           <h:form>   
+               <h:form>   
+              
                <p:menu toggleable="true">
                    <p:submenu label="#{msgs.device}" rendered="true">
-                       <p:menuitem value="#{msgs.addDev}"  icon="ui-icon-plus" outcome="addDeviceWin.xhtml"/>
-                       <p:menuitem value="#{msgs.addType}"  icon="ui-icon-plus" outcome="addDeviceTypeWin.xhtml"/>
-                       <p:menuitem value="#{msgs.addVersion}"  icon="ui-icon-plus" outcome="addDeviceVersionWin.xhtml"/>
+                       <p:menuitem value="#{msgs.addDev}"  icon="ui-icon-plus" outcome="addDeviceClient.xhtml" immediate="true"/>
+                       <p:menuitem value="#{msgs.addType}"  icon="ui-icon-plus" outcome="addDeviceTypeClient.xhtml" immediate="true"/>
+                       <p:menuitem value="#{msgs.addVersion}"  icon="ui-icon-plus" outcome="addDeviceVersionClient.xhtml" immediate="true"/>
                    </p:submenu>                   
                   
                    <p:submenu label="#{msgs.doc}" rendered="true">
-                       <p:menuitem value="#{msgs.addDoc}"  icon=" ui-icon-circle-plus"/>
-                       <p:menuitem value="#{msgs.addType}"  icon="ui-icon-circle-plus"/>
-                       <p:menuitem value="#{msgs.addVersion}"  icon=" ui-icon-circle-plus"/>
+                       <p:menuitem value="#{msgs.addDoc}"  icon=" ui-icon-circle-plus" immediate="true"/>
+                       <p:menuitem value="#{msgs.addType}"  icon="ui-icon-circle-plus" immediate="true"/>
+                       <p:menuitem value="#{msgs.addVersion}"  icon="ui-icon-circle-plus" immediate="true"/>
                    </p:submenu>
                    <p:submenu label="#{msgs.bom}" rendered="true">
-                       <p:menuitem value="#{msgs.add}" icon="ui-icon-close"/>
-                       <p:menuitem value="#{msgs.view}" icon="ui-icon-close"/>
+                       <p:menuitem value="#{msgs.add}" icon="ui-icon-plus" immediate="true"/>
+                       <p:menuitem value="#{msgs.view}" icon="ui-icon-plus" immediate="true"/>
                    </p:submenu>
               </p:menu>
           </h:form>  

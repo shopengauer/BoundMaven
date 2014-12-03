@@ -29,5 +29,9 @@ public interface DepartmentFacadeLocal {
     List<Department> findRange(int[] range);
 
     int count();
+
+    void createDepartment(String departmentName, String departmentDescription);
+
+   
     
 }

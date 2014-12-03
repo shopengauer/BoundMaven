@@ -12,11 +12,24 @@
         <ui:composition>
             <f:view locale="#{locale.locale}">   
                 <h:form>
-                    <h:panelGrid columns="1" cellpadding="5" cellspacing="5"> 
+                    <p:message for="depName"/>
+                    <p:message for="depDesc"/>
+                    <p:panel header="#{msgs.addDep}"> 
+                    <h:panelGrid columns="3" cellpadding="5" cellspacing="5"> 
+                         
+                        <p:outputLabel for="depName" value="#{msgs.department}"/>
                         <p:inputText id="depName" placeholder="Enter deparment name" value="#{departmentBean.departmentName}"/> 
-                        <p:inputTextarea id ="depDesc" placeholder="Enter description" value="#{departmentBean.description}" maxlength="255"/>
+<!--                        <p:message for="depName"/>-->
+                        
+                        <p:outputLabel for="depDesc" value="#{msgs.desc}"/>
+                        <p:inputTextarea id ="depDesc" placeholder="Enter description"
+                                         value="#{departmentBean.description}" cols="25" maxlength="255"/>
+                        <!--<p:message for="depDesc"/>-->
                         <p:commandButton id = "depBtn" ajax="false" value="#{msgs.create}" action="#{departmentBean.createDepartment}"/>  
+                        <p:commandButton id = "depCanBtn" ajax="false" value="#{msgs.cancel}" immediate="true" action="windows/department/addDepartmentWin?faces-redirect=true"/>  
+                     
                     </h:panelGrid>
+                    </p:panel>                
                 </h:form>
             </f:view>
         </ui:composition>

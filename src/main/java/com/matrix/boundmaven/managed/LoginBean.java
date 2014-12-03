@@ -73,7 +73,7 @@ public class LoginBean implements Serializable {
 //              return "menuLayoutClient"; 
 //        } 
         login = true;      
-        return "menuLayoutClient"; 
+        return "mainMenuTemplate?faces-redirect=true"; 
         //return null;
     }
     

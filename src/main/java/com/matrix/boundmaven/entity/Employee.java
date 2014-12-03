@@ -5,6 +5,7 @@
  */
 package com.matrix.boundmaven.entity;
 
+import com.matrix.boundmaven.entity.notebook.Notebook;
 import com.matrix.boundmaven.entity.techobjects.Device;
 import com.matrix.boundmaven.entity.techobjects.DeviceType;
 import com.matrix.boundmaven.entity.techobjects.DeviceVersion;
@@ -124,7 +125,8 @@ public class Employee implements Serializable {
     @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
     private List<TechDocFilesBundleEntity> techDocFilesBundleEntitys;
 
-    
+    @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
+    private List<Notebook> notebooks;
     
     public List<String> getEmails() {
         return emails;
