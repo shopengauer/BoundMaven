@@ -11,7 +11,7 @@
         <ui:composition>
             <f:view locale="#{locale.locale}" xmlns:f="http://xmlns.jcp.org/jsf/core">
             <h:form>
-                <p:panel menuTitle="Device" header="Device">
+                <!--<p:panel menuTitle="Device" header="Device">-->
                 <h:panelGrid columns="1" cellpadding="5" cellspacing="5">
                     <p:inputText id = "nameDevice" placeholder="#{msgs.devName}" 
                                  value="" maxlength="45" size="45"/>
@@ -28,7 +28,7 @@
                     <p:commandButton id="submitDeviceForm" value="#{msgs.add}" icon="fa-save"/>
                     <p:commandButton id="resetDeviceForm" type="reset" value="Reset"/>
                 </h:panelGrid> 
-                </p:panel>
+                <!--</p:panel>-->
             </h:form>
           </f:view> 
         </ui:composition>

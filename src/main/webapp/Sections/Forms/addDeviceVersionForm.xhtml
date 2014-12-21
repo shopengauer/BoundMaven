@@ -12,8 +12,8 @@
        <ui:composition>
             <f:view locale="#{locale.locale}">
                 <h:panelGrid columns="1" cellpadding="5" cellspacing="5">
-                    <p:inputText id = "versionDevice" placeholder="#{msgs.devVersion}" value="#{device.deviceName}"/>
-                    <p:inputTextarea id="descDevice" placeholder="#{msgs.devDescription}" /> 
+                    <p:inputText id = "versionDevice" placeholder="#{msgs.devVersion}" size="45" value="#{device.deviceName}"/>
+                    <p:inputTextarea id="descDevice" placeholder="#{msgs.devDescription}" cols="45"/> 
                     <p:commandButton id="submitDeviceForm" value="#{msgs.add}"/>
                 </h:panelGrid>
             </f:view>

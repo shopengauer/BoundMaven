@@ -114,7 +114,7 @@ public class LoginBean implements Serializable {
            System.out.println(session.getCreationTime());
             session.invalidate();
             
-           return "mainLayout?faces-redirect=true";
+           return "loginLayout?faces-redirect=true";
         }catch(NullPointerException e){
             
             return null;

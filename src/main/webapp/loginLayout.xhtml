@@ -7,33 +7,19 @@
     <h:head>
         <title>Bound Maven</title>
     </h:head>
+    
     <h:body>
         <f:view locale="#{locale.locale}" xmlns:f="http://xmlns.jcp.org/jsf/core"> 
-        <p:layout fullPage="true">
-           
-            <p:layoutUnit position="north">
-               <ui:insert name="header-left">
-                   <ui:include src="Sections/Login/login.xhtml"/> 
-                </ui:insert>
-            </p:layoutUnit>
-            
-            <!--Формы для запонения и извлекаемый контент--> 
-             
-             <p:layoutUnit position="center">
-                 
-             </p:layoutUnit>    
-            
-           
-           <!--Меню управления--> 
-<!--            <ui:insert name="westMenu">
+            <p:layout fullPage="true">
 
+                <p:layoutUnit position="north">
+                    <ui:include src="Sections/Login/login.xhtml"/> 
+                </p:layoutUnit>
 
-            </ui:insert>                       -->
+                <p:layoutUnit position="center">
 
-             
-           
-          <!--Footer неизменяемый-->  
-            
+                </p:layoutUnit>    
+
                 <p:layoutUnit position="south">
                     <div style="float: left">
                         <ui:include src="Sections/Login/locale.xhtml"/>   
@@ -42,9 +28,8 @@
                         <h:link value='ООО"Матрица" 2014'/> 
                     </div>
                 </p:layoutUnit>  
-         </p:layout> 
-       
-     </f:view>   
+            </p:layout> 
+        </f:view>   
     </h:body>
 </html>
 

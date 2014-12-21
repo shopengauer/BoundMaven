@@ -58,7 +58,7 @@ public class DeviceType implements Serializable {
     private List<Device> devices;
 
     
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     @JoinColumn(name = "FK_EMPLOYEE_ID",referencedColumnName = "EMPLOYEE_ID")
     private Employee employee;
         

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.matrix.boundmaven.managed.deviceobject;
+package com.matrix.boundmaven.managed;
 
 import com.matrix.boundmaven.session.DeviceTypeFacadeLocal;
 import javax.inject.Named;
@@ -12,6 +12,8 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
+import javax.faces.event.ActionEvent;
+import javax.faces.event.ActionListener;
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -25,10 +27,6 @@ import org.hibernate.validator.constraints.NotBlank;
 @ConversationScoped
 public class DeviceTypeBean implements Serializable {
 
-    /**
-     * Creates a new instance of DeviceTypeBean
-     */
-    
     @EJB
     private DeviceTypeFacadeLocal deviceTypeFacadeLocal;
     
@@ -36,7 +34,6 @@ public class DeviceTypeBean implements Serializable {
     private Conversation conversation;
     
     @NotBlank(message = "{devTypeNotBlank.message}")
-    @NotNull
     @Size(min = 2,max = 45,message = "{devTypeLength.message}")
     private String devTypeName;
     
@@ -69,6 +66,10 @@ public class DeviceTypeBean implements Serializable {
         this.devTypeDesc = devTypeDesc;
     }
     
+    public void DiviceTypeConfirm(ActionEvent event){
+      // event.getComponent().getParent().findComponent(devTypeName);
+        
+    }
     
     
     

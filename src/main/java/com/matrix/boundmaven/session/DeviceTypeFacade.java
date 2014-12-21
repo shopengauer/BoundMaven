@@ -27,5 +27,16 @@ public class DeviceTypeFacade extends AbstractFacade<DeviceType> implements Devi
     public DeviceTypeFacade() {
         super(DeviceType.class);
     }
+
+    @Override
+    public DeviceType findDeviceType(String deviceType) {
+        
+        
+        
+        return null;
+    }
+    
+    
+    
     
 }

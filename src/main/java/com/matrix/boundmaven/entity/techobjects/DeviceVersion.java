@@ -57,7 +57,7 @@ public class DeviceVersion implements Serializable {
     private Time ctime;
     
     
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     @JoinColumn(name = "FK_EMPLOYEE_ID",referencedColumnName = "EMPLOYEE_ID")
     private Employee employee;
         

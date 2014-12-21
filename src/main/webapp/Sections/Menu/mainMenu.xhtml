@@ -11,7 +11,13 @@
         <ui:composition>
             <f:view locale="#{locale.locale}" xmlns:f="http://xmlns.jcp.org/jsf/core">
                 <h:form rendered="true"> 
-                    <p:toolbar id="mainToolbar">
+                    <p:link value="Просмотр документации" outcome="westMenuDeviceTemplate"/>
+                    <p:commandLink value="Работа с документацией" style="margin-left: 20px" action="AdminAcc/admin"/>
+                    <p:link value="Предприятие" style="margin-left: 20px"/>
+                    <p:commandLink value="#{msgs.logout}" ajax="false" action="#{login.logout}"/>
+                    
+                    
+                    <p:toolbar id="mainToolbar" rendered="false">
 
                         <f:facet name="left">
                             <!--<p:commandButton value="Добавить" type="button"/>-->
@@ -23,14 +29,14 @@
                                                         </p:menuButton>-->
 
                             <!--<p:menuButton value=" " rendered="true" outcome="addDepartmentClient">-->
-                            <p:button value="#{msgs.enterprize}" outcome="addDepartmentClient" 
+                            <p:button value="#{msgs.enterprize}" outcome="westMenuDepartmentTemplate" 
                                       icon="ui-icon-person"/>
-                            <p:menuButton value="Василий" rendered="true">
+<!--                            <p:menuButton value="Василий" rendered="true">
                                 <p:menuitem value="Посмотреть"/>
-                            </p:menuButton>
-                            <p:button value="Add more"/>
+                            </p:menuButton>-->
+<!--                            <p:button value="Add more"/>
                             <p:button value="Add more"/> 
-                            <p:button value="Add more"/> 
+                            <p:button value="Add more"/> -->
                             <p:commandButton value="#{msgs.logout}" ajax="false" action="#{login.logout}"/>
                         </f:facet> 
 

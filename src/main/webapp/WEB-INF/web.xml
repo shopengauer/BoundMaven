@@ -7,7 +7,6 @@
     <context-param>
         <param-name>primefaces.THEME</param-name>
         <!--<param-value>blitzer</param-value>-->
-        
         <param-value>pepper-grinder</param-value>
         <!--<param-value>afternoon</param-value>-->
         <!--<param-value>cupertino</param-value>-->
@@ -16,12 +15,10 @@
         <param-name>primefaces.FONT_AWESOME</param-name>
         <param-value>true</param-value>
     </context-param>
-
     <error-page>
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
         <location>/mainLayout.xhtml</location>
     </error-page>
-   
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -38,14 +35,14 @@
     </session-config>
     <welcome-file-list>
         <!--<welcome-file>faces/menuLayoutClient.xhtml</welcome-file>-->
-        <welcome-file>faces/mainLayout.xhtml</welcome-file>
+        <welcome-file>faces/loginLayout.xhtml</welcome-file>
     </welcome-file-list>
     <security-constraint>
         <display-name>Constraint</display-name>
         <web-resource-collection>
             <web-resource-name>Auth</web-resource-name>
             <description/>
-            <url-pattern>/faces/admin/*</url-pattern>
+            <url-pattern>/faces/AdminAcc/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description/>
@@ -53,7 +50,7 @@
         </auth-constraint>
     </security-constraint>
     <login-config>
-        <auth-method>BASIC</auth-method>
+        <auth-method>DIGEST</auth-method>
         <realm-name>ApplicationRealm</realm-name>
     </login-config>
     <security-role>

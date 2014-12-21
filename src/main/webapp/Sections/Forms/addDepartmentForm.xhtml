@@ -14,7 +14,7 @@
                 <h:form>
                     <p:message for="depName"/>
                     <p:message for="depDesc"/>
-                    <p:panel header="#{msgs.addDep}"> 
+                    <!--<p:panel header="">--> 
                     <h:panelGrid columns="3" cellpadding="5" cellspacing="5"> 
                          
                         <p:outputLabel for="depName" value="#{msgs.department}"/>
@@ -29,7 +29,7 @@
                         <p:commandButton id = "depCanBtn" ajax="false" value="#{msgs.cancel}" immediate="true" action="windows/department/addDepartmentWin?faces-redirect=true"/>  
                      
                     </h:panelGrid>
-                    </p:panel>                
+                    <!--</p:panel>-->                
                 </h:form>
             </f:view>
         </ui:composition>

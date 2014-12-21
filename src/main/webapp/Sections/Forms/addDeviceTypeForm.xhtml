@@ -12,21 +12,26 @@
         <ui:composition>
             <f:view locale="#{locale.locale}">
                 <h:form> 
-                    <p:panel  header="#{msgs.devType}">
-                        
+                    <!--<p:panel  header="">-->
+                    <p:message for="devType" id="valError"/>
+                    <!--<p:message for="devType" id="dbError" />-->
+                        <!--<p:message for="devTypeDesc"/>-->
                         <h:panelGrid columns="2" cellpadding="5" cellspacing="5">
+                            
                             <p:outputLabel for="devType" value="#{msgs.entDevType}:"/>
-                            <p:inputText id = "devType" 
-                                         placeholder="#{msgs.devType}" value="#{deviceTypeBean.devTypeName}" size="45"/>                 
+                            <p:inputText id = "devType" placeholder="#{msgs.devType}" 
+                                         value="#{deviceTypeBean.devTypeName}" size="45"/>                 
+                            
                             <p:outputLabel for="devTypeDesc" value="#{msgs.entDevTypeDesc}:"/>
                             <p:inputTextarea id="devTypeDesc" 
-                                             placeholder="#{msgs.devDescription}" value="#{deviceTypeBean.devTypeDesc} " cols="45"/>
-                            <p:commandButton id="submitDevTypeForm" value="#{msgs.add}"/>
+                                             placeholder="#{msgs.devDescription}" value="#{deviceTypeBean.devTypeDesc}"  cols="45"/>
+                            
+                            <p:commandButton id="submitDevTypeForm" value="#{msgs.add}" 
+                                             action="addDeviceTypeConfirm.xhtml" actionListener="#{deviceTypeBean.DiviceTypeConfirm}" ajax="false"/>
                             <p:commandButton id="cancelDevTypeForm" value="#{msgs.cancel}" 
                                              immediate="true"/>
-                            
                         </h:panelGrid>
-                    </p:panel> 
+                    <!--</p:panel>--> 
                 </h:form>
             </f:view>
         </ui:composition>

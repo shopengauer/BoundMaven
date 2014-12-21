@@ -29,5 +29,7 @@ public interface DeviceTypeFacadeLocal {
     List<DeviceType> findRange(int[] range);
 
     int count();
+
+    DeviceType findDeviceType(String deviceType);
     
 }

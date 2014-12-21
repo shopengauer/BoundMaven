@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
-    <Scope Scope="Project"/>
+    <Scope Scope="Project">
+        <Node id="addDepartmentConfirm.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="Windows/Department/addDepartmentClient.xhtml" x="150" y="900" zoom="true"/>
+        <Node id="addDeviceTypeConfirm.xhtml" x="1650" y="300" zoom="true"/>
+        <Node id="Sections/Menu/westMenuDevice.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="addDeviceTypeClient.xhtml" x="1900" y="150" zoom="true"/>
+        <Node id="Sections/Forms/addContractForm.xhtml" x="400" y="750" zoom="true"/>
+        <Node id="Sections/ConfirmForms/departmentConfirmForm.xhtml" x="1650" y="150" zoom="true"/>
+        <Node id="Templates/mainMenuTemplate.xhtml" x="150" y="1050" zoom="true"/>
+        <Node id="Sections/Forms/addFactoryForm.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="mainMenuTemplate.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="westMenuDeviceTemplate.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="Sections/ConfirmForms/devTypeConfirmForm.xhtml" x="650" y="900" zoom="true"/>
+        <Node id="Windows/Device/addDeviceTypeClient.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="Sections/Forms/addDeviceForm.xhtml" x="1400" y="300" zoom="true"/>
+        <Node id="addDeviceClient.xhtml" x="900" y="750" zoom="true"/>
+        <Node id="admin/newjsf.xhtml" x="400" y="1050" zoom="true"/>
+        <Node id="Sections/Menu/westMenuDepartment.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="westMenuDepartmentTemplate.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="deviceWestMenuClient.xhtml" x="900" y="600" zoom="true"/>
+        <Node id="AdminAcc/admin.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="Sections/Login/logout.xhtml" x="650" y="750" zoom="true"/>
+        <Node id="loginLayout.xhtml" x="900" y="450" zoom="true"/>
+        <Node id="menuLayoutClient.xhtml" x="1400" y="450" zoom="true"/>
+        <Node id="addDeviceVersionClient.xhtml" x="1150" y="600" zoom="true"/>
+        <Node id="addDepartmentClient.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="Sections/Login/login.xhtml" x="1409" y="151" zoom="false"/>
+        <Node id="Windows/Department/addDepartmentWin.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="Windows/Device/newTemplateClient.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="AdminAcc/newjsf.xhtml" x="1150" y="450" zoom="true"/>
+        <Node id="Sections/Login/locale.xhtml" x="400" y="900" zoom="true"/>
+        <Node id="Sections/Forms/addDeviceVersionForm.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="Sections/Forms/addDepartmentForm.xhtml" x="1150" y="300" zoom="true"/>
+        <Node id="Sections/Menu/mainMenu.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="Sections/Menu/westMenu.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="Sections/Forms/addDeviceTypeForm.xhtml" x="150" y="150" zoom="true"/>
+    </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>

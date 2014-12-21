@@ -16,10 +16,18 @@
                     <ui:include src="Sections/Menu/mainMenu.xhtml"/> 
                 </p:layoutUnit>
 
-                <p:layoutUnit position="center">
+                <!---->
+                    <ui:insert name="mainContent">
+                    <p:layoutUnit position="center">
+                    </p:layoutUnit>
+                    </ui:insert>    
+                <!---->    
 
-                </p:layoutUnit>    
-
+                <p:layoutUnit position="west">
+                    <ui:include src="Sections/Menu/westMenuDepartment.xhtml"/>   
+                </p:layoutUnit> 
+                
+                
                 <p:layoutUnit position="south">
                     <div style="float: left">
                         <ui:include src="Sections/Login/locale.xhtml"/>   
@@ -32,6 +40,3 @@
         </f:view>   
     </h:body>
 </html>
-
-        
-     

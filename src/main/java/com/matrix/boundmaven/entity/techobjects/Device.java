@@ -105,7 +105,7 @@ public class Device implements Serializable {
     @OneToMany(mappedBy = "device")
     private List<RowObjectPartRef> rowObjectPartRefs;
      
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     @JoinColumn(name = "FK_EMPLOYEE_ID",referencedColumnName = "EMPLOYEE_ID")
     private Employee employee;
         
