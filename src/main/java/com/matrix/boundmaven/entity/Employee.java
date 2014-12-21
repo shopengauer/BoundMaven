@@ -6,13 +6,6 @@
 package com.matrix.boundmaven.entity;
 
 import com.matrix.boundmaven.entity.notebook.Notebook;
-import com.matrix.boundmaven.entity.techobjects.Device;
-import com.matrix.boundmaven.entity.techobjects.DeviceType;
-import com.matrix.boundmaven.entity.techobjects.DeviceVersion;
-import com.matrix.boundmaven.entity.techobjects.TechDocEntity;
-import com.matrix.boundmaven.entity.techobjects.TechDocFileTypeEntity;
-import com.matrix.boundmaven.entity.techobjects.TechDocFilesBundleEntity;
-import com.matrix.boundmaven.entity.techobjects.TechDocType;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +17,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -78,9 +72,14 @@ public class Employee implements Serializable {
     @Column(name = "ACCOUNT", nullable = false, unique = true, length = 45)
     private String account;
 
+    @Basic(optional = false)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "EMPLOYEE_ROLE")
+    private EmployeeRole employeeRole;
+    
 
     @ElementCollection
-    @CollectionTable(name = "EMAILS",joinColumns = @JoinColumn(name = "EMOLOYEE_EMAIL_ID"))
+    @CollectionTable(name = "EMAILS",joinColumns = @JoinColumn(name = "EMPLOYEE_EMAIL_ID"))
     @Column(name = "EMAIL")
     private List<String> emails;
     
@@ -104,26 +103,26 @@ public class Employee implements Serializable {
     private Time ctime;
         
 
-    @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
-    private List<Device> devices;
-    
-    @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
-    private List<DeviceType> deviceTypes;
-    
-    @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
-    private List<DeviceVersion> deviceVersions;
-    
-    @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
-    private List<TechDocEntity> techDocEntitys;
-        
-    @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
-    private List<TechDocType> techDocTypes;
-       
-    @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
-    private List<TechDocFileTypeEntity> techDocFileTypeEntitys;
-    
-    @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
-    private List<TechDocFilesBundleEntity> techDocFilesBundleEntitys;
+//    @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
+//    private List<Device> devices;
+//    
+//    @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
+//    private List<DeviceType> deviceTypes;
+//    
+//    @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
+//    private List<DeviceVersion> deviceVersions;
+//    
+//    @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
+//    private List<TechDocEntity> techDocEntities;
+//        
+//    @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
+//    private List<TechDocType> techDocTypes;
+//       
+//    @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
+//    private List<TechDocFileTypeEntity> techDocFileTypeEntitys;
+//    
+//    @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
+//    private List<TechDocFilesBundleEntity> techDocFilesBundleEntitys;
 
     @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
     private List<Notebook> notebooks;
@@ -160,63 +159,63 @@ public class Employee implements Serializable {
         this.ctime = ctime;
     }
 
-    public List<Device> getDevices() {
-        return devices;
-    }
-
-    public void setDevices(List<Device> devices) {
-        this.devices = devices;
-    }
-
-    public List<DeviceType> getDeviceTypes() {
-        return deviceTypes;
-    }
-
-    public void setDeviceTypes(List<DeviceType> deviceTypes) {
-        this.deviceTypes = deviceTypes;
-    }
-
-    public List<DeviceVersion> getDeviceVersions() {
-        return deviceVersions;
-    }
-
-    public void setDeviceVersions(List<DeviceVersion> deviceVersions) {
-        this.deviceVersions = deviceVersions;
-    }
-
-    public List<TechDocEntity> getTechDocEntitys() {
-        return techDocEntitys;
-    }
-
-    public void setTechDocEntitys(List<TechDocEntity> techDocEntitys) {
-        this.techDocEntitys = techDocEntitys;
-    }
-
-    public List<TechDocType> getTechDocTypes() {
-        return techDocTypes;
-    }
-
-    public void setTechDocTypes(List<TechDocType> techDocTypes) {
-        this.techDocTypes = techDocTypes;
-    }
-
-    public List<TechDocFileTypeEntity> getTechDocFileTypeEntitys() {
-        return techDocFileTypeEntitys;
-    }
-
-    public void setTechDocFileTypeEntitys(List<TechDocFileTypeEntity> techDocFileTypeEntitys) {
-        this.techDocFileTypeEntitys = techDocFileTypeEntitys;
-    }
-
-    public List<TechDocFilesBundleEntity> getTechDocFilesBundleEntitys() {
-        return techDocFilesBundleEntitys;
-    }
-
-    public void setTechDocFilesBundleEntitys(List<TechDocFilesBundleEntity> techDocFilesBundleEntitys) {
-        this.techDocFilesBundleEntitys = techDocFilesBundleEntitys;
-    }
-    
-   
+//    public List<Device> getDevices() {
+//        return devices;
+//    }
+//
+//    public void setDevices(List<Device> devices) {
+//        this.devices = devices;
+//    }
+//
+//    public List<DeviceType> getDeviceTypes() {
+//        return deviceTypes;
+//    }
+//
+//    public void setDeviceTypes(List<DeviceType> deviceTypes) {
+//        this.deviceTypes = deviceTypes;
+//    }
+//
+//    public List<DeviceVersion> getDeviceVersions() {
+//        return deviceVersions;
+//    }
+//
+//    public void setDeviceVersions(List<DeviceVersion> deviceVersions) {
+//        this.deviceVersions = deviceVersions;
+//    }
+//
+//    public List<TechDocEntity> getTechDocEntitys() {
+//        return techDocEntities;
+//    }
+//
+//    public void setTechDocEntitys(List<TechDocEntity> techDocEntitys) {
+//        this.techDocEntities = techDocEntitys;
+//    }
+//
+//    public List<TechDocType> getTechDocTypes() {
+//        return techDocTypes;
+//    }
+//
+//    public void setTechDocTypes(List<TechDocType> techDocTypes) {
+//        this.techDocTypes = techDocTypes;
+//    }
+//
+//    public List<TechDocFileTypeEntity> getTechDocFileTypeEntitys() {
+//        return techDocFileTypeEntitys;
+//    }
+//
+//    public void setTechDocFileTypeEntitys(List<TechDocFileTypeEntity> techDocFileTypeEntitys) {
+//        this.techDocFileTypeEntitys = techDocFileTypeEntitys;
+//    }
+//
+//    public List<TechDocFilesBundleEntity> getTechDocFilesBundleEntitys() {
+//        return techDocFilesBundleEntitys;
+//    }
+//
+//    public void setTechDocFilesBundleEntitys(List<TechDocFilesBundleEntity> techDocFilesBundleEntitys) {
+//        this.techDocFilesBundleEntitys = techDocFilesBundleEntitys;
+//    }
+//    
+//   
     
     
     
@@ -228,9 +227,22 @@ public class Employee implements Serializable {
         this.department = department;
     }
 
-    
-    
-    
+    public EmployeeRole getEmployeeRole() {
+        return employeeRole;
+    }
+
+    public void setEmployeeRole(EmployeeRole employeeRole) {
+        this.employeeRole = employeeRole;
+    }
+
+    public List<Notebook> getNotebooks() {
+        return notebooks;
+    }
+
+    public void setNotebooks(List<Notebook> notebooks) {
+        this.notebooks = notebooks;
+    }
+ 
     
     public String getAccount() {
         return account;

@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.matrix.boundmaven.entity.techobjects;
+package com.matrix.boundmaven.entity.techobjects.devices;
 
 import com.matrix.boundmaven.entity.Employee;
 import com.matrix.boundmaven.entity.Time;
 import com.matrix.boundmaven.entity.partreference.RowObjectPartRef;
+import com.matrix.boundmaven.entity.techobjects.techdocuments.TechDocEntity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;

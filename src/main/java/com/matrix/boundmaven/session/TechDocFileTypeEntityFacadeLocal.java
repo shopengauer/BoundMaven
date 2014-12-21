@@ -5,7 +5,7 @@
  */
 package com.matrix.boundmaven.session;
 
-import com.matrix.boundmaven.entity.techobjects.TechDocFileTypeEntity;
+import com.matrix.boundmaven.entity.techobjects.techdocuments.types.TechDocFileTypeEntity;
 import java.util.List;
 import javax.ejb.Local;
 

@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.matrix.boundmaven.entity.techobjects;
+package com.matrix.boundmaven.entity.techobjects.techdocuments;
 
+import com.matrix.boundmaven.entity.techobjects.techdocuments.types.TechDocType;
+import com.matrix.boundmaven.entity.techobjects.devices.Device;
 import com.matrix.boundmaven.entity.Employee;
 import com.matrix.boundmaven.entity.Time;
 import java.io.Serializable;
@@ -49,16 +51,16 @@ public class TechDocEntity implements Serializable {
     @Column(name = "TECHDOC_COD",unique = true)
     private String techDocCod;
     
-    @Basic 
-    @Column(name = "TECHDOC_DESCRIPTION")
+    @Basic(optional = true) 
+    @Column(name = "TECHDOC_DESCRIPTION",length = 255)
     private String techDocDescription;
     
    
    ////////////////// techdoc files bundle(extra bundle exlusive for current device) ////////////////////////////// 
     
-   @ElementCollection(fetch = FetchType.LAZY)
-   @CollectionTable(name = "TECHDOC_FILES_BUNDLE", joinColumns = @JoinColumn(name = "TECHDOC_FILES_ID"))
-   private List<TechDocFilesBundle> techDocFilesBundle;
+                           @ElementCollection(fetch = FetchType.LAZY)
+                           @CollectionTable(name = "TECHDOC_FILES_BUNDLE", joinColumns = @JoinColumn(name = "TECHDOC_FILES_ID"))
+                           private List<TechDocFilesBundle> techDocFilesBundle;
     
     /////////////////////////////////////////////////////////////////////
        
@@ -69,7 +71,9 @@ public class TechDocEntity implements Serializable {
    
    
    /////////////////////////////////////////////////////////////////////
-      
+    
+    
+    // For example DAR or KD or BOM
     @ManyToOne(optional = false)
     @JoinColumn(name = "FK_TECHDOC_TYPE_ID",referencedColumnName = "TECHDOC_TYPE_ID")
     private TechDocType techDocType;
@@ -78,13 +82,7 @@ public class TechDocEntity implements Serializable {
     @ManyToOne(optional = false)
     @JoinColumn(name = "FK_DEVICE_ID",referencedColumnName = "DEVICE_ID")
     private Device device;
-    
-    
-    @ManyToOne(optional = true)
-    @JoinColumn(name = "FK_EMPLOYEE_ID",referencedColumnName = "EMPLOYEE_ID")
-    private Employee employee;
-        
-    
+     
     
     @Embedded
     private Time ctime;
@@ -96,14 +94,7 @@ public class TechDocEntity implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
+ 
 
     public Time getCtime() {
         return ctime;

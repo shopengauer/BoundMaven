@@ -6,8 +6,8 @@
 package com.matrix.boundmaven.managed;
 
 import com.matrix.boundmaven.entity.Department;
-import com.matrix.boundmaven.session.DepartmentFacade;
-import com.matrix.boundmaven.session.EmployeeFacade;
+import com.matrix.boundmaven.session.DepartmentFacadeLocal;
+import com.matrix.boundmaven.session.EmployeeFacadeLocal;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -29,11 +29,11 @@ public class EmployeeBean implements Serializable {
     /**
      * Creates a new instance of EmployeeBean
      */
-    @EJB EmployeeFacade employeeFacade; 
+    @EJB EmployeeFacadeLocal employeeFacade; 
     
-    @EJB DepartmentFacade departmentFacade;
+    @EJB DepartmentFacadeLocal departmentFacade;
     
-      private UploadedFile file;
+    //  private UploadedFile file;
      
     @Size(min = 2,max = 45,message = "{firstnameLength.message}")
     @NotBlank(message = "{notBlankFirstname.message}")
@@ -69,8 +69,7 @@ public class EmployeeBean implements Serializable {
        
     };
     
-    
-    
+   
     
      public EmployeeBean() {
     }
@@ -80,6 +79,54 @@ public class EmployeeBean implements Serializable {
         
         
     } 
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
      
      
     

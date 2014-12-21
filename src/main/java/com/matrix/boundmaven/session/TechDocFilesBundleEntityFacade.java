@@ -5,7 +5,7 @@
  */
 package com.matrix.boundmaven.session;
 
-import com.matrix.boundmaven.entity.techobjects.TechDocFilesBundleEntity;
+import com.matrix.boundmaven.entity.techobjects.techdocuments.TechDocFilesBundleEntity;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

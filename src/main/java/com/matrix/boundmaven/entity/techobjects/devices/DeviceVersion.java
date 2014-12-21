@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.matrix.boundmaven.entity.techobjects;
+package com.matrix.boundmaven.entity.techobjects.devices;
 
 import com.matrix.boundmaven.entity.Employee;
 import com.matrix.boundmaven.entity.Time;
@@ -56,12 +56,6 @@ public class DeviceVersion implements Serializable {
     @Embedded
     private Time ctime;
     
-    
-    @ManyToOne(optional = true)
-    @JoinColumn(name = "FK_EMPLOYEE_ID",referencedColumnName = "EMPLOYEE_ID")
-    private Employee employee;
-        
-    
     @OneToMany(mappedBy = "deviceVersion",fetch = FetchType.LAZY)
     private List<Device> devices;
     
@@ -82,16 +76,7 @@ public class DeviceVersion implements Serializable {
         this.ctime = ctime;
     }
 
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
-    
-    
+   
     public String getDeviceVersion() {
         return deviceVersion;
     }

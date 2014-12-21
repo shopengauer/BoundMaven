@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.matrix.boundmaven.entity.techobjects;
+package com.matrix.boundmaven.entity.techobjects.devices;
 
 import java.io.Serializable;
 import java.util.List;
@@ -36,6 +36,12 @@ public class DeviceSeries implements Serializable {
     @Size(min = 2,max = 45)
     @Column(name = "DEVICE_SERIES_NAME",length = 45,unique = true)
     private String deviceSeriesName;
+    
+    @Basic(optional = true)
+    @Size(max = 255)
+    @Column(name = "DEVICE_SERIES_DESCRIPTION", length = 255)
+    private String deviceSeriesDescription;
+    
     
     @OneToMany(mappedBy = "deviceSeries",fetch = FetchType.LAZY)   
     private List<Device> devices;

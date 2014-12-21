@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.matrix.boundmaven.entity.techobjects;
+package com.matrix.boundmaven.entity.techobjects.techdocuments.types;
 
 import com.matrix.boundmaven.entity.Employee;
 import com.matrix.boundmaven.entity.Time;
+import com.matrix.boundmaven.entity.techobjects.techdocuments.TechDocFilesBundleEntity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -23,45 +24,72 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Василий
+ * @author Vasiliy
  */
 @Entity
-@Table(name = "DEVICE_TYPE")
-public class DeviceType implements Serializable {
+@Table(name = "TECHDOC_FILE_TYPE_ENTITY")
+public class TechDocFileTypeEntity implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+   
     @Id
     @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "DEVICE_TYPE_ID")
+    @Column(name = "TECHDOC_FILE_TYPE_ID")
     private Long id;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 2, max = 45)
-    @Column(name = "DEVICE_TYPE", nullable = false, unique = true)
-    private String deviceType;
+    @Column(name = "TECHDOC_FILE_TYPE_NAME",length = 45,unique = true)
+    private String techDocFileTypeName;
     
-    @Basic(optional = true)
-    @Size(max = 255)
-    @Column(name = "DEVICE_TYPE_DESCRIPTION", length = 255)
-    private String deviceTypeDescription;
+    @Basic 
+    @Column(name = "TECHDOC_FILE_TYPE_DESCRIPTION")
+    private String techDocFileTypeDesc;
+    
+    @OneToMany(mappedBy = "techDocFileTypeEntity",fetch = FetchType.LAZY)
+    private List<TechDocFilesBundleEntity> techDocFilesBundleEntities; 
     
     @Embedded
     private Time ctime;
     
-    @OneToMany(mappedBy = "deviceType",fetch = FetchType.LAZY)   
-    private List<Device> devices;
+     
+  
+    public String getTechDocFileTypeName() {
+        return techDocFileTypeName;
+    }
 
-    
-    @ManyToOne(optional = true)
-    @JoinColumn(name = "FK_EMPLOYEE_ID",referencedColumnName = "EMPLOYEE_ID")
-    private Employee employee;
-        
+    public void setTechDocFileTypeName(String techDocFileTypeName) {
+        this.techDocFileTypeName = techDocFileTypeName;
+    }
+
+    public String getTechDocFileTypeDesc() {
+        return techDocFileTypeDesc;
+    }
+
+    public void setTechDocFileTypeDesc(String techDocFileTypeDesc) {
+        this.techDocFileTypeDesc = techDocFileTypeDesc;
+    }
+
+    public List<TechDocFilesBundleEntity> getTechDocFilesBundleEntities() {
+        return techDocFilesBundleEntities;
+    }
+
+    public void setTechDocFilesBundleEntities(List<TechDocFilesBundleEntity> techDocFilesBundleEntities) {
+        this.techDocFilesBundleEntities = techDocFilesBundleEntities;
+    }
+
+    public Time getCtime() {
+        return ctime;
+    }
+
+    public void setCtime(Time ctime) {
+        this.ctime = ctime;
+    }
+   
     
     
     public Long getId() {
@@ -72,52 +100,6 @@ public class DeviceType implements Serializable {
         this.id = id;
     }
 
-    public String getDeviceType() {
-        return deviceType;
-    }
-
-    public void setDeviceType(String deviceType) {
-        this.deviceType = deviceType;
-    }
-
-    public String getDeviceTypeDescription() {
-        return deviceTypeDescription;
-    }
-
-    public void setDeviceTypeDescription(String deviceTypeDescription) {
-        this.deviceTypeDescription = deviceTypeDescription;
-    }
-
-    public Time getCtime() {
-        return ctime;
-    }
-
-    public void setCtime(Time ctime) {
-        this.ctime = ctime;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
-    
-    
-    @XmlTransient
-    public List<Device> getDevices() {
-        return devices;
-    }
-
-    public void setDevices(List<Device> devices) {
-        this.devices = devices;
-    }
-
-    
-    
-    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -128,10 +110,10 @@ public class DeviceType implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof DeviceType)) {
+        if (!(object instanceof TechDocFileTypeEntity)) {
             return false;
         }
-        DeviceType other = (DeviceType) object;
+        TechDocFileTypeEntity other = (TechDocFileTypeEntity) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -140,7 +122,7 @@ public class DeviceType implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.full.DeviceType[ id=" + id + " ]";
+        return "com.matrix.boundmaven.entity.techobjects.TechDocFileTypeEntity[ id=" + id + " ]";
     }
     
 }

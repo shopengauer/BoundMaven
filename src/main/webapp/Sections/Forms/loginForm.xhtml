@@ -17,7 +17,7 @@
                         <p:inputText id = "inputName" value="#{login.account}" placeholder="#{msgs.account}" autocomplete="false"/> 
                         <p:password id ="inputPassword" value="#{login.password}" placeholder="#{msgs.pw}"/>    
                         <p:commandLink id="loginBtn" ajax="false" value="#{msgs.login}" action="#{login.validateUser}"/>
-                        <p:link id="registerBtn" value="#{msgs.register}"/>  
+                        <p:link id="registerBtn" value="#{msgs.register}" outcome="register"/>  
                     </h:panelGrid>
                 </h:form>
             </f:view>

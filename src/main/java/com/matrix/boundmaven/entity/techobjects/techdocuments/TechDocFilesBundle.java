@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.matrix.boundmaven.entity.techobjects;
+package com.matrix.boundmaven.entity.techobjects.techdocuments;
 
+import com.matrix.boundmaven.entity.techobjects.techdocuments.types.TechDocFileType;
 import java.io.Serializable;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -42,8 +43,8 @@ public class TechDocFilesBundle implements Serializable {
     @Column(name = "TECHDOC_FILECOD", length = 45,nullable = false)
     private String techDocFileCod; 
      
-    @Basic
-    @Column(name = "TECHDOC_FILENAME_DESCRIPTION")
+    @Basic(optional = true)
+    @Column(name = "TECHDOC_FILENAME_DESCRIPTION",length = 255)
     private String techDocFileNameDesc;
       
     @Lob

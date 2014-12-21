@@ -5,7 +5,7 @@
  */
 package com.matrix.boundmaven.entity.partreference;
 
-import com.matrix.boundmaven.entity.techobjects.Device;
+import com.matrix.boundmaven.entity.techobjects.devices.Device;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;

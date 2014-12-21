@@ -5,7 +5,7 @@
  */
 package com.matrix.boundmaven.session;
 
-import com.matrix.boundmaven.entity.techobjects.Device;
+import com.matrix.boundmaven.entity.techobjects.devices.Device;
 import java.util.List;
 import javax.ejb.Local;
 

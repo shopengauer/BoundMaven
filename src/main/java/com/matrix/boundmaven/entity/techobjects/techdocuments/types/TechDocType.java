@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.matrix.boundmaven.entity.techobjects;
+package com.matrix.boundmaven.entity.techobjects.techdocuments.types;
 
 import com.matrix.boundmaven.entity.Employee;
 import com.matrix.boundmaven.entity.Time;
+import com.matrix.boundmaven.entity.techobjects.techdocuments.TechDocEntity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -60,18 +61,8 @@ public class TechDocType implements Serializable {
     
     @Embedded
     private Time ctime; 
-
-    @ManyToOne(optional = true)
-    @JoinColumn(name = "FK_EMPLOYEE_ID",referencedColumnName = "EMPLOYEE_ID")
-    private Employee employee;
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
+ 
+ 
        
     public String getTechDocType() {
         return techDocType;

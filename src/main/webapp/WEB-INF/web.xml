@@ -35,7 +35,7 @@
     </session-config>
     <welcome-file-list>
         <!--<welcome-file>faces/menuLayoutClient.xhtml</welcome-file>-->
-        <welcome-file>faces/loginLayout.xhtml</welcome-file>
+        <welcome-file>faces/login.xhtml</welcome-file>
     </welcome-file-list>
     <security-constraint>
         <display-name>Constraint</display-name>

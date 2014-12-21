@@ -8,6 +8,7 @@ package com.matrix.boundmaven.entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -44,7 +45,7 @@ public class Department implements Serializable {
    
     @Basic(optional = true)
     @Size(max = 255)
-    @Column(name = "DEPARTMENT_DESCRIPTION")
+    @Column(name = "DEPARTMENT_DESCRIPTION",length = 255)
     private String description;
     
     
@@ -52,10 +53,10 @@ public class Department implements Serializable {
     private Time ctime;
     
     
-    @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "department", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Employee> employees; 
 
-    @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "department", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<JobTitle> jobTitles; 
 
     public Time getCtime() {

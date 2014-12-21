@@ -6,7 +6,7 @@
 package com.matrix.boundmaven.entity.contract;
 
 import com.matrix.boundmaven.entity.Time;
-import com.matrix.boundmaven.entity.techobjects.Device;
+import com.matrix.boundmaven.entity.techobjects.devices.Device;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.AttributeOverride;

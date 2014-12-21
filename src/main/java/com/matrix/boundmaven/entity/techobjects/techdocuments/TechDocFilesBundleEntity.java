@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.matrix.boundmaven.entity.techobjects;
+package com.matrix.boundmaven.entity.techobjects.techdocuments;
 
+import com.matrix.boundmaven.entity.techobjects.techdocuments.types.TechDocFileTypeEntity;
 import com.matrix.boundmaven.entity.Employee;
 import com.matrix.boundmaven.entity.Time;
 import java.io.Serializable;
@@ -58,26 +59,24 @@ public class TechDocFilesBundleEntity implements Serializable {
    
      
     @Lob
-    @Basic(optional = true,fetch = FetchType.LAZY)
+    @Basic(optional = true, fetch = FetchType.LAZY)
     @Column(name = "TECHDOC_FILE")
     private Byte[] techDocFile; 
     
     @Embedded
     private Time ctime;
     
-    
+    // Type of document
     @ManyToOne(optional = false)
     @JoinColumn(name = "FK_TECHDOC_FILE_TYPE_ID", referencedColumnName = "TECHDOC_FILE_TYPE_ID")
     private TechDocFileTypeEntity techDocFileTypeEntity;
     
+    
+    //Technical document entity
     @ManyToOne(optional = false)// TRUE ?????
     @JoinColumn(name = "FK_TECHDOC_ENTITY_ID", referencedColumnName = "TECHDOC_ENTITY_ID")
     private TechDocEntity techDocEntity;
-
-    
-    @ManyToOne(optional = true)
-    @JoinColumn(name = "FK_EMPLOYEE_ID",referencedColumnName = "EMPLOYEE_ID")
-    private Employee employee;
+ 
 
     public String getTechDocFileCod() {
         return techDocFileCod;
@@ -86,15 +85,7 @@ public class TechDocFilesBundleEntity implements Serializable {
     public void setTechDocFileCod(String techDocFileCod) {
         this.techDocFileCod = techDocFileCod;
     }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-        
+ 
      
     public String getTechDocFileName() {
         return techDocFileName;
