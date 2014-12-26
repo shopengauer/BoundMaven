@@ -29,5 +29,7 @@ public interface EmployeeFacadeLocal {
     List<Employee> findRange(int[] range);
 
     int count();
+
+    List<String> getAllDepartmentsName();
     
 }

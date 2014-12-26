@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.matrix.boundmaven.managed;
+package com.matrix.boundmaven.managed.enterprize;
 
 import com.matrix.boundmaven.entity.Department;
 import com.matrix.boundmaven.session.DepartmentFacadeLocal;
+import com.matrix.boundmaven.validators.UniqueDepartment;
 import java.io.Serializable;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
@@ -32,10 +34,13 @@ import org.hibernate.validator.constraints.NotBlank;
 
 //@RequestScoped
 //@Model
-@ConversationScoped
+@RequestScoped
 @Named(value = "departmentBean")
 public class DepartmentBean implements Serializable{
 
+    List<Department> departmentList;
+    List<Department> allDepartment;
+        
     @EJB
     DepartmentFacadeLocal departmentFacade;
     
@@ -47,6 +52,7 @@ public class DepartmentBean implements Serializable{
     @NotBlank(message = "{notBlankDepartment.message}")
     @Size(min = 2,max = 45,message = "{departmentNameLength.message}")
     @NotNull
+    @UniqueDepartment
     private String departmentName;
    
     
@@ -55,15 +61,25 @@ public class DepartmentBean implements Serializable{
     
     @PostConstruct
     private void init(){
-     conversation.begin();
+     //conversation.begin();
     }
     
-    
+    private List<Department> selectedDepartments;
     
     public DepartmentBean() {
      
     }
 
+    public List<Department> getSelectedDepartments() {
+        return selectedDepartments;
+    }
+
+    public void setSelectedDepartments(List<Department> selectedDepartments) {
+        this.selectedDepartments = selectedDepartments;
+    }
+
+    
+    
     public String getDepartmentName() {
         return departmentName;
     }
@@ -82,26 +98,45 @@ public class DepartmentBean implements Serializable{
     
     public String createDepartment(){
    
-    
+      departmentFacade.createDepartment(departmentName, description);
 // Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
     // flash.putNow("depName", this.departmentName);
    //  flash.putNow("depDesc", this.description);    
     //departmentFacade.createDepartment(departmentName, description);
-      return "addDepartmentConfirm?faces-redirect=true";
+      return null;
     }
+   
+    public void createDepartmentListener(ActionEvent ae){
+        
+        departmentFacade.createDepartment(departmentName, description);
+        departmentName = null;
+        description = null;
+    }
+    
+    
+    
+    
+    
      public String departmentConfirm(){
        
         departmentFacade.createDepartment(departmentName, description);
-        conversation.end();
+        
    
      //  departmentFacade.createDepartment(departmentName, description);
       return "windows/department/addDepartmentWin?faces-redirect=true";
     }
-   public void actionListener(ActionEvent event) {
-       
+  
      
-   } 
+    public void getAllDepartmentActionListener(ActionEvent event) {
+       
+          departmentList = departmentFacade.findAll();
+          
+      } 
     
-    
+     public List<Department> getAllDepartment() {
+       
+          return departmentFacade.findAll();
+          
+      } 
     
 }

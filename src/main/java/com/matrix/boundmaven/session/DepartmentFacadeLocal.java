@@ -32,6 +32,10 @@ public interface DepartmentFacadeLocal {
 
     void createDepartment(String departmentName, String departmentDescription);
 
+    List<String> getDepartmentsNameList();
+
+    List<Department> getDepartmentByName(String departmentName);
+
    
     
 }

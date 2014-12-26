@@ -11,17 +11,30 @@
         <ui:composition>
             <f:view locale="#{locale.locale}" xmlns:f="http://xmlns.jcp.org/jsf/core">
                 <h:form>
-                    <h:panelGrid columns="2">
+                    <h:panelGrid columns="2" cellpadding="5" cellspacing="5">
                         <p:outputLabel value="#{msgs.firstname}:" for = "fname"/>
                         <p:inputText id ="fname" value="#{employeeBean.firstName}"/>
                         <p:outputLabel value="#{msgs.lastname}:" for = "lname"/>
                         <p:inputText id ="lname" value="#{employeeBean.lastName}"/>
                         <p:outputLabel value="#{msgs.account}:" for = "account"/>
                         <p:inputText id ="account" value="#{employeeBean.firstName}"/>
+                        <p:outputLabel value="#{msgs.department}:" for = "department"/>
+                        
+                        <p:selectOneMenu id ="department" value="#{employeeBean.departmentName}">
+                            <f:selectItems value="#{employeeBean.departmentNameList}" var ="department"
+                                           itemValue="#{department}" itemLabel="#{department}"/>
+                        </p:selectOneMenu>
+                        
                         <p:outputLabel value="#{msgs.jobtitle}:" for = "jobtitle"/>
                         <p:inputText id ="jobtitle" value="#{employeeBean.jobTitle}"/>
-                        <h:commandButton value="#{msgs.cancel}" immediate="true" action="cancel"/>
+                        
+                        <h:outputLabel for="pwd1" value="#{msgs.pw} 1: *" />
+                        <p:password id="pwd1" value="#{employeeBean.password}" match="pwd2" label="Password 1"/>
+                        <h:outputLabel for="pwd2" value="#{msgs.pw} 2: *" />
+                        <p:password id="pwd2" value="#{employeeBean.password}" label="Password 2"/>
+                        
                         <h:commandButton value="#{msgs.add}" action="#"/> 
+                        <h:commandButton value="#{msgs.cancel}" immediate="true" action="cancel"/>
                    </h:panelGrid>
                 </h:form>
             </f:view>

@@ -5,32 +5,39 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Bound Maven</title>
+        <title>Administrator page</title>
+        <style>
+/*            .ui-layout-unit .ui-layout-unit-content {
+            padding: 0.2em 0em;
+            border: 0px none;
+            overflow: hidden !important;
+        }*/
+        </style>
     </h:head>
-    
     <h:body>
-        <f:view locale="#{locale.locale}" xmlns:f="http://xmlns.jcp.org/jsf/core"> 
+         <f:view locale="#{locale.locale}" xmlns:f="http://xmlns.jcp.org/jsf/core"> 
             <p:layout fullPage="true">
-
+                <p:growl id="messages" showDetail="false" /> 
+                
+                
+                
                 <p:layoutUnit position="north">
-                    <ui:include src="Sections/Menu/mainMenu.xhtml"/> 
+                    <ui:include src="../Sections/Menu/mainMenu.xhtml"/>
                 </p:layoutUnit>
-
-                <!---->
+                
+                
+                <ui:insert name="westContent"> 
+                  
+                </ui:insert>
+                
+                <p:layoutUnit position="center">
                     <ui:insert name="mainContent">
-                    <p:layoutUnit position="center">
-                    </p:layoutUnit>
-                    </ui:insert>    
-                <!---->    
+                    </ui:insert>                    
+                </p:layoutUnit>    
 
-                <p:layoutUnit position="west">
-                    <ui:include src="Sections/Menu/westMenuDepartment.xhtml"/>   
-                </p:layoutUnit> 
-                
-                
                 <p:layoutUnit position="south">
                     <div style="float: left">
-                        <ui:include src="Sections/Login/locale.xhtml"/>   
+                        <ui:include src="../Sections/Facets/locale.xhtml"/>   
                     </div>
                     <div style="float: right">
                         <h:link value='ООО"Матрица" 2014'/> 
@@ -40,3 +47,4 @@
         </f:view>   
     </h:body>
 </html>
+

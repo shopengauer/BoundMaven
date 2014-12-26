@@ -11,23 +11,26 @@
         <ui:composition>
             <f:view locale="#{locale.locale}" xmlns:f="http://xmlns.jcp.org/jsf/core">
                 <h:form rendered="true"> 
-                    <p:link value="Просмотр документации" outcome="westMenuDeviceTemplate"/>
-                    <p:commandLink value="Работа с документацией" style="margin-left: 20px" action="AdminAcc/admin"/>
-                    <p:link value="Предприятие" style="margin-left: 20px"/>
-                    <p:commandLink value="#{msgs.logout}" ajax="false" style="margin-left: 20px" action="#{login.logout}"/>
+                   <!--<p:growl id="messages" showDetail="false" />-->
+                   <!--<p:link value="Предприятие" style="margin-left: 20px"/>-->
                     
-                    
-                    <p:toolbar id="mainToolbar" rendered="false">
+                    <!--<p:toolbar id="mainToolbar" rendered="true">-->
 
-                        <f:facet name="left">
-                             
-                        </f:facet> 
+                        <!--<f:facet name="left">-->
+                            <p:link value="#{msgs.department}" outcome="department"/>
+                            
+<!--                            <p:menuButton value="#{msgs.enterprize}">
+                                <p:menuitem value="#{msgs.department}" outcome="department"/>
+                                <p:menuitem value="#{msgs.jobtitle}"/>
+                                <p:menuitem value="#{msgs.employee}"/>
+                            </p:menuButton>-->
+                        <!--</f:facet>--> 
 
-                        <f:facet name="right">
-                            <h:link value='ООО"Матрица" 2014' style="float: right; color: #ffffff; margin-top: 5px"/>
-                        </f:facet>
+                        <!--<f:facet name="right">-->
+                            <!--<h:link value='ООО"Матрица" 2014' style="float: right; color: #ffffff; margin-top: 5px"/>-->
+                        <!--</f:facet>-->
 
-                    </p:toolbar>
+                    <!--</p:toolbar>-->
                 </h:form>
 
             </f:view>

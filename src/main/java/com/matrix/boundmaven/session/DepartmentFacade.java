@@ -8,9 +8,11 @@ package com.matrix.boundmaven.session;
 import com.matrix.boundmaven.entity.Department;
 import com.matrix.boundmaven.entity.Time;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -40,7 +42,25 @@ public class DepartmentFacade extends AbstractFacade<Department> implements Depa
          department.setCtime(insertTime);
          create(department);
     }
+
+    @Override
+    public List<String> getDepartmentsNameList() {
+        TypedQuery<String> query = 
+                em.createNamedQuery("Department.findAllDepartmentsName", String.class);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Department> getDepartmentByName(String departmentName) {
+        
+        TypedQuery<Department> query = 
+                em.createNamedQuery("Department.findDepartmentByName", Department.class);
+         
+        return query.setParameter("departmentName", departmentName).getResultList();
+    }
    
+    
+    
     
     
 }

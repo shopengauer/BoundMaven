@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../admin.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+ 
+    <ui:define name="mainContent">
+        
+        <p:layout> 
+            <p:layoutUnit position="south" id = "south"  resizable="true" minSize="50">   
+                <!--<p:toolbar>-->
+                    <!--<f:facet name="left">-->
+                        <!---->
+                        <!--<h:panelGrid columns="3"  >--> 
+                        <h:form>
+                            <p:inputText id="depName2" placeholder="#{msgs.department}" value="#{departmentBean.departmentName}"/> 
+                            <p:inputText id ="depDesc2" placeholder="#{msgs.desc}"
+                                         value="#{departmentBean.description}"/>
+                            <p:commandButton id = "depBtn2" update=":#{p:component('dataTable')},:#{p:component('messages')},:#{p:component('depName')},:#{p:component('depDesc')}" 
+                                             value="#{msgs.create}" actionListener="#{departmentBean.createDepartmentListener}"/>  
+                            <!--</h:panelGrid>-->
+                            <!---->
+                        </h:form> 
+                    <!--</f:facet>-->  
+                <!--</p:toolbar>-->    
+            </p:layoutUnit>  
+            
+            <p:layoutUnit position="center">   
+                <h:form id ="departmentForm">  
+                  <p:dataTable id="dataTable" var="dep" value="#{departmentBean.allDepartment}" paginator="true"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15" selection="#{departmentBean.selectedDepartments}" rowKey="#{dep.id}">
+ 
+                        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                        <p:column headerText="#{msgs.department}">
+                            <!--<h:outputText value="{dep.departmentName}"/>-->
+                            <!--<h:form>-->
+                            <p:commandLink value="#{dep.departmentName}"/> 
+                            <!--</h:form>-->
+                        </p:column>
+
+                        <p:column headerText="#{msgs.desc}">
+                            <h:outputText value="#{dep.description}" />
+                        </p:column>
+
+                        <!--            <p:column style="width:32px">
+                                        <p:rowEditor/>
+                                    </p:column>
+                        -->    
+
+                    </p:dataTable>
+
+                </h:form>
+ 
+            </p:layoutUnit> 
+           
+        </p:layout>
+       
+    </ui:define>
+
+    <ui:define name="westContent">
+        <p:layoutUnit position="west" header="#{msgs.create}"  rendered="false">
+            <!--<ui:include src="../../Sections/Forms/addDepartmentForm.xhtml"/>-->
+            <h:form> 
+                <h:panelGrid columns="1" cellpadding="1" cellspacing="1"> 
+                    <p:inputText id="depName" placeholder="#{msgs.department}" value="#{departmentBean.departmentName}"/> 
+                    <p:inputTextarea id ="depDesc" placeholder="#{msgs.desc}"
+                                     value="#{departmentBean.description}" cols="25" maxlength="255"/>
+                    <p:commandButton id = "depBtn" update=":#{p:component('dataTable')},:#{p:component('messages')},:#{p:component('depName')},:#{p:component('depDesc')}" 
+                                     value="#{msgs.create}" actionListener="#{departmentBean.createDepartmentListener}"/>  
+                </h:panelGrid>
+            </h:form>
+        </p:layoutUnit>  
+    </ui:define> 
+
+    
+</ui:composition>

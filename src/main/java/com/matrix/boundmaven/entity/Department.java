@@ -16,6 +16,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -27,6 +29,9 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "DEPARTMENT")
+@NamedQueries({@NamedQuery(name = "Department.findAllDepartmentsName",query = "SELECT d.departmentName FROM Department d"),
+                  @NamedQuery(name = "Department.findDepartmentByName"
+                          ,query = "SELECT d FROM Department d WHERE d.departmentName = :departmentName")})
 public class Department implements Serializable {
     private static final long serialVersionUID = 1L;
 

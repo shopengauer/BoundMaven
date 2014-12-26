@@ -40,23 +40,30 @@
     <security-constraint>
         <display-name>Constraint</display-name>
         <web-resource-collection>
-            <web-resource-name>Auth</web-resource-name>
+            <web-resource-name>Admin</web-resource-name>
             <description/>
-            <url-pattern>/faces/AdminAcc/*</url-pattern>
+            <url-pattern>/faces/Admin/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description/>
-            <role-name>Admin</role-name>
+            <role-name>Manager</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>Constraint1</display-name>
+        <web-resource-collection>
+            <web-resource-name>Sections</web-resource-name>
+            <description/>
+            <url-pattern>/faces/Sections/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
         </auth-constraint>
     </security-constraint>
     <login-config>
-        <auth-method>DIGEST</auth-method>
+        <auth-method>BASIC</auth-method>
         <realm-name>ApplicationRealm</realm-name>
     </login-config>
-    <security-role>
-        <description/>
-        <role-name>Admin</role-name>
-    </security-role>
     <security-role>
         <description/>
         <role-name>Manager</role-name>

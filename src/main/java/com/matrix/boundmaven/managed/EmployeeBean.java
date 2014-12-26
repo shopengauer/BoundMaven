@@ -33,7 +33,7 @@ public class EmployeeBean implements Serializable {
     
     @EJB DepartmentFacadeLocal departmentFacade;
     
-    //  private UploadedFile file;
+      private UploadedFile file;
      
     @Size(min = 2,max = 45,message = "{firstnameLength.message}")
     @NotBlank(message = "{notBlankFirstname.message}")
@@ -54,7 +54,8 @@ public class EmployeeBean implements Serializable {
     @NotBlank(message = "{notBlankAccount.message}")
     private String account;
 
-    
+    @Size(min = 2, max = 45)
+    @NotBlank(message = "{notBlankAccount.message}")
     private String departmentName;
      
     @NotBlank
@@ -120,6 +121,13 @@ public class EmployeeBean implements Serializable {
         this.departmentName = departmentName;
     }
 
+    public List<String> getDepartmentNameList(){
+        
+        return departmentFacade.getDepartmentsNameList();
+    }
+    
+    
+    
     public String getJobTitle() {
         return jobTitle;
     }

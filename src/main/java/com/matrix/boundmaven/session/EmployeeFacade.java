@@ -6,9 +6,11 @@
 package com.matrix.boundmaven.session;
 
 import com.matrix.boundmaven.entity.Employee;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -27,5 +29,14 @@ public class EmployeeFacade extends AbstractFacade<Employee> implements Employee
     public EmployeeFacade() {
         super(Employee.class);
     }
+
+    @Override
+    public List<String> getAllDepartmentsName() {
+        TypedQuery<String> query = 
+                em.createNamedQuery("Department.findAllDepartmentsName", String.class);
+        return query.getResultList();
+    }
+    
+    
     
 }
