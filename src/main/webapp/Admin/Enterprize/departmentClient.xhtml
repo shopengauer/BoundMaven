@@ -9,35 +9,19 @@
     <ui:define name="mainContent">
         
         <p:layout> 
-            <p:layoutUnit position="south" id = "south"  resizable="true" minSize="50">   
-                <!--<p:toolbar>-->
-                    <!--<f:facet name="left">-->
-                        <!---->
-                        <!--<h:panelGrid columns="3"  >--> 
-                        <h:form>
-                            <p:inputText id="depName2" placeholder="#{msgs.department}" value="#{departmentBean.departmentName}"/> 
-                            <p:inputText id ="depDesc2" placeholder="#{msgs.desc}"
-                                         value="#{departmentBean.description}"/>
-                            <p:commandButton id = "depBtn2" update=":#{p:component('dataTable')},:#{p:component('messages')},:#{p:component('depName')},:#{p:component('depDesc')}" 
-                                             value="#{msgs.create}" actionListener="#{departmentBean.createDepartmentListener}"/>  
-                            <!--</h:panelGrid>-->
-                            <!---->
-                        </h:form> 
-                    <!--</f:facet>-->  
-                <!--</p:toolbar>-->    
-            </p:layoutUnit>  
+           
             
             <p:layoutUnit position="center">   
-                <h:form id ="departmentForm">  
+                <h:form>  
                   <p:dataTable id="dataTable" var="dep" value="#{departmentBean.allDepartment}" paginator="true"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                 rowsPerPageTemplate="5,10,15" selection="#{departmentBean.selectedDepartments}" rowKey="#{dep.id}">
+                                 rowsPerPageTemplate="5,10,15,20,30" selection="#{departmentBean.selectedDepartments}" rowKey="#{dep.id}">
  
                         <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
                         <p:column headerText="#{msgs.department}">
                             <!--<h:outputText value="{dep.departmentName}"/>-->
                             <!--<h:form>-->
-                            <p:commandLink value="#{dep.departmentName}"/> 
+                            <p:commandLink value="#{dep.departmentName}" action="" /> 
                             <!--</h:form>-->
                         </p:column>
 
@@ -51,27 +35,41 @@
                         -->    
 
                     </p:dataTable>
-
                 </h:form>
- 
             </p:layoutUnit> 
-           
-        </p:layout>
-       
-    </ui:define>
+        
+            <p:layoutUnit position="south" id = "south">   
+                
+                
+                <h:panelGrid columns="4"  > 
+                    <h:form id = "departmentForm">
+                        <p:inputText id="depName2" placeholder="#{msgs.department}" value="#{departmentBean.departmentName}"/> 
+                        <p:inputText id ="depDesc2" placeholder="#{msgs.desc}"
+                                     value="#{departmentBean.description}"/>
+                        <p:commandButton id = "depBtn2" update=":#{p:component('departmentForm')},:#{p:component('dataTable')},:#{p:component('depName2')},:#{p:component('depDesc2')},:#{p:component('messages')}"  
+                                         value="#{msgs.create}" actionListener="#{departmentBean.createDepartmentListener}"/> 
+                    </h:form>  
+                    <h:form>  
+                        <p:commandButton id = "depBtn3" update=":#{p:component('departmentForm')},:#{p:component('dataTable')},:#{p:component('messages')}"  
+                                         value="#{msgs.delete}"/>  
+                    </h:form>
+                </h:panelGrid>
 
+                
+                
+                
+                
+            </p:layoutUnit>  
+        
+        
+        </p:layout>
+    
+    </ui:define>
+   
+    
     <ui:define name="westContent">
         <p:layoutUnit position="west" header="#{msgs.create}"  rendered="false">
-            <!--<ui:include src="../../Sections/Forms/addDepartmentForm.xhtml"/>-->
-            <h:form> 
-                <h:panelGrid columns="1" cellpadding="1" cellspacing="1"> 
-                    <p:inputText id="depName" placeholder="#{msgs.department}" value="#{departmentBean.departmentName}"/> 
-                    <p:inputTextarea id ="depDesc" placeholder="#{msgs.desc}"
-                                     value="#{departmentBean.description}" cols="25" maxlength="255"/>
-                    <p:commandButton id = "depBtn" update=":#{p:component('dataTable')},:#{p:component('messages')},:#{p:component('depName')},:#{p:component('depDesc')}" 
-                                     value="#{msgs.create}" actionListener="#{departmentBean.createDepartmentListener}"/>  
-                </h:panelGrid>
-            </h:form>
+            
         </p:layoutUnit>  
     </ui:define> 
 

@@ -7,22 +7,34 @@
     <h:head>
         <title>Administrator page</title>
         <style>
-/*            .ui-layout-unit .ui-layout-unit-content {
-            padding: 0.2em 0em;
-            border: 0px none;
-            overflow: hidden !important;
-        }*/
+            .ui-layout-north {                    
+                overflow:hidden !important;
+            }
+
+            .ui-layout-north .ui-layout-unit-content {
+                overflow:hidden !important;
+            }     
+           .ui-layout-south {                    
+                overflow:hidden !important;
+            }
+
+            .ui-layout-south .ui-layout-unit-content {
+                overflow:hidden !important;
+            }     
+             
+        
         </style>
     </h:head>
     <h:body>
          <f:view locale="#{locale.locale}" xmlns:f="http://xmlns.jcp.org/jsf/core"> 
             <p:layout fullPage="true">
-                <p:growl id="messages" showDetail="false" /> 
+                <p:growl id="messages" showDetail="false"/> 
                 
                 
                 
-                <p:layoutUnit position="north">
-                    <ui:include src="../Sections/Menu/mainMenu.xhtml"/>
+                <p:layoutUnit position="north" gutter="6" >
+                     <ui:include src="../Sections/Menu/mainMenu.xhtml"/> 
+                    
                 </p:layoutUnit>
                 
                 
@@ -36,10 +48,10 @@
                 </p:layoutUnit>    
 
                 <p:layoutUnit position="south">
-                    <div style="float: left">
+                    <div style="float: left;">
                         <ui:include src="../Sections/Facets/locale.xhtml"/>   
                     </div>
-                    <div style="float: right">
+                    <div style="float: right;">
                         <h:link value='ООО"Матрица" 2014'/> 
                     </div>
                 </p:layoutUnit>  
