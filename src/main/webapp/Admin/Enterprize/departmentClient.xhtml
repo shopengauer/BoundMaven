@@ -9,69 +9,92 @@
     <ui:define name="mainContent">
         
         <p:layout> 
-           
-            
-            <p:layoutUnit position="center">   
-                <h:form>  
-                  <p:dataTable id="dataTable" var="dep" value="#{departmentBean.allDepartment}" paginator="true"
+
+            <h:form id="dataTableForm"> 
+                <p:layoutUnit position="center">   
+
+                    <p:dataTable id="dataTable" var="dep" value="#{departmentBean.allDepartment}" paginator="true"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                 rowsPerPageTemplate="5,10,15,20,30" selection="#{departmentBean.selectedDepartments}" rowKey="#{dep.id}">
- 
+                                 rowsPerPageTemplate="5,10,15,20,30" selection="#{departmentBean.selectedDepartments}" rowKey="#{dep.id}"  editable="true">
+
+                       
+                         <p:ajax event="rowEdit" listener="#{departmentBean.onRowEdit}" update=":#{p:component('messages')}"/>
+                        <p:ajax event="rowEditCancel" listener="#{departmentBean.onRowCancel}" update=":#{p:component('dataTable')},:#{p:component('messages')}"/>
+                        
+                        
                         <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                        
+                       
+                        
+                        <p:column headerText="id">
+                            <p:link value="#{dep.id}" outcome="departmentInfo">
+                                <f:param name="depName" value="#{dep.departmentName}"/>
+                            </p:link>
+                        </p:column>
+
                         <p:column headerText="#{msgs.department}">
-                            <!--<h:outputText value="{dep.departmentName}"/>-->
-                            <!--<h:form>-->
-                            <p:commandLink value="#{dep.departmentName}" action="" /> 
-                            <!--</h:form>-->
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{dep.departmentName}"/></f:facet>
+                                <f:facet name="input"><p:inputText value="#{dep.departmentName}" style="width:100%"/></f:facet>
+                            </p:cellEditor> 
+                        </p:column>
+                        
+                        
+                        <p:column headerText="#{msgs.desc}">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{dep.description}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{dep.description}" style="width:100%"/></f:facet>
+                            </p:cellEditor>
                         </p:column>
 
                         <p:column headerText="#{msgs.desc}">
-                            <h:outputText value="#{dep.description}" />
+                            <h:outputText value="#{dep.ctime.insertTime}" />
                         </p:column>
+ 
+                        <p:column style="width:32px">
+                            <p:rowEditor/>
+                        </p:column>                            
 
-                        <!--            <p:column style="width:32px">
-                                        <p:rowEditor/>
-                                    </p:column>
-                        -->    
-
+                        <!--                   <f:facet name="footer">
+                                            <p:commandButton id = "delDepBtn"  actionListener="{departmentBean.deleteDepartmentListener}" update=":{p:component('dataTable')},:{p:component('messages')}"  
+                                                                 value="{msgs.delete}"/> 
+                                            </f:facet> 
+                        -->
                     </p:dataTable>
-                </h:form>
-            </p:layoutUnit> 
-        
-            <p:layoutUnit position="south" id = "south">   
-                
-                
-                <h:panelGrid columns="4"  > 
-                    <h:form id = "departmentForm">
-                        <p:inputText id="depName2" placeholder="#{msgs.department}" value="#{departmentBean.departmentName}"/> 
-                        <p:inputText id ="depDesc2" placeholder="#{msgs.desc}"
-                                     value="#{departmentBean.description}"/>
-                        <p:commandButton id = "depBtn2" update=":#{p:component('departmentForm')},:#{p:component('dataTable')},:#{p:component('depName2')},:#{p:component('depDesc2')},:#{p:component('messages')}"  
-                                         value="#{msgs.create}" actionListener="#{departmentBean.createDepartmentListener}"/> 
-                    </h:form>  
-                    <h:form>  
-                        <p:commandButton id = "depBtn3" update=":#{p:component('departmentForm')},:#{p:component('dataTable')},:#{p:component('messages')}"  
-                                         value="#{msgs.delete}"/>  
-                    </h:form>
-                </h:panelGrid>
 
-                
-                
-                
-                
-            </p:layoutUnit>  
-        
-        
+
+                </p:layoutUnit>
+<!--                <p:layoutUnit position="west">
+                    <p:commandButton id = "delDepBtn"  actionListener="{departmentBean.deleteDepartmentListener}" update=":{p:component('dataTable')},:{p:component('messages')}"  
+                                     value="{msgs.delete}" process=":{p:component('dataTable')},@this"/> 
+
+                </p:layoutUnit>     -->
+
+
+
+                <p:layoutUnit position="south" id = "south">   
+                    <h:panelGrid columns="6"  > 
+                        <p:inputText id="depName" placeholder="#{msgs.department}" value="#{departmentBean.departmentName}"/> 
+                        <p:inputText id ="depDesc" placeholder="#{msgs.desc}"
+                                     value="#{departmentBean.description}"/>
+                        <p:commandButton id = "createDepBtn" update=":#{p:component('dataTable')},:#{p:component('depName')},:#{p:component('depDesc')},:#{p:component('messages')}"  
+                                         value="#{msgs.create}" actionListener="#{departmentBean.createDepartmentListener}"/> 
+                        
+                        <p:commandButton id = "delDepBtn"  actionListener="#{departmentBean.deleteDepartmentListener}" update=":#{p:component('dataTable')},:#{p:component('messages')}"  
+                                     value="#{msgs.delete}" process=":#{p:component('dataTable')},@this"/> 
+                   </h:panelGrid>
+                </p:layoutUnit>  
+
+            </h:form>
         </p:layout>
-    
     </ui:define>
    
     
-    <ui:define name="westContent">
-        <p:layoutUnit position="west" header="#{msgs.create}"  rendered="false">
+<!--    <ui:define name="westContent">
+        <p:layoutUnit position="west" header="{msgs.create}"  rendered="false">
             
         </p:layoutUnit>  
-    </ui:define> 
+    </ui:define> -->
 
     
 </ui:composition>

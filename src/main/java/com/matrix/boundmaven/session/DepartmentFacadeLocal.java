@@ -36,6 +36,8 @@ public interface DepartmentFacadeLocal {
 
     List<Department> getDepartmentByName(String departmentName);
 
+    void deleteDpartmentList(List<Department> departmentList);
+
    
     
 }

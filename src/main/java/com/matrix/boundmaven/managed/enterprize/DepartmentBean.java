@@ -10,6 +10,8 @@ import com.matrix.boundmaven.session.DepartmentFacadeLocal;
 import com.matrix.boundmaven.validators.UniqueDepartment;
 import java.io.Serializable;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
@@ -17,6 +19,7 @@ import javax.enterprise.context.ConversationScoped;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Model;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.faces.event.ActionEvent;
@@ -24,6 +27,7 @@ import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
+import org.primefaces.event.RowEditEvent;
 
 /**
  *
@@ -38,9 +42,11 @@ import org.hibernate.validator.constraints.NotBlank;
 @Named(value = "departmentBean")
 public class DepartmentBean implements Serializable{
 
-    List<Department> departmentList;
-    List<Department> allDepartment;
-        
+    private List<Department> departmentList;
+    
+    private List<Department> selectedDepartments;
+    
+    
     @EJB
     DepartmentFacadeLocal departmentFacade;
     
@@ -49,6 +55,12 @@ public class DepartmentBean implements Serializable{
     /**
      * Creates a new instance of DepartmentBean
      */
+    
+    private String currrentDep;
+
+   
+    
+    
     @NotBlank(message = "{notBlankDepartment.message}")
     @Size(min = 2,max = 45,message = "{departmentNameLength.message}")
     @NotNull
@@ -64,12 +76,23 @@ public class DepartmentBean implements Serializable{
      //conversation.begin();
     }
     
-    private List<Department> selectedDepartments;
+    
     
     public DepartmentBean() {
      
     }
 
+     public String getCurrrentDep() {
+        return currrentDep;
+    }
+
+    public void setCurrrentDep(String currrentDep) {
+        this.currrentDep = currrentDep;
+    }
+    
+    
+    
+    
     public List<Department> getSelectedDepartments() {
         return selectedDepartments;
     }
@@ -96,15 +119,7 @@ public class DepartmentBean implements Serializable{
         this.description = description;
     }
     
-    public String createDepartment(){
    
-      departmentFacade.createDepartment(departmentName, description);
-// Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
-    // flash.putNow("depName", this.departmentName);
-   //  flash.putNow("depDesc", this.description);    
-    //departmentFacade.createDepartment(departmentName, description);
-      return null;
-    }
    
     public void createDepartmentListener(ActionEvent ae){
         
@@ -114,16 +129,13 @@ public class DepartmentBean implements Serializable{
     }
     
     
-    
-    
-    
-     public String departmentConfirm(){
-       
-        departmentFacade.createDepartment(departmentName, description);
+    public String departmentInfo(){
         
-   
-     //  departmentFacade.createDepartment(departmentName, description);
-      return "windows/department/addDepartmentWin?faces-redirect=true";
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String,String> map =  fc.getExternalContext().getRequestParameterMap();
+        currrentDep  = map.get("depName");
+        return "departmentInfo";
+        
     }
   
      
@@ -138,5 +150,32 @@ public class DepartmentBean implements Serializable{
           return departmentFacade.findAll();
           
       } 
-    
+ 
+     
+     public void deleteDepartmentListener(ActionEvent event){
+         
+         
+         if(!(selectedDepartments.isEmpty())){
+              departmentFacade.deleteDpartmentList(selectedDepartments);
+           }else
+           {
+            FacesMessage message = new FacesMessage("Не выбрано ни одно подразделение для удаления");
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage("messages", message);
+           }
+     }
+     
+     public void onRowEdit(RowEditEvent event) {
+
+    //     event.getComponent().
+//        FacesMessage msg = new FacesMessage("Car Edited", ((Car) event.getObject()).getId());
+        FacesContext.getCurrentInstance().addMessage("dfvdfv", new FacesMessage(((Department)(event.getObject())).getDepartmentName()));
+        
+     }
+     
+    public void onRowCancel(RowEditEvent event) {
+//        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Car) event.getObject()).getId());
+//        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+     
 }

@@ -9,6 +9,7 @@ import com.matrix.boundmaven.entity.Department;
 import com.matrix.boundmaven.entity.Time;
 import java.util.Date;
 import java.util.List;
+import java.util.ListIterator;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -57,6 +58,16 @@ public class DepartmentFacade extends AbstractFacade<Department> implements Depa
                 em.createNamedQuery("Department.findDepartmentByName", Department.class);
          
         return query.setParameter("departmentName", departmentName).getResultList();
+    }
+
+    @Override
+    public void deleteDpartmentList(List<Department> departmentList) {
+          
+       ListIterator<Department> li = departmentList.listIterator();
+       while(li.hasNext()){
+           remove(li.next());
+       }
+       
     }
    
     
