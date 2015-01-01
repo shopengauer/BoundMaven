@@ -61,13 +61,19 @@ public class DepartmentFacade extends AbstractFacade<Department> implements Depa
     }
 
     @Override
-    public void deleteDpartmentList(List<Department> departmentList) {
+    public void deleteDepartmentList(List<Department> departmentList) {
           
        ListIterator<Department> li = departmentList.listIterator();
        while(li.hasNext()){
            remove(li.next());
        }
        
+    }
+
+    @Override
+    public void updateDepartment(Department dep) {
+        em.merge(dep);
+    
     }
    
     

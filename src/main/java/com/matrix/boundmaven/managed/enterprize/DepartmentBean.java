@@ -20,6 +20,7 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Model;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.faces.event.ActionEvent;
@@ -38,7 +39,7 @@ import org.primefaces.event.RowEditEvent;
 
 //@RequestScoped
 //@Model
-@RequestScoped
+@ViewScoped
 @Named(value = "departmentBean")
 public class DepartmentBean implements Serializable{
 
@@ -124,6 +125,7 @@ public class DepartmentBean implements Serializable{
     public void createDepartmentListener(ActionEvent ae){
         
         departmentFacade.createDepartment(departmentName, description);
+        departmentList = null;//обнуляем чтобы считать новый из базы????????????????????????????
         departmentName = null;
         description = null;
     }
@@ -147,7 +149,13 @@ public class DepartmentBean implements Serializable{
     
      public List<Department> getAllDepartment() {
        
-          return departmentFacade.findAll();
+          if(departmentList == null){
+             
+             departmentList = departmentFacade.findAll();
+         }  
+         
+         
+         return departmentList;
           
       } 
  
@@ -156,26 +164,47 @@ public class DepartmentBean implements Serializable{
          
          
          if(!(selectedDepartments.isEmpty())){
-              departmentFacade.deleteDpartmentList(selectedDepartments);
+              departmentFacade.deleteDepartmentList(selectedDepartments);
+              departmentList = null;
            }else
            {
             FacesMessage message = new FacesMessage("Не выбрано ни одно подразделение для удаления");
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage("messages", message);
            }
+    
+     
      }
      
      public void onRowEdit(RowEditEvent event) {
-
-    //     event.getComponent().
+          // departmentName = ((Department)(event.getObject())).getDepartmentName();  
+         //event.getObject().
 //        FacesMessage msg = new FacesMessage("Car Edited", ((Car) event.getObject()).getId());
-        FacesContext.getCurrentInstance().addMessage("dfvdfv", new FacesMessage(((Department)(event.getObject())).getDepartmentName()));
-        
+         Department dep = (Department)event.getObject();
+         departmentFacade.updateDepartment(dep);
+         departmentList = null;
+         if(selectedDepartments.isEmpty())
+         {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Косяк",dep.getDepartmentName()));
+         }else{
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Подразделение обновлено",dep.getDepartmentName()));
+         }
+         //   System.out.println(selectedDepartments.size());
      }
      
     public void onRowCancel(RowEditEvent event) {
 //        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Car) event.getObject()).getId());
 //        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-     
+
+    public List<Department> getDepartmentList() {
+        return departmentList;
+    }
+
+    public void setDepartmentList(List<Department> departmentList) {
+        this.departmentList = departmentList;
+    }
+    
+    
+    
 }

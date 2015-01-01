@@ -17,9 +17,9 @@
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="5,10,15,20,30" selection="#{departmentBean.selectedDepartments}" rowKey="#{dep.id}"  editable="true">
 
-                       
-                         <p:ajax event="rowEdit" listener="#{departmentBean.onRowEdit}" update=":#{p:component('messages')}"/>
-                        <p:ajax event="rowEditCancel" listener="#{departmentBean.onRowCancel}" update=":#{p:component('dataTable')},:#{p:component('messages')}"/>
+                       <!--rowSelectCheckbox-->
+                        <p:ajax event="rowEdit" listener="#{departmentBean.onRowEdit}" update=":#{p:component('messages')},:#{p:component('dataTable')}"/>
+                        <p:ajax event="rowEditCancel" listener="#{departmentBean.onRowCancel}" update=":#{p:component('messages')},:#{p:component('dataTable')}"/>
                         
                         
                         <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
@@ -47,7 +47,7 @@
                             </p:cellEditor>
                         </p:column>
 
-                        <p:column headerText="#{msgs.desc}">
+                        <p:column headerText="#{departmentBean.selectedDepartments}">
                             <h:outputText value="#{dep.ctime.insertTime}" />
                         </p:column>
  
