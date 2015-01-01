@@ -9,6 +9,7 @@ import com.matrix.boundmaven.entity.Department;
 import com.matrix.boundmaven.session.DepartmentFacadeLocal;
 import com.matrix.boundmaven.validators.UniqueDepartment;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -18,6 +19,7 @@ import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Model;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
@@ -28,7 +30,10 @@ import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
+import org.primefaces.component.datatable.DataTable;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -39,7 +44,8 @@ import org.primefaces.event.RowEditEvent;
 
 //@RequestScoped
 //@Model
-@ViewScoped
+//@ViewScoped
+@RequestScoped
 @Named(value = "departmentBean")
 public class DepartmentBean implements Serializable{
 
@@ -58,8 +64,11 @@ public class DepartmentBean implements Serializable{
      */
     
     private String currrentDep;
-
    
+    private DataTable depDataTable;
+    
+    
+     
     
     
     @NotBlank(message = "{notBlankDepartment.message}")
@@ -74,7 +83,9 @@ public class DepartmentBean implements Serializable{
     
     @PostConstruct
     private void init(){
-     //conversation.begin();
+     
+        selectedDepartments = new ArrayList<>();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Новый бин",""));
     }
     
     
@@ -90,11 +101,22 @@ public class DepartmentBean implements Serializable{
     public void setCurrrentDep(String currrentDep) {
         this.currrentDep = currrentDep;
     }
+
+    public DataTable getDepDataTable() {
+        return depDataTable;
+    }
+
+    public void setDepDataTable(DataTable depDataTable) {
+        this.depDataTable = depDataTable;
+    }
     
     
     
     
     public List<Department> getSelectedDepartments() {
+        
+        
+        
         return selectedDepartments;
     }
 
@@ -123,6 +145,15 @@ public class DepartmentBean implements Serializable{
    
    
     public void createDepartmentListener(ActionEvent ae){
+        
+        
+        
+//         if(selectedDepartments.isEmpty())
+//         {
+//             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Не выбрано рядов","sdsd"));
+//         }else{
+//             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Выбран ряд","swswsws"));
+//         }
         
         departmentFacade.createDepartment(departmentName, description);
         departmentList = null;//обнуляем чтобы считать новый из базы????????????????????????????
@@ -180,7 +211,9 @@ public class DepartmentBean implements Serializable{
           // departmentName = ((Department)(event.getObject())).getDepartmentName();  
          //event.getObject().
 //        FacesMessage msg = new FacesMessage("Car Edited", ((Car) event.getObject()).getId());
+         departmentName = ((Department)event.getObject()).getDepartmentName();
          Department dep = (Department)event.getObject();
+         
          departmentFacade.updateDepartment(dep);
          departmentList = null;
          if(selectedDepartments.isEmpty())
@@ -189,14 +222,40 @@ public class DepartmentBean implements Serializable{
          }else{
          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Подразделение обновлено",dep.getDepartmentName()));
          }
-         //   System.out.println(selectedDepartments.size());
+        
+        // RequestContext.getCurrentInstance().getApplicationContext();
+         selectedDepartments = null;
+         //FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(),null,"/departmentClient?faces-redirect=true");
+//   System.out.println(selectedDepartments.size());
      }
+    
+     
+     
+     
+     
+     
      
     public void onRowCancel(RowEditEvent event) {
 //        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Car) event.getObject()).getId());
 //        FacesContext.getCurrentInstance().addMessage(null, msg);
+    
+          
     }
 
+    
+    public void onRowSelect(SelectEvent event) {
+
+//       
+//         Department dep = (Department)event.getObject();
+//         
+//         
+//         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Подразделение выделено",dep.getDepartmentName()));
+//         
+    }
+    
+    
+    
+    
     public List<Department> getDepartmentList() {
         return departmentList;
     }
