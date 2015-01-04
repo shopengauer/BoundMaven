@@ -75,8 +75,12 @@ public class DepartmentFacade extends AbstractFacade<Department> implements Depa
         em.merge(dep);
     
     }
-   
-    
+
+    @Override
+    public List<Department> findAll() {
+        return super.findAll(); //To change body of generated methods, choose Tools | Templates.
+    }
+  
     
     
     

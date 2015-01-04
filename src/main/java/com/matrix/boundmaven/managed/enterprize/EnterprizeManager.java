@@ -6,7 +6,9 @@
 package com.matrix.boundmaven.managed.enterprize;
 
 import com.matrix.boundmaven.entity.Department;
+import com.matrix.boundmaven.entity.JobTitle;
 import com.matrix.boundmaven.session.DepartmentFacadeLocal;
+import com.matrix.boundmaven.session.JobTitleFacadeLocal;
 import com.matrix.boundmaven.validators.UniqueDepartment;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Model;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.faces.event.ActionEvent;
@@ -44,31 +46,29 @@ import org.primefaces.event.SelectEvent;
 
 //@RequestScoped
 //@Model
-//@ViewScoped
-@RequestScoped
-@Named(value = "departmentBean")
-public class DepartmentBean implements Serializable{
+@ViewScoped
+@Named(value = "enterprize")
+public class EnterprizeManager implements Serializable{
 
     private List<Department> departmentList;
-    
     private List<Department> selectedDepartments;
     
+    private List<JobTitle> jobTitleList;
+    private List<JobTitle> selectedJobTitles;
     
     @EJB
     DepartmentFacadeLocal departmentFacade;
     
+    @EJB
+    JobTitleFacadeLocal jobTitleFacadeLocal;
+    
     @Inject
     Conversation conversation;
-    /**
-     * Creates a new instance of DepartmentBean
-     */
     
+   
     private String currrentDep;
    
     private DataTable depDataTable;
-    
-    
-     
     
     
     @NotBlank(message = "{notBlankDepartment.message}")
@@ -81,19 +81,58 @@ public class DepartmentBean implements Serializable{
     @Size(max = 255,message = "{departmentDescriptionLength.message}")
     private String description;
     
+    
+    private String jobTitle;
+    private int salary;
+    private Department jobTitleDepartment;
+    
+    
+    
     @PostConstruct
     private void init(){
      
-        selectedDepartments = new ArrayList<>();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Новый бин",""));
+         selectedDepartments = new ArrayList<>();
+        // departmentList  =  departmentFacade.findAll();
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Новый бин",""));
     }
     
+     /**
+     * Creates a new instance of EnterprizeManager
+     */
     
-    
-    public DepartmentBean() {
+    public EnterprizeManager() {
      
     }
 
+    public Department getJobTitleDepartment() {
+        return jobTitleDepartment;
+    }
+
+    public void setJobTitleDepartment(Department jobTitleDepartment) {
+        this.jobTitleDepartment = jobTitleDepartment;
+    }
+
+    
+    
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+
+    
+    
+    
      public String getCurrrentDep() {
         return currrentDep;
     }
@@ -109,14 +148,9 @@ public class DepartmentBean implements Serializable{
     public void setDepDataTable(DataTable depDataTable) {
         this.depDataTable = depDataTable;
     }
-    
-    
-    
+     
     
     public List<Department> getSelectedDepartments() {
-        
-        
-        
         return selectedDepartments;
     }
 
@@ -141,20 +175,27 @@ public class DepartmentBean implements Serializable{
     public void setDescription(String description) {
         this.description = description;
     }
-    
-   
+
+    public List<JobTitle> getJobTitleList() {
+        return jobTitleList;
+    }
+
+    public void setJobTitleList(List<JobTitle> jobTitleList) {
+        this.jobTitleList = jobTitleList;
+    }
+
+    public List<JobTitle> getSelectedJobTitles() {
+        return selectedJobTitles;
+    }
+
+    public void setSelectedJobTitles(List<JobTitle> selectedJobTitles) {
+        this.selectedJobTitles = selectedJobTitles;
+    }
+     
    
     public void createDepartmentListener(ActionEvent ae){
-        
-        
-        
-//         if(selectedDepartments.isEmpty())
-//         {
-//             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Не выбрано рядов","sdsd"));
-//         }else{
-//             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Выбран ряд","swswsws"));
-//         }
-        
+       
+        RequestContext.getCurrentInstance().update(":dataTableForm:dataTable");
         departmentFacade.createDepartment(departmentName, description);
         departmentList = null;//обнуляем чтобы считать новый из базы????????????????????????????
         departmentName = null;
@@ -163,7 +204,6 @@ public class DepartmentBean implements Serializable{
     
     
     public String departmentInfo(){
-        
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String,String> map =  fc.getExternalContext().getRequestParameterMap();
         currrentDep  = map.get("depName");
@@ -173,27 +213,28 @@ public class DepartmentBean implements Serializable{
   
      
     public void getAllDepartmentActionListener(ActionEvent event) {
-       
-          departmentList = departmentFacade.findAll();
-          
+        departmentList = departmentFacade.findAll();
       } 
     
      public List<Department> getAllDepartment() {
-       
-          if(departmentList == null){
-             
-             departmentList = departmentFacade.findAll();
+        if(departmentList == null){
+           departmentList = departmentFacade.findAll();
          }  
-         
-         
-         return departmentList;
-          
-      } 
+        return departmentList;
+     } 
  
-     
+      public List<JobTitle> getAllJobTitles() {
+         //  departmentList = null;
+          if(jobTitleList == null){
+           jobTitleList = jobTitleFacadeLocal.findAll();
+         }  
+        return jobTitleList;
+     } 
+      
+      
      public void deleteDepartmentListener(ActionEvent event){
          
-         
+         RequestContext.getCurrentInstance().update(":dataTableForm:dataTable");
          if(!(selectedDepartments.isEmpty())){
               departmentFacade.deleteDepartmentList(selectedDepartments);
               departmentList = null;
@@ -208,41 +249,38 @@ public class DepartmentBean implements Serializable{
      }
      
      public void onRowEdit(RowEditEvent event) {
-          // departmentName = ((Department)(event.getObject())).getDepartmentName();  
-         //event.getObject().
-//        FacesMessage msg = new FacesMessage("Car Edited", ((Car) event.getObject()).getId());
-         departmentName = ((Department)event.getObject()).getDepartmentName();
-         Department dep = (Department)event.getObject();
+          
+         //departmentName = ((Department)event.getObject()).getDepartmentName();
+          Department dep = (Department)event.getObject();
          
-         departmentFacade.updateDepartment(dep);
-         departmentList = null;
-         if(selectedDepartments.isEmpty())
-         {
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Косяк",dep.getDepartmentName()));
-         }else{
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Подразделение обновлено",dep.getDepartmentName()));
-         }
-        
-        // RequestContext.getCurrentInstance().getApplicationContext();
-         selectedDepartments = null;
-         //FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(),null,"/departmentClient?faces-redirect=true");
-//   System.out.println(selectedDepartments.size());
+          if(departmentFacade.getDepartmentByName(dep.getDepartmentName()).isEmpty()){
+              
+            if(dep.getDepartmentName().isEmpty()){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Введите название подразделения",dep.getDepartmentName())); 
+                departmentList = null;
+            }else{  
+              departmentFacade.updateDepartment(dep);
+              departmentList = null;
+              FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Подразделение обновлено",dep.getDepartmentName()));
+             }
+          }else
+          {
+              FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Подразделение с таким именем уже существует!",dep.getDepartmentName()));
+              departmentList = null;
+               //RequestContext.getCurrentInstance().;
+          }
+       
+        // depDataTable.reset();
+          
      }
-    
-     
-     
-     
-     
-     
-     
+   
     public void onRowCancel(RowEditEvent event) {
 //        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Car) event.getObject()).getId());
 //        FacesContext.getCurrentInstance().addMessage(null, msg);
     
           
     }
-
-    
+ 
     public void onRowSelect(SelectEvent event) {
 
 //       
@@ -253,9 +291,7 @@ public class DepartmentBean implements Serializable{
 //         
     }
     
-    
-    
-    
+ 
     public List<Department> getDepartmentList() {
         return departmentList;
     }

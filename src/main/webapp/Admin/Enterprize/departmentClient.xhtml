@@ -7,120 +7,211 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
  
     <ui:define name="mainContent">
-        
-        <p:layout> 
-           
+
+
+        <p:layout>  
             <h:form id="dataTableForm"> 
                 <p:layoutUnit position="center">   
+                    <p:tabView dynamic="true" cache="true">
 
-                    <p:dataTable id="dataTable" var="dep" value="#{departmentBean.allDepartment}" paginator="true" widgetVar="dataTableWidgetVar"  
-                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                 rowsPerPageTemplate="5,10,15,20,30" selection="#{departmentBean.selectedDepartments}" rowKey="#{dep.id}" editable="false">
+                        <p:tab title="#{msgs.department}">
+                            <p:dataTable id="dataTable" var="dep" value="#{enterprize.allDepartment}" paginator="true" widgetVar="dataTableWidgetVar" rows="10"  rowsPerPageTemplate="5,10,20,30"  selection="#{enterprize.selectedDepartments}" rowKey="#{dep.id}" editable="true">  
+                                <!--                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"-->
 
-                       <!--rowSelectCheckbox-->
-                       <p:ajax event="rowEdit" listener="#{departmentBean.onRowEdit}" update=":#{p:component('messages')},:#{p:component('dataTable')}"/>
-                       <p:ajax event="rowEditCancel" listener="#{departmentBean.onRowCancel}" update=":#{p:component('messages')},:#{p:component('dataTable')}"/>
-                       <p:ajax event="rowSelect" listener="#{departmentBean.onRowSelect}" update=":#{p:component('messages')}"/> 
-                        
-                        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
-                        
-                        <p:column style="width:16px">
-                            <p:rowToggler />
-                        </p:column>
+                                <f:facet name="header">
+                                    #{msgs.department}
+                                </f:facet>
+                                <!---->
+                                <p:ajax event="rowEdit" listener="#{enterprize.onRowEdit}" update=":#{p:component('messages')},:#{p:component('dataTable')}"/>
+                                <p:ajax event="rowEditCancel" listener="#{enterprize.onRowCancel}" update=":#{p:component('messages')},:#{p:component('dataTable')}"/>
+                                <!--<p:ajax event="rowSelect" listener="{enterprize.onRowSelect}" update=":{p:component('messages')}"/>--> 
 
-                        
-                        <p:column headerText="id">
-                            <p:link value="#{dep.id}" outcome="departmentInfo">
-                                <f:param name="depName" value="#{dep.departmentName}"/>
-                            </p:link>
-                        </p:column>
+                                <p:column  id="selId" selectionMode="multiple" style="width:16px;text-align:center"/>
 
-                        <p:column headerText="#{msgs.department}">
-                           
-                            <!--<h:outputText value="{dep.departmentName}"/>-->
-                            <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{dep.departmentName}"/></f:facet>
-                                <f:facet name="input"><p:inputText value="#{dep.departmentName}" style="width:100%"/></f:facet>
-                            </p:cellEditor> 
-                        </p:column>
-                        
-                        
-                        <p:column headerText="#{msgs.desc}">
-                            <!--<h:outputText value="{dep.description}" />-->
-                            <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{dep.description}" /></f:facet>
-                                <f:facet name="input"><p:inputText value="#{dep.description}" style="width:100%"/></f:facet>
-                            </p:cellEditor>
-                        </p:column>
+                                <p:column headerText="id">
+                                    <p:link value="#{dep.id}" outcome="departmentInfo">
+                                        <f:param name="depName" value="#{dep.departmentName}"/>
+                                    </p:link>
+                                </p:column>
 
-                        <p:column headerText="#{departmentBean.selectedDepartments}">
-                            <h:outputText value="#{dep.ctime.insertTime}" />
-                        </p:column>
-                        
-                        <p:column headerText="#{msgs.edit}">
-                             <p:link value="#{msgs.edit}" outcome="departmentInfo">
-                                 <f:param name="depName" value="#{dep.departmentName}"/>
-                            </p:link>
-                       
-                        </p:column>
-                        
-                        <p:rowExpansion>
-                            <p:panelGrid  columns="2" columnClasses="label,value" style="width:300px">
-
-                                <!--<h:form>-->  
-                                     
-                                    <h:inputText value="#{dep.departmentName}" />
-                                    <h:inputText value="#{dep.description}"/>
-                                    <h:commandButton value="submit" actionListener="#"/>
-                                <!--</h:form>--> 
-                            </p:panelGrid>
-                        </p:rowExpansion>
-
-<!-- 
-                        <p:column style="width:32px" disabledSelection="true">
-                            <p:rowEditor/>
-                        </p:column>                            -->
-
-                        <!--                   <f:facet name="footer">
-                                            <p:commandButton id = "delDepBtn"  actionListener="{departmentBean.deleteDepartmentListener}" update=":{p:component('dataTable')},:{p:component('messages')}"  
-                                                                 value="{msgs.delete}"/> 
-                                            </f:facet> 
-                        -->
-                    </p:dataTable>
+                                <p:column headerText="#{msgs.department}">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{dep.departmentName}"/></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{dep.departmentName}" style="width:100%"/></f:facet>
+                                    </p:cellEditor> 
+                                </p:column>
 
 
+                                <p:column headerText="#{msgs.desc}">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{dep.description}"/></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{dep.description}" style="width:100%"/></f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+
+                                <p:column headerText="#{msgs.insertTime}">
+                                    <h:outputText value="#{dep.ctime.insertTime}" />
+                                </p:column>
+
+                                <p:column style="width:32px" disabledSelection="true">
+                                    <p:rowEditor/>
+                                </p:column>                            
+
+                                <!--                   <f:facet name="footer">
+                                                    <p:commandButton id = "delDepBtn"  actionListener="{enterprize.deleteDepartmentListener}" update=":{p:component('dataTable')},:{p:component('messages')}"  
+                                                                         value="{msgs.delete}"/> 
+                                                    </f:facet> 
+                                -->
+                            </p:dataTable>
+
+                            <h:panelGrid columns="6"  > 
+                                <p:inputText id="depName" 
+                                             placeholder="#{msgs.department}" 
+                                             value="#{enterprize.departmentName}"/> 
+                                <p:inputText id ="depDesc" 
+                                             placeholder="#{msgs.desc}"
+                                             value="#{enterprize.description}"/>
+                                <p:commandButton id = "createDepBtn"                                                    
+                                                 update=":#{p:component('dataTable')},:#{p:component('depName')},:#{p:component('depDesc')},:#{p:component('messages')},:#{p:component('jobTitleDepartment')}"  
+                                                 value="#{msgs.create}" 
+                                                 actionListener="#{enterprize.createDepartmentListener}" 
+                                                 onclick="dataTableWidgetVar.unselectAllRows()"
+                                                 process=":#{p:component('dataTable')},@this"/> 
+                                <p:commandButton id = "delDepBtn"  
+                                                 actionListener="#{enterprize.deleteDepartmentListener}" 
+                                                 update=":#{p:component('dataTable')},:#{p:component('messages')},:#{p:component('jobTitleDepartment')}"  
+                                                 value="#{msgs.delete}" 
+                                                 process=":#{p:component('dataTable')},@this"/> 
+                            </h:panelGrid>
+                        </p:tab>
+
+
+                        <p:tab title="#{msgs.jobtitle}">
+                            <p:dataTable id="dataTable2" var="job" value="#{enterprize.allJobTitles}" paginator="true" widgetVar="dataTable2WidgetVar" rows="10"  rowsPerPageTemplate="5,10,20,30"  selection="#{enterprize.selectedJobTitles}" rowKey="#{job.id}" editable="true">  
+                                <!--                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"-->
+
+                                <f:facet name="header">
+                                    #{msgs.jobtitle}
+                                </f:facet>
+                                <!---->
+                                <p:ajax event="rowEdit" listener="#{enterprize.onRowEditJob}" update=":#{p:component('messages')},:#{p:component('dataTable2')}"/>
+                                <p:ajax event="rowEditCancel" listener="#{enterprize.onRowCancelJob}" update=":#{p:component('messages')},:#{p:component('dataTable2')}"/>
+                                <!--<p:ajax event="rowSelect" listener="{enterprize.onRowSelect}" update=":{p:component('messages')}"/>--> 
+
+                                <p:column  id="selJobId" selectionMode="multiple" style="width:16px;text-align:center"/>
+
+                                <p:column headerText="id">
+                                    <p:link value="#{job.id}" outcome="departmentInfo">
+                                        <f:param name="depName" value="#{job.jobTitleName}"/>
+                                    </p:link>
+                                </p:column>
+
+                                <p:column headerText="#{msgs.jobtitle}">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{job.jobTitleName}"/></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{job.jobTitleName}" style="width:100%"/></f:facet>
+                                    </p:cellEditor> 
+                                </p:column>
+
+                                <p:column headerText="#{msgs.salary}">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{job.salary}"/></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{job.salary}" style="width:100%"/></f:facet>
+                                    </p:cellEditor> 
+                                </p:column>
+
+                                <p:column headerText="#{msgs.department}">
+                                    <p:cellEditor>
+                                        <f:facet name="output"><h:outputText value="#{job.department}"/></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{job.department}" style="width:100%"/></f:facet>
+                                    </p:cellEditor> 
+                                </p:column>
+
+
+                                <p:column headerText="#{msgs.insertTime}">
+                                    <h:outputText value="#{dep.ctime.insertTime}" />
+                                </p:column>
+
+                                <p:column style="width:32px" disabledSelection="true">
+                                    <p:rowEditor/>
+                                </p:column>                            
+
+                                <!--                   <f:facet name="footer">
+                                                    <p:commandButton id = "delDepBtn"  actionListener="{enterprize.deleteDepartmentListener}" update=":{p:component('dataTable')},:{p:component('messages')}"  
+                                                                         value="{msgs.delete}"/> 
+                                                    </f:facet> 
+                                -->
+                            </p:dataTable>
+
+                            <h:panelGrid columns="6"  > 
+                                <p:inputText id="jobName" 
+                                             placeholder="#{msgs.jobtitle}" 
+                                             value="#{enterprize.jobTitle}"/> 
+                                <p:inputText id ="jobSalary" 
+                                             placeholder="#{msgs.salary}"
+                                             value="#{enterprize.salary}"/>
+                               
+                                <p:selectOneMenu id = "jobTitleDepartment" value="#{enterprize.jobTitleDepartment}">
+                                    <f:selectItems value="#{enterprize.allDepartment}" var ="dep"
+                                                   itemValue="#{dep}" itemLabel="#{dep.departmentName}"/>
+                                </p:selectOneMenu>
+                                
+                                
+                                <p:commandButton id = "createJobBtn" 
+                                                 update=":#{p:component('dataTable2')},:#{p:component('jobName')},:#{p:component('jodSalary')},:#{p:component('messages')}"  
+                                                 value="#{msgs.create}" actionListener="#{enterprize.createJobTitleListener}" onclick="dataTable2WidgetVar.unselectAllRows()"/> 
+                                <p:commandButton id = "delJobBtn"  
+                                                 actionListener="#{enterprize.deleteJobTitleListener}" 
+                                                 update=":#{p:component('dataTable2')},:#{p:component('messages')}"  
+                                                 value="#{msgs.delete}" 
+                                                 process=":#{p:component('dataTable2')},@this"/> 
+                            </h:panelGrid>
+                        </p:tab>
+
+                    </p:tabView>
                 </p:layoutUnit>
-<!--                <p:layoutUnit position="west">
-                    <p:commandButton id = "delDepBtn"  actionListener="{departmentBean.deleteDepartmentListener}" update=":{p:component('dataTable')},:{p:component('messages')}"  
-                                     value="{msgs.delete}" process=":{p:component('dataTable')},@this"/> 
-
-                </p:layoutUnit>     -->
-
-
+                <!--</p:tab>-->
+                <!--</p:tabView>-->
+                <!--</p:layoutUnit>-->
+                <!--                <p:layoutUnit position="west">
+                                    <p:commandButton id = "delDepBtn"  actionListener="{enterprize.deleteDepartmentListener}" update=":{p:component('dataTable')},:{p:component('messages')}"  
+                                                     value="{msgs.delete}" process=":{p:component('dataTable')},@this"/> 
+                
+                                </p:layoutUnit>     -->
 
                 <p:layoutUnit position="south" id = "south">   
-                    <h:panelGrid columns="6"  > 
-                        <p:inputText id="depName" placeholder="#{msgs.department}" value="#{departmentBean.departmentName}"/> 
-                        <p:inputText id ="depDesc" placeholder="#{msgs.desc}"
-                                     value="#{departmentBean.description}"/>
-                        <p:commandButton id = "createDepBtn" update=":#{p:component('dataTable')},:#{p:component('depName')},:#{p:component('depDesc')},:#{p:component('messages')}"  
-                                         value="#{msgs.create}" actionListener="#{departmentBean.createDepartmentListener}"/> 
-                        
-                        <p:commandButton id = "delDepBtn"  actionListener="#{departmentBean.deleteDepartmentListener}" update=":#{p:component('dataTable')},:#{p:component('messages')}"  
-                                         value="#{msgs.delete}" process=":#{p:component('dataTable')},@this"/> 
-                   </h:panelGrid>
-                </p:layoutUnit>  
+<!--                    <h:panelGrid columns="6"  > 
+                        <p:inputText id="depName1" 
+                                     placeholder="{msgs.department}" 
+                                     value="{enterprize.departmentName}"/> 
+                        <p:inputText id ="depDesc1" 
+                                     placeholder="{msgs.desc}"
+                                     value="{enterprize.description}"/>
+                        <p:commandButton id = "createDepBtn1" 
+                                         update=":{p:component('dataTable')},:{p:component('depName')},:{p:component('depDesc')},:{p:component('messages')}"  
+                                         value="{msgs.create}" 
+                                         actionListener="{enterprize.createDepartmentListener}" 
+                                         onclick="dataTableWidgetVar.unselectAllRows()"/> 
+
+                        <p:commandButton id = "delDepBtn1"  
+                                         actionListener="{enterprize.deleteDepartmentListener}" 
+                                         update=":{p:component('dataTable')},:{p:component('messages')}"  
+                                         value="{msgs.delete}" 
+                                         process=":{p:component('dataTable')},@this"/> 
+
+                    </h:panelGrid>-->
+                </p:layoutUnit>     
 
             </h:form>
         </p:layout>
     </ui:define>
-   
-    
-<!--    <ui:define name="westContent">
-        <p:layoutUnit position="west" header="{msgs.create}"  rendered="false">
-            
-        </p:layoutUnit>  
-    </ui:define> -->
 
-    
+
+    <!--    <ui:define name="westContent">
+            <p:layoutUnit position="west" header="{msgs.create}"  rendered="false">
+                
+            </p:layoutUnit>  
+        </ui:define> -->
+
+
 </ui:composition>
