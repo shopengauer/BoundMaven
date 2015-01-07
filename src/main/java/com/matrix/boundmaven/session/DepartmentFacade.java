@@ -60,12 +60,17 @@ public class DepartmentFacade extends AbstractFacade<Department> implements Depa
         return query.setParameter("departmentName", departmentName).getResultList();
     }
 
+   
+    
+    
+    
     @Override
     public void deleteDepartmentList(List<Department> departmentList) {
           
        ListIterator<Department> li = departmentList.listIterator();
        while(li.hasNext()){
-           remove(li.next());
+          remove(li.next());
+           
        }
        
     }

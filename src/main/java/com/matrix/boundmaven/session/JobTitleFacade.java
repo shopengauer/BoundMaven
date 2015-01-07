@@ -7,7 +7,11 @@ package com.matrix.boundmaven.session;
 
 import com.matrix.boundmaven.entity.Department;
 import com.matrix.boundmaven.entity.JobTitle;
+import com.matrix.boundmaven.entity.Time;
+import java.util.Date;
 import java.util.List;
+import java.util.ListIterator;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,6 +26,9 @@ public class JobTitleFacade extends AbstractFacade<JobTitle> implements JobTitle
     @PersistenceContext(unitName = "BoundMavenPU")
     private EntityManager em;
 
+    @EJB DepartmentFacadeLocal departmentFacade;
+    
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;
@@ -34,11 +41,21 @@ public class JobTitleFacade extends AbstractFacade<JobTitle> implements JobTitle
     @Override
     public void createJobTitle(String jobTitleName, String jobTitleSalary, String department){
         
+      //  TypedQuery<Department> query = em.createNamedQuery("", Department.class);
+        List<Department> depList = departmentFacade.getDepartmentByName(department);
+        Department dep =  depList.get(0);
+                       
         JobTitle jobTitle = new JobTitle();
         jobTitle.setJobTitleName(jobTitleName);
         jobTitle.setSalary(jobTitleSalary);
-       
-     //   jobTitle. 
+        Time  time = new Time();
+        time.setInsertTime(new Date());
+        jobTitle.setCtime(time);
+        jobTitle.setDepartment(dep);
+        dep.getJobTitles().add(jobTitle);
+        em.persist(jobTitle);
+
+//   jobTitle. 
     
     
     }
@@ -48,6 +65,20 @@ public class JobTitleFacade extends AbstractFacade<JobTitle> implements JobTitle
         
         TypedQuery<JobTitle> query = em.createNamedQuery( "JobTitle.findJobTitleByName",JobTitle.class);
         return  query.setParameter("jobTitleName", jobTitleName).getResultList();
+    }
+
+    @Override
+    public void deleteJobTitleList(List<JobTitle> jobTitleList) {
+    
+        ListIterator<JobTitle> iterator = jobTitleList.listIterator();
+        while(iterator.hasNext()){
+          JobTitle jobTitle = iterator.next();
+         em.remove(em.find(JobTitle.class, jobTitle.getId()));
+                 
+        }
+    
+    
+    
     }
    
     

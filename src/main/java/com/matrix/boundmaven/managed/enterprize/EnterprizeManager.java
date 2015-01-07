@@ -22,6 +22,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.view.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
@@ -42,9 +43,16 @@ import org.primefaces.event.SelectEvent;
 @Named(value = "enterprize")
 public class EnterprizeManager implements Serializable{
 
+    
+    //Binding 
+    private DataTable depDataTable;
+    
+    //Department
     private List<Department> departmentList;
     private List<Department> selectedDepartments;
     
+    
+    //JobTitle
     private List<JobTitle> jobTitleList;
     private List<JobTitle> selectedJobTitles;
     
@@ -52,15 +60,14 @@ public class EnterprizeManager implements Serializable{
     DepartmentFacadeLocal departmentFacade;
     
     @EJB
-    JobTitleFacadeLocal jobTitleFacadeLocal;
+    JobTitleFacadeLocal jobTitleFacade;
     
 //    @Inject
 //    Conversation conversation;
     
-   
-    private String currrentDep;
-   
-    private DataTable depDataTable;
+    
+  //  private String currrentDep;
+    
     
     
     @NotBlank(message = "{notBlankDepartment.message}")
@@ -79,8 +86,10 @@ public class EnterprizeManager implements Serializable{
     @UniqueJobTitle
     @Size(min = 2,max = 45,message = "{jobTitleNameLength.message}")
     private String jobTitle;
-    private String jobTitleSalary;
     
+    
+    @Digits(integer = 300000,fraction = 0)
+    private String jobTitleSalary;
     private String jobTitleDepartment;
     
     
@@ -131,13 +140,13 @@ public class EnterprizeManager implements Serializable{
     
     
     
-     public String getCurrrentDep() {
-        return currrentDep;
-    }
-
-    public void setCurrrentDep(String currrentDep) {
-        this.currrentDep = currrentDep;
-    }
+//     public String getCurrrentDep() {
+//        return currrentDep;
+//    }
+//
+//    public void setCurrrentDep(String currrentDep) {
+//        this.currrentDep = currrentDep;
+//    }
 
     public DataTable getDepDataTable() {
         return depDataTable;
@@ -202,7 +211,7 @@ public class EnterprizeManager implements Serializable{
     
     public void createJobTitleListener(ActionEvent ae){
        
-        jobTitleFacadeLocal.createJobTitle(jobTitle, jobTitleSalary, jobTitleDepartment);
+        jobTitleFacade.createJobTitle(jobTitle, jobTitleSalary, jobTitleDepartment);
         jobTitleList = null;
         jobTitle = null;
         jobTitleSalary = null;
@@ -217,7 +226,7 @@ public class EnterprizeManager implements Serializable{
     public String departmentInfo(){
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String,String> map =  fc.getExternalContext().getRequestParameterMap();
-        currrentDep  = map.get("depName");
+       // currrentDep  = map.get("depName");
         return "departmentInfo";
         
     }
@@ -237,7 +246,7 @@ public class EnterprizeManager implements Serializable{
       public List<JobTitle> getAllJobTitles() {
          //  departmentList = null;
           if(jobTitleList == null){
-           jobTitleList = jobTitleFacadeLocal.findAll();
+           jobTitleList = jobTitleFacade.findAll();
          }  
         return jobTitleList;
      } 
@@ -248,7 +257,8 @@ public class EnterprizeManager implements Serializable{
       //   RequestContext.getCurrentInstance().update(":dataTableForm:dataTable");
          if(!(selectedDepartments.isEmpty())){
               departmentFacade.deleteDepartmentList(selectedDepartments);
-              departmentList = null;
+              departmentList = null;     
+              jobTitleList = null;      
            }else
            {
             FacesMessage message = new FacesMessage("Не выбрано ни одно подразделение для удаления");
@@ -256,21 +266,24 @@ public class EnterprizeManager implements Serializable{
             context.addMessage("messages", message);
            }
     
-     
      }
+     
+     
+      
      
      public void deleteJobTitleListener(ActionEvent event){
          
        //  RequestContext.getCurrentInstance().update(":dataTableForm:dataTable");
-//         if(!(selectedDepartments.isEmpty())){
-//              departmentFacade.deleteDepartmentList(selectedDepartments);
-//              departmentList = null;
-//           }else
-//           {
-//            FacesMessage message = new FacesMessage("Не выбрано ни одно подразделение для удаления");
-//            FacesContext context = FacesContext.getCurrentInstance();
-//            context.addMessage("messages", message);
-//           }
+         if(!(selectedJobTitles.isEmpty())){
+              jobTitleFacade.deleteJobTitleList(selectedJobTitles);
+              jobTitleList = null;
+              
+           }else
+           {
+            FacesMessage message = new FacesMessage("Не выбрана ни одна должность для удаления");
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage("messages", message);
+           }
     
      
      }
@@ -302,6 +315,13 @@ public class EnterprizeManager implements Serializable{
           
      }
    
+      
+     
+     
+     
+     
+     
+     
     public void onRowCancel(RowEditEvent event) {
 //        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Car) event.getObject()).getId());
 //        FacesContext.getCurrentInstance().addMessage(null, msg);

@@ -78,14 +78,14 @@
                                                  process="@this depName depDesc :#{p:component('dataTable')}"/> 
                                 <p:commandButton id = "delDepBtn"  
                                                  actionListener="#{enterprize.deleteDepartmentListener}" 
-                                                 update=":#{p:component('dataTable')},:#{p:component('messages')},:#{p:component('jobTitleDepartment')}"  
+                                                 update=":#{p:component('dataTable')},:#{p:component('messages')},:#{p:component('jobTitleDepartment')},:#{p:component('dataTable2')}"  
                                                  value="#{msgs.delete}" 
                                                  process=":#{p:component('dataTable')},@this"/> 
                             </h:panelGrid>
                         </p:tab>
 
 
-                        <p:tab title="#{msgs.jobtitle}">
+                <p:tab title="#{msgs.jobtitle}">
                             <p:dataTable id="dataTable2" var="job" value="#{enterprize.allJobTitles}" paginator="true" widgetVar="dataTable2WidgetVar" rows="10"  rowsPerPageTemplate="5,10,20,30"  selection="#{enterprize.selectedJobTitles}" rowKey="#{job.id}" editable="true">  
                                 <!--                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"-->
 
@@ -121,14 +121,14 @@
 
                                 <p:column headerText="#{msgs.department}">
                                     <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{job.department}"/></f:facet>
-                                        <f:facet name="input"><p:inputText value="#{job.department}" style="width:100%"/></f:facet>
+                                        <f:facet name="output"><h:outputText value="#{job.department.departmentName}"/></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{job.department.departmentName}" style="width:100%"/></f:facet>
                                     </p:cellEditor> 
                                 </p:column>
 
 
                                 <p:column headerText="#{msgs.insertTime}">
-                                    <h:outputText value="#{dep.ctime.insertTime}" />
+                                    <h:outputText value="#{job.ctime.insertTime}" />
                                 </p:column>
 
                                 <p:column style="width:32px" disabledSelection="true">
@@ -140,7 +140,7 @@
                                                                          value="{msgs.delete}"/> 
                                                     </f:facet> 
                                 -->
-                            </p:dataTable>
+                             </p:dataTable>
 
                             <h:panelGrid columns="8"  > 
                                 <p:inputText id="jobName" 
@@ -170,7 +170,7 @@
                                                  value="#{msgs.delete}" 
                                                  process=":#{p:component('dataTable2')},@this"/> 
                             </h:panelGrid>
-                        </p:tab>
+               </p:tab>
 
                     </p:tabView>
                 </p:layoutUnit>

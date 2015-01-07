@@ -34,5 +34,7 @@ public interface JobTitleFacadeLocal {
     void createJobTitle(String jobTitleName, String jobTitleSalary, String department);
 
     List<JobTitle> getJobTitleByName(String jobTitleName);
+
+    void deleteJobTitleList(List<JobTitle> jobTitleList);
     
 }
