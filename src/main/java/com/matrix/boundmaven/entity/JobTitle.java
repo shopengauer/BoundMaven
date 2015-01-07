@@ -17,6 +17,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -28,6 +30,9 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "JOBTITLE")
+@NamedQueries({@NamedQuery(name = "JobTitle.findJobTitleNameByName", query = "SELECT j.jobTitleName FROM JobTitle j WHERE j.jobTitleName = :jobTitleName"),
+               @NamedQuery(name = "JobTitle.findAllJobTitle", query = "SELECT j FROM JobTitle j"),
+               @NamedQuery(name = "JobTitle.findJobTitleByName", query = "SELECT j FROM JobTitle j WHERE j.jobTitleName = :jobTitleName")})
 public class JobTitle implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -47,9 +52,9 @@ public class JobTitle implements Serializable {
     @Basic(optional = true)
     @Size(min = 2, max = 45)
     @Column(name = "SALARY")
-    private int salary;
+    private String salary;
     
-    @ManyToOne(optional = true)
+    @ManyToOne(optional = true, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "FK_DEPARTMENT_ID",referencedColumnName = "DEPARTMENT_ID")
     private Department department;
     
@@ -58,6 +63,12 @@ public class JobTitle implements Serializable {
     
     @Embedded
     private Time ctime;
+
+    public JobTitle() {
+    }
+    
+    
+    
     
     public Long getId() {
         return id;
@@ -75,11 +86,11 @@ public class JobTitle implements Serializable {
         this.jobTitleName = jobTitleName;
     }
 
-    public int getSalary() {
+    public String getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(String salary) {
         this.salary = salary;
     }
 
@@ -106,10 +117,7 @@ public class JobTitle implements Serializable {
     public void setCtime(Time ctime) {
         this.ctime = ctime;
     }
-
-    
-    
-    
+ 
     
     @Override
     public int hashCode() {

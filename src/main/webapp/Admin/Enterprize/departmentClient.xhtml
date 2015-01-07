@@ -75,8 +75,7 @@
                                                  update=":#{p:component('dataTable')},:#{p:component('depName')},:#{p:component('depDesc')},:#{p:component('messages')},:#{p:component('jobTitleDepartment')}"  
                                                  value="#{msgs.create}" 
                                                  actionListener="#{enterprize.createDepartmentListener}" 
-                                                 onclick="dataTableWidgetVar.unselectAllRows()"
-                                                 process=":#{p:component('dataTable')},@this"/> 
+                                                 process="@this depName depDesc :#{p:component('dataTable')}"/> 
                                 <p:commandButton id = "delDepBtn"  
                                                  actionListener="#{enterprize.deleteDepartmentListener}" 
                                                  update=":#{p:component('dataTable')},:#{p:component('messages')},:#{p:component('jobTitleDepartment')}"  
@@ -113,7 +112,7 @@
                                     </p:cellEditor> 
                                 </p:column>
 
-                                <p:column headerText="#{msgs.salary}">
+                                <p:column headerText="#{msgs.sal}">
                                     <p:cellEditor>
                                         <f:facet name="output"><h:outputText value="#{job.salary}"/></f:facet>
                                         <f:facet name="input"><p:inputText value="#{job.salary}" style="width:100%"/></f:facet>
@@ -143,23 +142,28 @@
                                 -->
                             </p:dataTable>
 
-                            <h:panelGrid columns="6"  > 
+                            <h:panelGrid columns="8"  > 
                                 <p:inputText id="jobName" 
                                              placeholder="#{msgs.jobtitle}" 
                                              value="#{enterprize.jobTitle}"/> 
                                 <p:inputText id ="jobSalary" 
-                                             placeholder="#{msgs.salary}"
+                                             placeholder="#{msgs.sal}" 
                                              value="#{enterprize.salary}"/>
                                
                                 <p:selectOneMenu id = "jobTitleDepartment" value="#{enterprize.jobTitleDepartment}">
-                                    <f:selectItems value="#{enterprize.allDepartment}" var ="dep"
-                                                   itemValue="#{dep}" itemLabel="#{dep.departmentName}"/>
+                                    <!--<f:selectItem value=""--> 
+                                    <f:selectItems value="#{enterprize.allDepartment}" 
+                                                   var ="dep"
+                                                   itemValue="#{dep.departmentName}" 
+                                                   itemLabel="#{dep.departmentName}"/>
                                 </p:selectOneMenu>
                                 
                                 
                                 <p:commandButton id = "createJobBtn" 
-                                                 update=":#{p:component('dataTable2')},:#{p:component('jobName')},:#{p:component('jodSalary')},:#{p:component('messages')}"  
-                                                 value="#{msgs.create}" actionListener="#{enterprize.createJobTitleListener}" onclick="dataTable2WidgetVar.unselectAllRows()"/> 
+                                                 update=":#{p:component('dataTable2')},:#{p:component('jobName')},:#{p:component('jobSalary')},:#{p:component('messages')}"  
+                                                 value="#{msgs.create}" 
+                                                 actionListener="#{enterprize.createJobTitleListener}"
+                                                 process="@this jobName jobSalary jobTitleDepartment"/> 
                                 <p:commandButton id = "delJobBtn"  
                                                  actionListener="#{enterprize.deleteJobTitleListener}" 
                                                  update=":#{p:component('dataTable2')},:#{p:component('messages')}"  

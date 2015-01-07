@@ -10,30 +10,22 @@ import com.matrix.boundmaven.entity.JobTitle;
 import com.matrix.boundmaven.session.DepartmentFacadeLocal;
 import com.matrix.boundmaven.session.JobTitleFacadeLocal;
 import com.matrix.boundmaven.validators.UniqueDepartment;
+import com.matrix.boundmaven.validators.UniqueJobTitle;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.Conversation;
-import javax.enterprise.context.ConversationScoped;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
-import javax.enterprise.inject.Model;
 import javax.faces.application.FacesMessage;
 import javax.faces.view.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.context.Flash;
 import javax.faces.event.ActionEvent;
-import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 import org.primefaces.component.datatable.DataTable;
-import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
 
@@ -62,8 +54,8 @@ public class EnterprizeManager implements Serializable{
     @EJB
     JobTitleFacadeLocal jobTitleFacadeLocal;
     
-    @Inject
-    Conversation conversation;
+//    @Inject
+//    Conversation conversation;
     
    
     private String currrentDep;
@@ -77,14 +69,19 @@ public class EnterprizeManager implements Serializable{
     @UniqueDepartment
     private String departmentName;
    
-    
     @Size(max = 255,message = "{departmentDescriptionLength.message}")
     private String description;
     
     
+    
+    
+    @NotBlank(message = "{notBlankJobTitle.message}")
+    @UniqueJobTitle
+    @Size(min = 2,max = 45,message = "{jobTitleNameLength.message}")
     private String jobTitle;
-    private int salary;
-    private Department jobTitleDepartment;
+    private String jobTitleSalary;
+    
+    private String jobTitleDepartment;
     
     
     
@@ -92,6 +89,7 @@ public class EnterprizeManager implements Serializable{
     private void init(){
      
          selectedDepartments = new ArrayList<>();
+         selectedJobTitles = new ArrayList<>();
         // departmentList  =  departmentFacade.findAll();
          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Новый бин",""));
     }
@@ -104,11 +102,11 @@ public class EnterprizeManager implements Serializable{
      
     }
 
-    public Department getJobTitleDepartment() {
+    public String getJobTitleDepartment() {
         return jobTitleDepartment;
     }
 
-    public void setJobTitleDepartment(Department jobTitleDepartment) {
+    public void setJobTitleDepartment(String jobTitleDepartment) {
         this.jobTitleDepartment = jobTitleDepartment;
     }
 
@@ -122,12 +120,12 @@ public class EnterprizeManager implements Serializable{
         this.jobTitle = jobTitle;
     }
 
-    public int getSalary() {
-        return salary;
+    public String getSalary() {
+        return jobTitleSalary;
     }
 
-    public void setSalary(int salary) {
-        this.salary = salary;
+    public void setSalary(String salary) {
+        this.jobTitleSalary = salary;
     }
 
     
@@ -195,11 +193,24 @@ public class EnterprizeManager implements Serializable{
    
     public void createDepartmentListener(ActionEvent ae){
        
-        RequestContext.getCurrentInstance().update(":dataTableForm:dataTable");
+     //   RequestContext.getCurrentInstance().update(":dataTableForm:dataTable");
         departmentFacade.createDepartment(departmentName, description);
         departmentList = null;//обнуляем чтобы считать новый из базы????????????????????????????
         departmentName = null;
         description = null;
+    }
+    
+    public void createJobTitleListener(ActionEvent ae){
+       
+        jobTitleFacadeLocal.createJobTitle(jobTitle, jobTitleSalary, jobTitleDepartment);
+        jobTitleList = null;
+        jobTitle = null;
+        jobTitleSalary = null;
+    //    RequestContext.getCurrentInstance().update(":dataTableForm:dataTable");
+       // departmentFacade.createDepartment(departmentName, description);
+       // departmentList = null;//обнуляем чтобы считать новый из базы????????????????????????????
+       // departmentName = null;
+       // description = null;
     }
     
     
@@ -234,7 +245,7 @@ public class EnterprizeManager implements Serializable{
       
      public void deleteDepartmentListener(ActionEvent event){
          
-         RequestContext.getCurrentInstance().update(":dataTableForm:dataTable");
+      //   RequestContext.getCurrentInstance().update(":dataTableForm:dataTable");
          if(!(selectedDepartments.isEmpty())){
               departmentFacade.deleteDepartmentList(selectedDepartments);
               departmentList = null;
@@ -247,6 +258,23 @@ public class EnterprizeManager implements Serializable{
     
      
      }
+     
+     public void deleteJobTitleListener(ActionEvent event){
+         
+       //  RequestContext.getCurrentInstance().update(":dataTableForm:dataTable");
+//         if(!(selectedDepartments.isEmpty())){
+//              departmentFacade.deleteDepartmentList(selectedDepartments);
+//              departmentList = null;
+//           }else
+//           {
+//            FacesMessage message = new FacesMessage("Не выбрано ни одно подразделение для удаления");
+//            FacesContext context = FacesContext.getCurrentInstance();
+//            context.addMessage("messages", message);
+//           }
+    
+     
+     }
+     
      
      public void onRowEdit(RowEditEvent event) {
           

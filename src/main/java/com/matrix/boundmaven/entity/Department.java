@@ -29,9 +29,8 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "DEPARTMENT")
-@NamedQueries({@NamedQuery(name = "Department.findAllDepartmentsName",query = "SELECT d.departmentName FROM Department d"),
-                  @NamedQuery(name = "Department.findDepartmentByName"
-                          ,query = "SELECT d FROM Department d WHERE d.departmentName = :departmentName")})
+@NamedQueries({@NamedQuery(name = "Department.findAllDepartmentsName" ,query = "SELECT d.departmentName FROM Department d"),
+               @NamedQuery(name = "Department.findDepartmentByName" ,query = "SELECT d FROM Department d WHERE d.departmentName = :departmentName")})
 public class Department implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -52,18 +51,20 @@ public class Department implements Serializable {
     @Size(max = 255)
     @Column(name = "DEPARTMENT_DESCRIPTION",length = 255)
     private String description;
-    
-    
+     
     @Embedded
     private Time ctime;
-    
-    
+     
     @OneToMany(mappedBy = "department", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Employee> employees; 
 
     @OneToMany(mappedBy = "department", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<JobTitle> jobTitles; 
 
+    public Department() {
+    }
+
+    
     public Time getCtime() {
         return ctime;
     }

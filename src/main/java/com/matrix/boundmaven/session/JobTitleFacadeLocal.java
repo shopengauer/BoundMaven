@@ -5,6 +5,7 @@
  */
 package com.matrix.boundmaven.session;
 
+import com.matrix.boundmaven.entity.Department;
 import com.matrix.boundmaven.entity.JobTitle;
 import java.util.List;
 import javax.ejb.Local;
@@ -29,5 +30,9 @@ public interface JobTitleFacadeLocal {
     List<JobTitle> findRange(int[] range);
 
     int count();
+
+    void createJobTitle(String jobTitleName, String jobTitleSalary, String department);
+
+    List<JobTitle> getJobTitleByName(String jobTitleName);
     
 }
