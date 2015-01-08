@@ -77,8 +77,8 @@ public class DepartmentFacade extends AbstractFacade<Department> implements Depa
 
     @Override
     public void updateDepartment(Department dep) {
-        em.merge(dep);
-    
+       Department upDepartment = em.merge(dep);
+       upDepartment.getCtime().setUpdateTime(new Date());
     }
 
     @Override

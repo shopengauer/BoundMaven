@@ -89,7 +89,9 @@ public class EnterprizeManager implements Serializable{
     
     
     @Digits(integer = 300000,fraction = 0)
+    @Size(min = 2, max = 45)
     private String jobTitleSalary;
+   
     private String jobTitleDepartment;
     
     
@@ -290,39 +292,101 @@ public class EnterprizeManager implements Serializable{
      
      
      public void onRowEdit(RowEditEvent event) {
-          
-         //departmentName = ((Department)event.getObject()).getDepartmentName();
-          Department dep = (Department)event.getObject();
-         
-          if(departmentFacade.getDepartmentByName(dep.getDepartmentName()).isEmpty()){
-              
-            if(dep.getDepartmentName().isEmpty()){
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Введите название подразделения",dep.getDepartmentName())); 
+
+        Department dep = (Department) event.getObject();
+        String startDepartment = dep.getDepartmentName();
+        
+        
+        if(dep.getDepartmentName().isEmpty()){
+           FacesMessage facesMessage = new FacesMessage("Введите название подразделения", "Поле не должно быть пустым");
+           FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+           departmentList = null; 
+        }else
+        {
+            List<Department> jobTitleFromDB = departmentFacade.getDepartmentByName(dep.getDepartmentName());
+            if((jobTitleFromDB.isEmpty()) || (jobTitleFromDB.get(0).getDepartmentName().equals(startDepartment))){
+              //  if(dep.getDepartmentName().)   сделать чтобы измененния отображались если только что то реально изменено
+                departmentFacade.updateDepartment(dep);
+                FacesMessage facesMessage = new FacesMessage("Запись обновлена", dep.getDepartmentName());
+                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
                 departmentList = null;
-            }else{  
-              departmentFacade.updateDepartment(dep);
-              departmentList = null;
-              FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Подразделение обновлено",dep.getDepartmentName()));
-             }
-          }else
-          {
-              FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Подразделение с таким именем уже существует!",dep.getDepartmentName()));
-              departmentList = null;
-               //RequestContext.getCurrentInstance().;
-          }
-       
+            } else {
+                FacesMessage facesMessage = new FacesMessage("Подразделение с таким именем уже существует", dep.getDepartmentName());
+                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                departmentList = null;
+            }
+            
+            
+            
+        }    
+        
+        
+        
+//       
+//        if (dep.getDepartmentName().isEmpty()) {
+//
+//            if (dep.getDepartmentName().isEmpty()) {
+//                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Введите название подразделения", dep.getDepartmentName()));
+//                departmentList = null;
+//            } else {
+//                departmentFacade.updateDepartment(dep);
+//                departmentList = null;
+//                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Подразделение обновлено", dep.getDepartmentName()));
+//            }
+//        } else {
+//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Подразделение с таким именем уже существует!", dep.getDepartmentName()));
+//            departmentList = null;
+//            //RequestContext.getCurrentInstance().;
+//        }
+
         // depDataTable.reset();
-          
-     }
+    }
    
+     /**
+      * 
+      * @param event 
+      */
       
-     
+     public void onRowEditJob(RowEditEvent event) {
+
+        JobTitle job = (JobTitle) event.getObject();
+        String startJobTitle = job.getJobTitleName();
+        
+        
+        if (job.getJobTitleName().isEmpty()) {
+            FacesMessage facesMessage = new FacesMessage("Введите название должности", "Поле не может быть пустым");
+            FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+            jobTitleList = null;
+        } else {
+             List<JobTitle> jobTitleFromDB = jobTitleFacade.getJobTitleByName(job.getJobTitleName());  
+             
+            if ((jobTitleFromDB.isEmpty()) || (jobTitleFromDB.get(0).getJobTitleName().equals(startJobTitle))){
+                jobTitleFacade.updateJobTitle(job);
+                FacesMessage facesMessage = new FacesMessage("Запись обновлена", job.getJobTitleName());
+                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                jobTitleList = null;
+            } else {
+                FacesMessage facesMessage = new FacesMessage("Должность с таким именем уже существует", job.getJobTitleName());
+                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                jobTitleList = null;
+            }
+
+        }
+
+    }
      
      
      
      
      
     public void onRowCancel(RowEditEvent event) {
+//        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Car) event.getObject()).getId());
+//        FacesContext.getCurrentInstance().addMessage(null, msg);
+    
+          
+    }
+    
+     public void onRowCancelJob(RowEditEvent event) {
 //        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Car) event.getObject()).getId());
 //        FacesContext.getCurrentInstance().addMessage(null, msg);
     

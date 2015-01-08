@@ -50,7 +50,7 @@ public class JobTitle implements Serializable {
     
     
     @Basic(optional = true)
-    @Size(min = 2, max = 45)
+    //@Size(min = 2, max = 45)
     @Column(name = "SALARY")
     private String salary;
     

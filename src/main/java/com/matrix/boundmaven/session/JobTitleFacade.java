@@ -74,13 +74,19 @@ public class JobTitleFacade extends AbstractFacade<JobTitle> implements JobTitle
         while(iterator.hasNext()){
           JobTitle jobTitle = iterator.next();
          em.remove(em.find(JobTitle.class, jobTitle.getId()));
-                 
-        }
+       }
+    }   
+
+    @Override
+    public void updateJobTitle(JobTitle jobTitle) {
+    
+    JobTitle job = em.merge(jobTitle);
+    job.getCtime().setUpdateTime(new Date());
+    
     
     
     
     }
-   
     
     
     
