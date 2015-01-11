@@ -33,7 +33,7 @@ import javax.validation.constraints.Size;
 @NamedQueries({@NamedQuery(name = "JobTitle.findJobTitleNameByName", query = "SELECT j.jobTitleName FROM JobTitle j WHERE j.jobTitleName = :jobTitleName"),
                @NamedQuery(name = "JobTitle.findAllJobTitle", query = "SELECT j FROM JobTitle j"),
                @NamedQuery(name = "JobTitle.findJobTitleByName", query = "SELECT j FROM JobTitle j WHERE j.jobTitleName = :jobTitleName")})
-public class JobTitle implements Serializable {
+public class JobTitle implements Serializable,Comparable<JobTitle> {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -142,6 +142,15 @@ public class JobTitle implements Serializable {
     @Override
     public String toString() {
         return "com.matrix.boundmaven.entity.JobTitle[ id=" + id + " ]";
+    }
+
+    @Override
+    public int compareTo(JobTitle o) {
+       
+        
+
+       return 1;   
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
