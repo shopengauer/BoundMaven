@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Department tab</title>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <p:dataTable id="dataTable" var="dep" value="#{enterprize.allDepartment}" paginator="true" widgetVar="dataTableWidgetVar" rows="10"  rowsPerPageTemplate="5,10,20,30"  selection="#{enterprize.selectedDepartments}" rowKey="#{dep.id}" editable="true">  
+                <!--                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"-->
+
+                <f:facet name="header">
+                    <h:outputLabel value="#{msgs.department}"/>
+                    <p:commandButton id = "addDepDiag" process="@this" actionListener="#{enterprize.openCreateDepartmentDialog}" icon="ui-icon-plusthick" style="margin-left: 20px"> 
+                        <p:ajax event="dialogReturn"/>
+                    </p:commandButton> 
+                    <!---->
+                </f:facet>
+                <!---->
+                <p:ajax event="rowEdit" listener="#{enterprize.onRowEdit}" update=":#{p:component('messages')},:#{p:component('dataTable')}"/>
+                <p:ajax event="rowEditCancel" listener="#{enterprize.onRowCancel}" update=":#{p:component('messages')},:#{p:component('dataTable')}"/>
+                <!--<p:ajax event="rowSelect" listener="{enterprize.onRowSelect}" update=":{p:component('messages')}"/>--> 
+
+                <p:column  id="selId" selectionMode="multiple" style="width:16px;text-align:center"/>
+
+                <p:column headerText="id">
+                    <p:link value="#{dep.id}" outcome="departmentInfo">
+                        <f:param name="depName" value="#{dep.departmentName}"/>
+                    </p:link>
+                </p:column>
+
+                <p:column headerText="#{msgs.department}">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{dep.departmentName}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{dep.departmentName}" style="width:100%"/></f:facet>
+                    </p:cellEditor> 
+                </p:column>
+
+
+                <p:column headerText="#{msgs.desc}">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{dep.description}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{dep.description}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="#{msgs.insertTime}">
+                    <h:outputText value="#{dep.ctime.insertTime}" />
+                </p:column>
+
+                <p:column headerText="#{msgs.updateTime}">
+                    <h:outputText value="#{dep.ctime.updateTime}" />
+                </p:column>
+
+                <p:column headerText="">
+                    <h:button value="Edit" />
+                </p:column>
+
+                <p:column style="width:32px" disabledSelection="true">
+                    <p:rowEditor/>
+                </p:column>                            
+
+                <f:facet name="footer">
+                    <p:commandButton id = "cre"  value="Create"/> 
+                </f:facet> 
+
+            </p:dataTable>
+
+            <h:panelGrid columns="6"  > 
+                <p:inputText id="depName" 
+                             placeholder="#{msgs.department}" 
+                             value="#{enterprize.departmentName}"/> 
+                <p:inputText id ="depDesc" 
+                             placeholder="#{msgs.desc}"
+                             value="#{enterprize.description}"/>
+                <p:commandButton id = "createDepBtn"                                                    
+                                 update=":#{p:component('dataTable')},:#{p:component('depName')},:#{p:component('depDesc')},:#{p:component('messages')},:#{p:component('jobTitleDepartment')}"  
+                                 value="#{msgs.create}" 
+                                 actionListener="#{enterprize.createDepartmentListener}" 
+                                 process="@this depName depDesc :#{p:component('dataTable')}"/> 
+                <p:commandButton id = "delDepBtn"  
+                                 actionListener="#{enterprize.deleteDepartmentListener}" 
+                                 update=":#{p:component('dataTable')},:#{p:component('messages')},:#{p:component('jobTitleDepartment')},:#{p:component('dataTable2')}"  
+                                 value="#{msgs.delete}" 
+                                 process=":#{p:component('dataTable')},@this"/> 
+            </h:panelGrid> 
+
+
+
+        </ui:composition>
+    </h:body>
+</html>
+

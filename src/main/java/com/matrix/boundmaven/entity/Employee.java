@@ -231,6 +231,10 @@ public class Employee implements Serializable {
         return employeeRole;
     }
 
+   
+    
+    
+    
     public void setEmployeeRole(EmployeeRole employeeRole) {
         this.employeeRole = employeeRole;
     }

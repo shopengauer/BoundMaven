@@ -10,5 +10,5 @@ package com.matrix.boundmaven.entity;
  * @author Vasiliy
  */
 public enum PhoneType {
-    HOME, WORK, MOBILE
+   WORK,WORKMOBILE,HOMEMOBILE
 }

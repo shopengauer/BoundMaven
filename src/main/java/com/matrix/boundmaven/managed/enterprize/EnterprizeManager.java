@@ -6,8 +6,12 @@
 package com.matrix.boundmaven.managed.enterprize;
 
 import com.matrix.boundmaven.entity.Department;
+import com.matrix.boundmaven.entity.Employee;
+import com.matrix.boundmaven.entity.EmployeeRole;
 import com.matrix.boundmaven.entity.JobTitle;
+import com.matrix.boundmaven.entity.PhoneType;
 import com.matrix.boundmaven.session.DepartmentFacadeLocal;
+import com.matrix.boundmaven.session.EmployeeFacadeLocal;
 import com.matrix.boundmaven.session.JobTitleFacadeLocal;
 import com.matrix.boundmaven.validators.UniqueDepartment;
 import com.matrix.boundmaven.validators.UniqueJobTitle;
@@ -27,6 +31,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 import org.primefaces.component.datatable.DataTable;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
 
@@ -55,6 +60,11 @@ public class EnterprizeManager implements Serializable{
     //JobTitle
     private List<JobTitle> jobTitleList;
     private List<JobTitle> selectedJobTitles;
+    private List<JobTitle> jobsForDepartment; 
+    //Employee
+    private List<Employee> employeeList;
+    private List<Employee> selectedEmployee;
+    private List<JobTitle> dropDownJobTitleList; 
     
     @EJB
     DepartmentFacadeLocal departmentFacade;
@@ -62,6 +72,8 @@ public class EnterprizeManager implements Serializable{
     @EJB
     JobTitleFacadeLocal jobTitleFacade;
     
+    @EJB
+    EmployeeFacadeLocal employeeFacade;
 //    @Inject
 //    Conversation conversation;
     
@@ -69,19 +81,19 @@ public class EnterprizeManager implements Serializable{
   //  private String currrentDep;
     
     
-    
+    //Department vars
     @NotBlank(message = "{notBlankDepartment.message}")
     @Size(min = 2,max = 45,message = "{departmentNameLength.message}")
     @NotNull
     @UniqueDepartment
     private String departmentName;
-   
+    
     @Size(max = 255,message = "{departmentDescriptionLength.message}")
     private String description;
     
     
     
-    
+    //JobTitle vars
     @NotBlank(message = "{notBlankJobTitle.message}")
     @UniqueJobTitle
     @Size(min = 2,max = 45,message = "{jobTitleNameLength.message}")
@@ -91,9 +103,23 @@ public class EnterprizeManager implements Serializable{
     @Digits(integer = 300000,fraction = 0)
     @Size(min = 2, max = 45)
     private String jobTitleSalary;
-   
+    
     private String jobTitleDepartment;
     
+    //Employee vars
+    private String firstname;
+    private String lastname;
+    private String account;
+    private String password;
+    private List<String> emails;
+    private Map<PhoneType,String> phoneNumbers;
+    private PhoneType phoneType;
+    private String phoneMobile;
+    private String phoneWorkMobile;
+    private String phoneWork;
+    private EmployeeRole employeeRole; // может нужно String
+    private String employeeDepartment;
+    private String employeeJobTitle;
     
     
     @PostConstruct
@@ -238,6 +264,11 @@ public class EnterprizeManager implements Serializable{
         departmentList = departmentFacade.findAll();
       } 
     
+    public void departmentJobsListener(ActionEvent event){
+     //  dropDownJobTitleList  
+     //  this.jobsForDepartment = jobTitleFacade. 
+    }
+    
      public List<Department> getAllDepartment() {
         if(departmentList == null){
            departmentList = departmentFacade.findAll();
@@ -252,6 +283,16 @@ public class EnterprizeManager implements Serializable{
          }  
         return jobTitleList;
      } 
+     
+     public List<Employee> getAllEmployees(){
+         
+        if(employeeList == null){
+           employeeList = employeeFacade.findAll();
+         }  
+        return employeeList; 
+         
+     } 
+      
       
       
      public void deleteDepartmentListener(ActionEvent event){
@@ -269,9 +310,6 @@ public class EnterprizeManager implements Serializable{
            }
     
      }
-     
-     
-      
      
      public void deleteJobTitleListener(ActionEvent event){
          
@@ -315,33 +353,9 @@ public class EnterprizeManager implements Serializable{
                 FacesContext.getCurrentInstance().addMessage(null, facesMessage);
                 departmentList = null;
             }
-            
-            
-            
-        }    
-        
-        
-        
-//       
-//        if (dep.getDepartmentName().isEmpty()) {
-//
-//            if (dep.getDepartmentName().isEmpty()) {
-//                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Введите название подразделения", dep.getDepartmentName()));
-//                departmentList = null;
-//            } else {
-//                departmentFacade.updateDepartment(dep);
-//                departmentList = null;
-//                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Подразделение обновлено", dep.getDepartmentName()));
-//            }
-//        } else {
-//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Подразделение с таким именем уже существует!", dep.getDepartmentName()));
-//            departmentList = null;
-//            //RequestContext.getCurrentInstance().;
-//        }
-
-        // depDataTable.reset();
-    }
-   
+       } 
+     }
+     
      /**
       * 
       * @param event 
@@ -404,6 +418,22 @@ public class EnterprizeManager implements Serializable{
     }
     
  
+    public void addEmployeeDialog()
+    {
+        RequestContext.getCurrentInstance().openDialog("addEmployeeDialog");
+        
+    }
+    
+      public void openCreateDepartmentDialog(){
+      RequestContext.getCurrentInstance().openDialog("addDepartmentDialog");  
+    }
+    
+    
+    
+    public void closeDialog(){
+        RequestContext.getCurrentInstance().closeDialog("close");
+    }
+    
     public List<Department> getDepartmentList() {
         return departmentList;
     }
@@ -412,6 +442,156 @@ public class EnterprizeManager implements Serializable{
         this.departmentList = departmentList;
     }
     
+     public EmployeeRole[] getEmployeeRoleConstants(){
+        return EmployeeRole.values(); 
+    }
+
+    public PhoneType[] getAllPhoneTypes(){
+        
+       return PhoneType.values();
+    } 
+     
+     
+     
+    public List<Employee> getEmployeeList() {
+        return employeeList;
+    }
+
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
+    }
+
+    public List<Employee> getSelectedEmployee() {
+        return selectedEmployee;
+    }
+
+    public void setSelectedEmployee(List<Employee> selectedEmployee) {
+        this.selectedEmployee = selectedEmployee;
+    }
+
+    public EmployeeRole getEmployeeRole() {
+        return employeeRole;
+    }
+
+    public void setEmployeeRole(EmployeeRole employeeRole) {
+        this.employeeRole = employeeRole;
+    }
+
+    public String getJobTitleSalary() {
+        return jobTitleSalary;
+    }
+
+    public void setJobTitleSalary(String jobTitleSalary) {
+        this.jobTitleSalary = jobTitleSalary;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<String> getEmails() {
+        return emails;
+    }
+
+    public void setEmails(List<String> emails) {
+        this.emails = emails;
+    }
+
+    public Map<PhoneType, String> getPhoneNumbers() {
+        return phoneNumbers;
+    }
+
+    public void setPhoneNumbers(Map<PhoneType, String> phoneNumbers) {
+        this.phoneNumbers = phoneNumbers;
+    }
+
+    public PhoneType getPhoneType() {
+        return phoneType;
+    }
+
+    public void setPhoneType(PhoneType phoneType) {
+        this.phoneType = phoneType;
+    }
+
+    public String getPhoneMobile() {
+        return phoneMobile;
+    }
+
+    public void setPhoneMobile(String phoneMobile) {
+        this.phoneMobile = phoneMobile;
+    }
+
+    public String getPhoneWorkMobile() {
+        return phoneWorkMobile;
+    }
+
+    public void setPhoneWorkMobile(String phoneWorkMobile) {
+        this.phoneWorkMobile = phoneWorkMobile;
+    }
+
+    public String getPhoneWork() {
+        return phoneWork;
+    }
+
+    public void setPhoneWork(String phoneWork) {
+        this.phoneWork = phoneWork;
+    }
+
+    public String getEmployeeDepartment() {
+        return employeeDepartment;
+    }
+
+    public void setEmployeeDepartment(String employeeDepartment) {
+        this.employeeDepartment = employeeDepartment;
+    }
+
+    public String getEmployeeJobTitle() {
+        return employeeJobTitle;
+    }
+
+    public void setEmployeeJobTitle(String employeeJobTitle) {
+        this.employeeJobTitle = employeeJobTitle;
+    }
+ 
     
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public List<JobTitle> getJobsForDepartment() {
+        return jobsForDepartment;
+    }
+
+    public void setJobsForDepartment(List<JobTitle> jobsForDepartment) {
+        this.jobsForDepartment = jobsForDepartment;
+    }
     
+     
+     
+     
+     
 }

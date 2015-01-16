@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <style type="text/css">
+            .ui-widget {
+                font-size: 90%;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:outputLabel for = "person" value="Person:"/> 
+            <h:panelGrid columns="5" id="person"> 
+                <ui:remove> </ui:remove>  
+      
+                <p:inputText id="firstName" placeholder="#{msgs.firstname}" value="#{enterprize.firstname}"/> 
+                <p:inputText id ="lastName" placeholder="#{msgs.lastname}" value="#{enterprize.lastname}"/>
+                <p:inputText id ="account"  placeholder="#{msgs.account}"  value="#{enterprize.account}"/>
+                <p:inputText id ="password" placeholder="#{msgs.pw}" value="#{enterprize.password}"/>
+
+                <!--                            <p:selectOneMenu id ="selectPhoneType">
+                                                <p:ajax listener = "" update = ""/>
+                                                <f:selectItem itemLabel="#{msgs.phone}" itemValue="" noSelectionOption="true"/> 
+                                                <f:selectItems value="#{enterprize.allPhoneTypes}"/>
+                                            </p:selectOneMenu>-->
+
+                <p:selectOneMenu id ="selectEmployeeRole">
+                    <!--<p:ajax listener = "" update = ""/>-->
+                    <f:selectItem itemLabel="Role" itemValue="" noSelectionOption="true"/> 
+                    <f:selectItems value="#{enterprize.employeeRoleConstants}"/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+
+            <p:outputLabel for = "phones" value="Phones:"/>
+            <h:panelGrid columns="3" id = "phones">
+                <p:inputMask id="phoneMobile" placeholder="#{msgs.workmobile}" slotChar="_"  value="#{enterprize.phoneMobile}" mask="9(999) 999-9999"/>  
+                <p:inputMask id="phoneWorkMobile" placeholder="#{msgs.mobile}" slotChar="_" value="#{enterprize.phoneWorkMobile}" mask="9(999) 999-9999"/>
+                <p:inputMask id="phoneWork" placeholder="#{msgs.work}" slotChar="_" value="#{enterprize.phoneWork}" mask="999"/>
+            </h:panelGrid>
+            <ui:remove></ui:remove>
+            <p:selectOneMenu id = "selectEmpDep" value="#{enterprize.employeeDepartment}">
+                <p:ajax listener="#{enterprize.departmentJobsListener}" update = "selectEmpJob"/>
+                <f:selectItem itemLabel="#{msgs.department}" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{enterprize.allDepartment}" var ="dep" itemValue="#{dep.departmentName}" 
+                               itemLabel="#{dep.departmentName}"/>
+            </p:selectOneMenu>
+
+
+            <p:selectOneMenu id = "selectEmpJob" value="#{enterprize.employeeJobTitle}">
+
+                <f:selectItem itemLabel="#{msgs.jobtitle}" itemValue="" noSelectionOption="true" />
+                <!--<f:selectItems value="#{enterprize.jobsForDepartment}" var ="job" itemValue="#{job.jobTitle}" itemLabel="#{job.jobTitle}"/>-->
+            </p:selectOneMenu>
+
+
+
+            <p:commandButton id = "createEmployeeBtn" 
+                             
+                             value="#{msgs.create}" 
+                             actionListener="#{enterprize.createJobTitleListener}"
+                             /> 
+            <p:commandButton id = "delEmployeeBtn"  
+                             actionListener="#{enterprize.deleteJobTitleListener}" 
+                               
+                             value="#{msgs.delete}" 
+                             /> 
+            <p:commandButton value="Close" actionListener="#{enterprize.closeDialog}"/>
+        </h:form>
+    </h:body>
+</html>
+
