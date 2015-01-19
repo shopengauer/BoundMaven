@@ -5,9 +5,14 @@
  */
 package com.matrix.boundmaven.managed.enterprize;
 
+import com.matrix.boundmaven.entity.Department;
 import java.io.Serializable;
-import javax.inject.Named;
+import java.util.Map;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ConversationScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -24,11 +29,16 @@ public class DepartmentManager implements Serializable{
     private String departmentName;
     private String departmentDescription;
     
+    @PostConstruct
+    private void initDepParams(){
+    Map<String,Object> depmap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+    // Map<String,Object> depmap = FacesContext.getCurrentInstance().getExternalContext().getFlash();
+    Department depForEdit = (Department)depmap.get("dep");
+    this.departmentName = depForEdit.getDepartmentName();
+    this.departmentDescription = depForEdit.getDescription();
+    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("dep");
+    } 
     
-    
-    public void openCreateDepartmentDialog(){
-      RequestContext.getCurrentInstance().openDialog("addDepartmentDialog");  
-    }
     
      public void closeCreateDepartmentDialog(){
          RequestContext.getCurrentInstance().closeDialog(Boolean.TRUE);

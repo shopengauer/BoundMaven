@@ -11,16 +11,16 @@
     <h:body>
         <ui:composition>
             <p:dataTable id="dataTable" var="dep" value="#{enterprize.allDepartment}" paginator="true" widgetVar="dataTableWidgetVar" rows="10"  rowsPerPageTemplate="5,10,20,30"  selection="#{enterprize.selectedDepartments}" rowKey="#{dep.id}" editable="true">  
-                <!--                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"-->
-
+               
                 <f:facet name="header">
-                    <h:outputLabel value="#{msgs.department}"/>
-                    <p:commandButton id = "addDepDiag" process="@this" actionListener="#{enterprize.openCreateDepartmentDialog}" icon="ui-icon-plusthick" style="margin-left: 20px"> 
+                    <p:commandButton id = "addDepDiag" process="@this" value="Добавить" actionListener="#{depManager.openCreateDepartmentDialog(enterprize.allDepartment)}" icon="ui-icon-plusthick" style="margin-left: 20px"> 
                         <p:ajax event="dialogReturn"/>
                     </p:commandButton> 
-                    <!---->
+                    <p:commandButton id = "deleteDep" value="Удалить" actionListener="#{enterprize.deleteDepartmentListener}" 
+                                 update=":#{p:component('dataTable')},:#{p:component('messages')},:#{p:component('jobTitleDepartment')},:#{p:component('dataTable2')}"  
+                                 process=":#{p:component('dataTable')},@this" icon="ui-icon-minusthick" style="margin-left: 20px"/>
                 </f:facet>
-                <!---->
+               
                 <p:ajax event="rowEdit" listener="#{enterprize.onRowEdit}" update=":#{p:component('messages')},:#{p:component('dataTable')}"/>
                 <p:ajax event="rowEditCancel" listener="#{enterprize.onRowCancel}" update=":#{p:component('messages')},:#{p:component('dataTable')}"/>
                 <!--<p:ajax event="rowSelect" listener="{enterprize.onRowSelect}" update=":{p:component('messages')}"/>--> 
@@ -57,7 +57,10 @@
                 </p:column>
 
                 <p:column headerText="">
-                    <h:button value="Edit" />
+                    <!--<p:commandButton value="Edit"  />-->
+                    <p:commandButton id = "editDepDiag" process="@this" value="Редактировать" update = ":#{p:component('messages')}" actionListener="#{enterprize.openCreateDepartmentDialog(dep)}" icon="ui-icon-plusthick" style="margin-left: 20px"> 
+                        <p:ajax event="dialogReturn"/>
+                    </p:commandButton> 
                 </p:column>
 
                 <p:column style="width:32px" disabledSelection="true">
@@ -65,7 +68,7 @@
                 </p:column>                            
 
                 <f:facet name="footer">
-                    <p:commandButton id = "cre"  value="Create"/> 
+                   
                 </f:facet> 
 
             </p:dataTable>

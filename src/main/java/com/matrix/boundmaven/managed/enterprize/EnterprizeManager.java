@@ -17,6 +17,7 @@ import com.matrix.boundmaven.validators.UniqueDepartment;
 import com.matrix.boundmaven.validators.UniqueJobTitle;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
@@ -26,6 +27,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.view.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.inject.Inject;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -74,10 +76,12 @@ public class EnterprizeManager implements Serializable{
     
     @EJB
     EmployeeFacadeLocal employeeFacade;
-//    @Inject
-//    Conversation conversation;
     
+    @Inject
+    private DepartmentManager departmentManager;
     
+    @Inject
+    private DepManager depManager;
   //  private String currrentDep;
     
     
@@ -269,6 +273,10 @@ public class EnterprizeManager implements Serializable{
      //  this.jobsForDepartment = jobTitleFacade. 
     }
     
+     
+    
+    
+     
      public List<Department> getAllDepartment() {
         if(departmentList == null){
            departmentList = departmentFacade.findAll();
@@ -276,7 +284,7 @@ public class EnterprizeManager implements Serializable{
         return departmentList;
      } 
  
-      public List<JobTitle> getAllJobTitles() {
+     public List<JobTitle> getAllJobTitles() {
          //  departmentList = null;
           if(jobTitleList == null){
            jobTitleList = jobTitleFacade.findAll();
@@ -424,10 +432,29 @@ public class EnterprizeManager implements Serializable{
         
     }
     
-      public void openCreateDepartmentDialog(){
-      RequestContext.getCurrentInstance().openDialog("addDepartmentDialog");  
-    }
+      public void openCreateDepartmentDialog(Object o){
+     
+          Department depForEdit = (Department)o;
+
+          FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("dep", o); 
+         // FacesContext.getCurrentInstance().getExternalContext().getFlash().put("dep", o);      
+      //   FacesContext.getCurrentInstance().getExternalContext().getFlash().
+          RequestContext.getCurrentInstance().openDialog("addDepartmentDialog");  
+          
+      
+      }
     
+      private String message;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+      
+      
     
     
     public void closeDialog(){
@@ -588,6 +615,14 @@ public class EnterprizeManager implements Serializable{
 
     public void setJobsForDepartment(List<JobTitle> jobsForDepartment) {
         this.jobsForDepartment = jobsForDepartment;
+    }
+
+    public DepManager getDepManager() {
+        return depManager;
+    }
+
+    public void setDepManager(DepManager depManager) {
+        this.depManager = depManager;
     }
     
      
