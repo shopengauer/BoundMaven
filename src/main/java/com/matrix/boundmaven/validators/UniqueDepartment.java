@@ -19,7 +19,7 @@ import javax.validation.Payload;
  */
 @Documented
 @Constraint(validatedBy = UniqueDepartmentValidator.class)
-@Target({ElementType.METHOD, ElementType.FIELD})
+@Target({ElementType.METHOD, ElementType.FIELD,ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UniqueDepartment {
     String message() default "{uniqueDepartment.message}";

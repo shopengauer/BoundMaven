@@ -45,6 +45,15 @@ public class DepartmentFacade extends AbstractFacade<Department> implements Depa
     }
 
     @Override
+    public void create(Department entity) {
+      //  super.create(entity); //To change body of generated methods, choose Tools | Templates.
+        em.persist(entity);
+    }
+
+    
+    
+    
+    @Override
     public List<String> getDepartmentsNameList() {
         TypedQuery<String> query = 
                 em.createNamedQuery("Department.findAllDepartmentsName", String.class);
@@ -78,7 +87,7 @@ public class DepartmentFacade extends AbstractFacade<Department> implements Depa
     @Override
     public void updateDepartment(Department dep) {
        Department upDepartment = em.merge(dep);
-       upDepartment.getCtime().setUpdateTime(new Date());
+       //upDepartment.getCtime().setUpdateTime(new Date());
     }
 
     @Override

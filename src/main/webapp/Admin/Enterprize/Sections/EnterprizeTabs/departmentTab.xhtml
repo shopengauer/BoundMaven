@@ -13,8 +13,8 @@
             <p:dataTable id="dataTable" var="dep" value="#{enterprize.allDepartment}" paginator="true" widgetVar="dataTableWidgetVar" rows="10"  rowsPerPageTemplate="5,10,20,30"  selection="#{enterprize.selectedDepartments}" rowKey="#{dep.id}" editable="true">  
                
                 <f:facet name="header">
-                    <p:commandButton id = "addDepDiag" process="@this" value="Добавить" actionListener="#{depManager.openCreateDepartmentDialog(enterprize.allDepartment)}" icon="ui-icon-plusthick" style="margin-left: 20px"> 
-                        <p:ajax event="dialogReturn"/>
+                    <p:commandButton id = "addDepDiag" process="@this" value="Добавить" actionListener="#{enterprize.openCreateDepartmentDialog(null)}" icon="ui-icon-plusthick" style="margin-left: 20px"> 
+                        <p:ajax event="dialogReturn" listener="#{enterprize.onCreateDepartmentListener}" update=":#{p:component('messages')},:#{p:component('jobTitleDepartment')},:#{p:component('dataTable')}"/>
                     </p:commandButton> 
                     <p:commandButton id = "deleteDep" value="Удалить" actionListener="#{enterprize.deleteDepartmentListener}" 
                                  update=":#{p:component('dataTable')},:#{p:component('messages')},:#{p:component('jobTitleDepartment')},:#{p:component('dataTable2')}"  
@@ -58,14 +58,14 @@
 
                 <p:column headerText="">
                     <!--<p:commandButton value="Edit"  />-->
-                    <p:commandButton id = "editDepDiag" process="@this" value="Редактировать" update = ":#{p:component('messages')}" actionListener="#{enterprize.openCreateDepartmentDialog(dep)}" icon="ui-icon-plusthick" style="margin-left: 20px"> 
-                        <p:ajax event="dialogReturn"/>
-                    </p:commandButton> 
+                    <p:commandLink id = "editDepDiag" process="@this" value="Редактор" update = ":#{p:component('messages')}" actionListener="#{enterprize.openCreateDepartmentDialog(dep)}" style="margin-left: 20px"> 
+                        <p:ajax event="dialogReturn" listener="#{enterprize.onEditDepartmentListener}" update=":#{p:component('messages')},:#{p:component('jobTitleDepartment')},:#{p:component('dataTable')}"/>
+                    </p:commandLink> 
                 </p:column>
 
-                <p:column style="width:32px" disabledSelection="true">
+<!--                <p:column style="width:32px" disabledSelection="true">
                     <p:rowEditor/>
-                </p:column>                            
+                </p:column>                            -->
 
                 <f:facet name="footer">
                    
@@ -73,7 +73,7 @@
 
             </p:dataTable>
 
-            <h:panelGrid columns="6"  > 
+<!--            <h:panelGrid columns="6"  > 
                 <p:inputText id="depName" 
                              placeholder="#{msgs.department}" 
                              value="#{enterprize.departmentName}"/> 
@@ -90,7 +90,7 @@
                                  update=":#{p:component('dataTable')},:#{p:component('messages')},:#{p:component('jobTitleDepartment')},:#{p:component('dataTable2')}"  
                                  value="#{msgs.delete}" 
                                  process=":#{p:component('dataTable')},@this"/> 
-            </h:panelGrid> 
+            </h:panelGrid> -->
 
 
 

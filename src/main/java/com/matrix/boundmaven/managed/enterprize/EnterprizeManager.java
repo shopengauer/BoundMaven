@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javassist.bytecode.stackmap.BasicBlock;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -77,11 +78,8 @@ public class EnterprizeManager implements Serializable{
     @EJB
     EmployeeFacadeLocal employeeFacade;
     
-    @Inject
-    private DepartmentManager departmentManager;
+     
     
-    @Inject
-    private DepManager depManager;
   //  private String currrentDep;
     
     
@@ -241,6 +239,37 @@ public class EnterprizeManager implements Serializable{
         description = null;
     }
     
+    public void onCreateDepartmentListener(SelectEvent se){
+        Department dep = (Department)se.getObject();
+      //  departmentName = dep.getDepartmentName();
+      //  description = dep.getDescription();
+      if(dep != null){  
+        departmentFacade.create(dep);
+        departmentList = null;//обнуляем чтобы считать новый из базы????????????????????????????
+      }       
+// departmentName = null;
+      //  description = null;
+        
+    }
+    
+    public void onEditDepartmentListener(SelectEvent se){
+        Department dep = (Department)se.getObject();
+      //  departmentName = dep.getDepartmentName();
+      //  description = dep.getDescription();
+      if(dep != null){
+           departmentFacade.updateDepartment(dep);
+           departmentList = null;//обнуляем чтобы считать новый из базы????????????????????????????
+       } 
+        
+      //  departmentFacade.createDepartment(dep.getDepartmentName(), dep.getDescription());
+        
+       // departmentName = null;
+      //  description = null;
+        
+    }
+    
+    
+    
     public void createJobTitleListener(ActionEvent ae){
        
         jobTitleFacade.createJobTitle(jobTitle, jobTitleSalary, jobTitleDepartment);
@@ -349,8 +378,8 @@ public class EnterprizeManager implements Serializable{
            departmentList = null; 
         }else
         {
-            List<Department> jobTitleFromDB = departmentFacade.getDepartmentByName(dep.getDepartmentName());
-            if((jobTitleFromDB.isEmpty()) || (jobTitleFromDB.get(0).getDepartmentName().equals(startDepartment))){
+            List<Department> departmentFromDB = departmentFacade.getDepartmentByName(dep.getDepartmentName());
+            if((departmentFromDB.isEmpty()) || (departmentFromDB.get(0).getDepartmentName().equals(startDepartment))){
               //  if(dep.getDepartmentName().)   сделать чтобы измененния отображались если только что то реально изменено
                 departmentFacade.updateDepartment(dep);
                 FacesMessage facesMessage = new FacesMessage("Запись обновлена", dep.getDepartmentName());
@@ -434,17 +463,30 @@ public class EnterprizeManager implements Serializable{
     
       public void openCreateDepartmentDialog(Object o){
      
+        if(o != null){  
           Department depForEdit = (Department)o;
-
+           FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isNew", Boolean.FALSE);
           FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("dep", o); 
-         // FacesContext.getCurrentInstance().getExternalContext().getFlash().put("dep", o);      
-      //   FacesContext.getCurrentInstance().getExternalContext().getFlash().
           RequestContext.getCurrentInstance().openDialog("addDepartmentDialog");  
-          
-      
+        }else{  
+           FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isNew", Boolean.TRUE);
+           RequestContext.getCurrentInstance().openDialog("addDepartmentDialog"); 
+        }   
       }
     
-      private String message;
+     public void openCreateDepartmentDialog(){
+      
+//      Department depForC   
+//      FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("dep", o);        
+//      RequestContext.getCurrentInstance().openDialog("addDepartmentDialog");  
+        
+      } 
+      
+      
+      
+      
+      
+    private String message;
 
     public String getMessage() {
         return message;
@@ -617,16 +659,6 @@ public class EnterprizeManager implements Serializable{
         this.jobsForDepartment = jobsForDepartment;
     }
 
-    public DepManager getDepManager() {
-        return depManager;
-    }
-
-    public void setDepManager(DepManager depManager) {
-        this.depManager = depManager;
-    }
     
-     
-     
-     
      
 }

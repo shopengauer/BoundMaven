@@ -94,24 +94,29 @@
 
 
                         <p:tab title="#{msgs.jobtitle}">
-                            <p:dataTable id="dataTable2" var="job" value="#{enterprize.allJobTitles}" paginator="true" widgetVar="dataTable2WidgetVar" rows="10"  rowsPerPageTemplate="5,10,20,30"  selection="#{enterprize.selectedJobTitles}" rowKey="#{job.id}" editable="true">  
-                                <!--                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"-->
+
+                            <ui:include src="Sections/EnterprizeTabs/jobTitleTab.xhtml"/> 
+                            
+                            <!--                          
+
+                              <p:dataTable id="dataTable2" var="job" value="#{enterprize.allJobTitles}" paginator="true" widgetVar="dataTable2WidgetVar" rows="10"  rowsPerPageTemplate="5,10,20,30"  selection="#{enterprize.selectedJobTitles}" rowKey="#{job.id}" editable="true">  
+                                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 
                                 <f:facet name="header">
                                     #{msgs.jobtitle}
                                 </f:facet>
-                                <!---->
+                                
                                 <p:ajax event="rowEdit" listener="#{enterprize.onRowEditJob}" update=":#{p:component('messages')},:#{p:component('dataTable2')}"/>
                                 <p:ajax event="rowEditCancel" listener="#{enterprize.onRowCancelJob}" update=":#{p:component('messages')},:#{p:component('dataTable2')}"/>
-                                <!--<p:ajax event="rowSelect" listener="{enterprize.onRowSelect}" update=":{p:component('messages')}"/>--> 
+                                <p:ajax event="rowSelect" listener="{enterprize.onRowSelect}" update=":{p:component('messages')}"/> 
 
                                 <p:column  id="selJobId" selectionMode="multiple" style="width:16px;text-align:center"/>
 
                                 <p:column headerText="id">
                                     <h:outputText value="#{job.id}"/>
-                                    <!--                                    <p:link value="" outcome="jobTitleInfo">
+                                                                        <p:link value="" outcome="jobTitleInfo">
                                                                             <f:param name="jobTitleName" value="{job.jobTitleName}"/>
-                                                                        </p:link>-->
+                                                                        </p:link>
                                 </p:column>
 
                                 <p:column headerText="#{msgs.jobtitle}">
@@ -133,10 +138,10 @@
                                     <h:outputText value="#{job.department.departmentName}"/>
 
 
-                                    <!--                                    <p:cellEditor>
+                                                                        <p:cellEditor>
                                                                             <f:facet name="output"><h:outputText value="{job.department.departmentName}"/></f:facet>
                                                                             <f:facet name="input"><p:inputText value="{job.department.departmentName}" style="width:100%"/></f:facet>
-                                                                        </p:cellEditor> --> 
+                                                                        </p:cellEditor>  
                                 </p:column>
 
 
@@ -154,11 +159,11 @@
                                     <p:rowEditor/>
                                 </p:column>                            
 
-                                <!--                   <f:facet name="footer">
+                                                   <f:facet name="footer">
                                                     <p:commandButton id = "delDepBtn"  actionListener="{enterprize.deleteDepartmentListener}" update=":{p:component('dataTable')},:{p:component('messages')}"  
                                                                          value="{msgs.delete}"/> 
                                                     </f:facet> 
-                                -->
+                                
                             </p:dataTable>
 
                             <h:panelGrid columns="8"  > 
@@ -170,7 +175,7 @@
                                              value="#{enterprize.salary}"/>
 
                                 <p:selectOneMenu id = "jobTitleDepartment" value="#{enterprize.jobTitleDepartment}">
-                                    <!--<f:selectItem value=""--> 
+                                    <f:selectItem value="" 
                                     <f:selectItems value="#{enterprize.allDepartment}" 
                                                    var ="dep"
                                                    itemValue="#{dep.departmentName}" 
@@ -188,11 +193,14 @@
                                                  update=":#{p:component('dataTable2')},:#{p:component('messages')}"  
                                                  value="#{msgs.delete}" 
                                                  process=":#{p:component('dataTable2')},@this"/> 
-                            </h:panelGrid>
+                            </h:panelGrid>-->
                         </p:tab>
 
                         <p:tab title="#{msgs.employee}">
-                            <p:dataTable id = "dataTable3" 
+                            <ui:include src="Sections/EnterprizeTabs/employeeTab.xhtml"/>
+                            
+                            <!--                            
+<p:dataTable id = "dataTable3" 
                                          var="emp" 
                                          value="#{enterprize.allEmployees}" 
                                          rowKey="#{emp.id}" editable="true"
@@ -271,14 +279,14 @@
                                 <p:inputText id ="account"  placeholder="#{msgs.account}"  value="#{enterprize.account}"/>
                                 <p:inputText id ="password" placeholder="#{msgs.pw}" value="#{enterprize.password}"/>
                               
-                                <!--                            <p:selectOneMenu id ="selectPhoneType">
+                                                            <p:selectOneMenu id ="selectPhoneType">
                                                                 <p:ajax listener = "" update = ""/>
                                                                 <f:selectItem itemLabel="#{msgs.phone}" itemValue="" noSelectionOption="true"/> 
                                                                 <f:selectItems value="#{enterprize.allPhoneTypes}"/>
-                                                            </p:selectOneMenu>-->
+                                                            </p:selectOneMenu>
 
                                 <p:selectOneMenu id ="selectEmployeeRole">
-                                    <!--<p:ajax listener = "" update = ""/>-->
+                                    <p:ajax listener = "" update = ""/>
                                     <f:selectItem itemLabel="Role" itemValue="" noSelectionOption="true"/> 
                                     <f:selectItems value="#{enterprize.employeeRoleConstants}"/>
                                 </p:selectOneMenu>
@@ -302,7 +310,7 @@
                                 <p:selectOneMenu id = "selectEmpJob" value="#{enterprize.employeeJobTitle}">
 
                                     <f:selectItem itemLabel="#{msgs.jobtitle}" itemValue="" noSelectionOption="true" />
-                                    <!--<f:selectItems value="#{enterprize.jobsForDepartment}" var ="job" itemValue="#{job.jobTitle}" itemLabel="#{job.jobTitle}"/>-->
+                                    <f:selectItems value="#{enterprize.jobsForDepartment}" var ="job" itemValue="#{job.jobTitle}" itemLabel="#{job.jobTitle}"/>
                                 </p:selectOneMenu>
 
 
@@ -320,7 +328,7 @@
                             
                                 <p:commandButton actionListener="#{enterprize.addEmployeeDialog}" value="OK" process="@this">
                                     <p:ajax event="dialogReturn"/>
-                                </p:commandButton>    
+                                </p:commandButton>    -->
                         </p:tab>
 
 

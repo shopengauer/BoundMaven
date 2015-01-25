@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <p:dataTable id = "dataTable3"
+                         var="emp"
+                         value="#{enterprize.allEmployees}"
+                         rowKey="#{emp.id}" editable="true"
+                         paginator="true"
+                         widgetVar="dataTable3WidgetVar"
+                         rows="10"
+                         rowsPerPageTemplate="5,10,20,30" >
+
+
+                <f:facet name="header">
+                                #{msgs.employee}
+                </f:facet>
+
+                <p:column id ="selEmpId" selectionMode="multiple" style="width:16px;text-align:center"/>
+
+
+                <p:column headerText="Id">
+                    <h:outputText value="#{emp.id}"/>
+                </p:column>
+
+
+                <p:column headerText="#{msgs.firstname}">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{emp.firstName}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{emp.firstName}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="#{msgs.lastname}">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{emp.lastName}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{emp.lastName}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="#{msgs.account}">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{emp.account}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{emp.account}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="#{msgs.pw}">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{emp.password}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{emp.password}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+
+                <p:column headerText="#{msgs.employeeRole}">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{emp.employeeRole}"/></f:facet>
+                        <f:facet name="input">
+                            <p:selectOneMenu value="#{enterprize.employeeRole}">
+                                <f:selectItems var="empRole" value="#{enterprize.employeeRoleConstants}" itemLabel="#{empRole}" itemValue="#{empRole}"/>
+                            </p:selectOneMenu>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+
+                <p:column style="width:32px" disabledSelection="true">
+                    <p:rowEditor/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:outputLabel for = "person" value="Person:"/>
+            <h:panelGrid columns="5" id="person">
+                <ui:remove> </ui:remove>
+
+                <p:inputText id="firstName" placeholder="#{msgs.firstname}" value="#{enterprize.firstname}"/>
+                <p:inputText id ="lastName" placeholder="#{msgs.lastname}" value="#{enterprize.lastname}"/>
+                <p:inputText id ="account"  placeholder="#{msgs.account}"  value="#{enterprize.account}"/>
+                <p:inputText id ="password" placeholder="#{msgs.pw}" value="#{enterprize.password}"/>
+
+                <!--                            <p:selectOneMenu id ="selectPhoneType">
+                                                <p:ajax listener = "" update = ""/>
+                                                <f:selectItem itemLabel="#{msgs.phone}" itemValue="" noSelectionOption="true"/>
+                                                <f:selectItems value="#{enterprize.allPhoneTypes}"/>
+                                            </p:selectOneMenu>-->
+
+                <p:selectOneMenu id ="selectEmployeeRole">
+                    <!--<p:ajax listener = "" update = ""/>-->
+                    <f:selectItem itemLabel="Role" itemValue="" noSelectionOption="true"/>
+                    <f:selectItems value="#{enterprize.employeeRoleConstants}"/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+
+            <p:outputLabel for = "phones" value="Phones:"/>
+            <h:panelGrid columns="3" id = "phones">
+                <p:inputMask id="phoneMobile" placeholder="#{msgs.workmobile}" slotChar="_"  value="#{enterprize.phoneMobile}" mask="9(999) 999-9999"/>
+                <p:inputMask id="phoneWorkMobile" placeholder="#{msgs.mobile}" slotChar="_" value="#{enterprize.phoneWorkMobile}" mask="9(999) 999-9999"/>
+                <p:inputMask id="phoneWork" placeholder="#{msgs.work}" slotChar="_" value="#{enterprize.phoneWork}" mask="999"/>
+            </h:panelGrid>
+            <ui:remove></ui:remove>
+            <p:selectOneMenu id = "selectEmpDep" value="#{enterprize.employeeDepartment}">
+                <p:ajax listener="#{enterprize.departmentJobsListener}" update = "selectEmpJob"/>
+                <f:selectItem itemLabel="#{msgs.department}" itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{enterprize.allDepartment}" var ="dep" itemValue="#{dep.departmentName}"
+                               itemLabel="#{dep.departmentName}"/>
+            </p:selectOneMenu>
+
+
+            <p:selectOneMenu id = "selectEmpJob" value="#{enterprize.employeeJobTitle}">
+
+                <f:selectItem itemLabel="#{msgs.jobtitle}" itemValue="" noSelectionOption="true" />
+                <!--<f:selectItems value="#{enterprize.jobsForDepartment}" var ="job" itemValue="#{job.jobTitle}" itemLabel="#{job.jobTitle}"/>-->
+            </p:selectOneMenu>
+
+
+
+            <p:commandButton id = "createEmployeeBtn"
+                             update=":#{p:component('dataTable2')},:#{p:component('jobName')},:#{p:component('jobSalary')},:#{p:component('messages')}"
+                             value="#{msgs.create}"
+                             actionListener="#{enterprize.createJobTitleListener}"
+                             process="@this jobName jobSalary jobTitleDepartment"/>
+            <p:commandButton id = "delEmployeeBtn"
+                             actionListener="#{enterprize.deleteJobTitleListener}"
+                             update=":#{p:component('dataTable2')},:#{p:component('messages')}"
+                             value="#{msgs.delete}"
+                             process=":#{p:component('dataTable2')},@this"/>
+
+            <p:commandButton actionListener="#{enterprize.addEmployeeDialog}" value="OK" process="@this">
+                <p:ajax event="dialogReturn"/>
+            </p:commandButton>
+
+
+        </ui:composition>
+    </h:body>
+</html>
+
