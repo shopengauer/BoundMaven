@@ -10,21 +10,23 @@
     </h:head>
     <h:body>
         <ui:composition>
-            <p:dataTable id="dataTable" var="dep" value="#{enterprize.allDepartment}" paginator="true" widgetVar="dataTableWidgetVar" rows="10"  rowsPerPageTemplate="5,10,20,30"  selection="#{enterprize.selectedDepartments}" rowKey="#{dep.id}" editable="true">  
-               
-                <f:facet name="header">
-                    <p:commandButton id = "addDepDiag" process="@this" value="Добавить" actionListener="#{enterprize.openCreateDepartmentDialog(null)}" icon="ui-icon-plusthick" style="margin-left: 20px"> 
-                        <p:ajax event="dialogReturn" listener="#{enterprize.onCreateDepartmentListener}" update=":#{p:component('messages')},:#{p:component('jobTitleDepartment')},:#{p:component('dataTable')}"/>
-                    </p:commandButton> 
-                    <p:commandButton id = "deleteDep" value="Удалить" actionListener="#{enterprize.deleteDepartmentListener}" 
-                                 update=":#{p:component('dataTable')},:#{p:component('messages')},:#{p:component('jobTitleDepartment')},:#{p:component('dataTable2')}"  
-                                 process=":#{p:component('dataTable')},@this" icon="ui-icon-minusthick" style="margin-left: 20px"/>
-                </f:facet>
-               
-                <p:ajax event="rowEdit" listener="#{enterprize.onRowEdit}" update=":#{p:component('messages')},:#{p:component('dataTable')}"/>
-                <p:ajax event="rowEditCancel" listener="#{enterprize.onRowCancel}" update=":#{p:component('messages')},:#{p:component('dataTable')}"/>
-                <!--<p:ajax event="rowSelect" listener="{enterprize.onRowSelect}" update=":{p:component('messages')}"/>--> 
+            <p:dataTable id="depDataTable" var="dep" value="#{enterprize.allDepartment}" paginator="true" widgetVar="dataTableWidgetVar" rows="10"  rowsPerPageTemplate="5,10,20,30"  selection="#{enterprize.selectedDepartments}" rowKey="#{dep.id}" editable="false">  
 
+                <f:facet name="header">
+
+                    <p:commandButton id = "callAddDepDiag" process="@this" value="Добавить подразделение" 
+                                     actionListener="#{enterprize.openCreateDepartmentDialog(null)}"   
+                                     icon="ui-icon-plusthick" style="margin-left: 20px"> 
+
+                        <p:ajax event="dialogReturn" listener="#{enterprize.onCreateDepartmentListener}"  update=":#{p:component('messages')},:#{p:component('depDataTable')}"/>
+                    </p:commandButton> 
+
+                    <p:commandButton id = "deleteDep" value="Удалить подразделение" 
+                                     actionListener="#{enterprize.deleteDepartmentListener}" 
+                                     update=":#{p:component('depDataTable')},:#{p:component('messages')},:#{p:component('jobDataTable')}"  
+                                     process=":#{p:component('depDataTable')},@this" icon="ui-icon-minusthick" style="margin-left: 20px"/>
+                </f:facet>
+ 
                 <p:column  id="selId" selectionMode="multiple" style="width:16px;text-align:center"/>
 
                 <p:column headerText="id">
@@ -49,51 +51,27 @@
                 </p:column>
 
                 <p:column headerText="#{msgs.insertTime}">
-                    <h:outputText value="#{dep.ctime.insertTime}" />
+                    <h:outputText value="#{dep.ctime.insertTime}"/>
                 </p:column>
 
                 <p:column headerText="#{msgs.updateTime}">
-                    <h:outputText value="#{dep.ctime.updateTime}" />
+                    <h:outputText value="#{dep.ctime.updateTime}"/>
                 </p:column>
 
                 <p:column headerText="">
-                    <!--<p:commandButton value="Edit"  />-->
-                    <p:commandLink id = "editDepDiag" process="@this" value="Редактор" update = ":#{p:component('messages')}" actionListener="#{enterprize.openCreateDepartmentDialog(dep)}" style="margin-left: 20px"> 
-                        <p:ajax event="dialogReturn" listener="#{enterprize.onEditDepartmentListener}" update=":#{p:component('messages')},:#{p:component('jobTitleDepartment')},:#{p:component('dataTable')}"/>
+                    <p:commandLink id = "editDepDiag" process="@this" 
+                                   value="Изменить" update = ":#{p:component('messages')}" 
+                                   actionListener="#{enterprize.openCreateDepartmentDialog(dep)}" 
+                                   style="margin-left: 20px"> 
+                        <p:ajax event="dialogReturn" listener="#{enterprize.onEditDepartmentListener}" 
+                                update=":#{p:component('messages')},:#{p:component('depDataTable')},:#{p:component('jobDataTable')}"/>
                     </p:commandLink> 
                 </p:column>
-
-<!--                <p:column style="width:32px" disabledSelection="true">
-                    <p:rowEditor/>
-                </p:column>                            -->
-
+  
                 <f:facet name="footer">
-                   
+
                 </f:facet> 
-
             </p:dataTable>
-
-<!--            <h:panelGrid columns="6"  > 
-                <p:inputText id="depName" 
-                             placeholder="#{msgs.department}" 
-                             value="#{enterprize.departmentName}"/> 
-                <p:inputText id ="depDesc" 
-                             placeholder="#{msgs.desc}"
-                             value="#{enterprize.description}"/>
-                <p:commandButton id = "createDepBtn"                                                    
-                                 update=":#{p:component('dataTable')},:#{p:component('depName')},:#{p:component('depDesc')},:#{p:component('messages')},:#{p:component('jobTitleDepartment')}"  
-                                 value="#{msgs.create}" 
-                                 actionListener="#{enterprize.createDepartmentListener}" 
-                                 process="@this depName depDesc :#{p:component('dataTable')}"/> 
-                <p:commandButton id = "delDepBtn"  
-                                 actionListener="#{enterprize.deleteDepartmentListener}" 
-                                 update=":#{p:component('dataTable')},:#{p:component('messages')},:#{p:component('jobTitleDepartment')},:#{p:component('dataTable2')}"  
-                                 value="#{msgs.delete}" 
-                                 process=":#{p:component('dataTable')},@this"/> 
-            </h:panelGrid> -->
-
-
-
         </ui:composition>
     </h:body>
 </html>

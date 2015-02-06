@@ -10,6 +10,7 @@ import com.matrix.boundmaven.entity.Employee;
 import com.matrix.boundmaven.entity.EmployeeRole;
 import com.matrix.boundmaven.entity.JobTitle;
 import com.matrix.boundmaven.entity.PhoneType;
+import com.matrix.boundmaven.managed.enterprize.qualifiers.Transmitter;
 import com.matrix.boundmaven.session.DepartmentFacadeLocal;
 import com.matrix.boundmaven.session.EmployeeFacadeLocal;
 import com.matrix.boundmaven.session.JobTitleFacadeLocal;
@@ -20,9 +21,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import javassist.bytecode.stackmap.BasicBlock;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.Conversation;
 import javax.inject.Named;
 import javax.faces.application.FacesMessage;
 import javax.faces.view.ViewScoped;
@@ -63,7 +66,7 @@ public class EnterprizeManager implements Serializable{
     //JobTitle
     private List<JobTitle> jobTitleList;
     private List<JobTitle> selectedJobTitles;
-    private List<JobTitle> jobsForDepartment; 
+//    private List<JobTitle> jobsForDepartment; 
     //Employee
     private List<Employee> employeeList;
     private List<Employee> selectedEmployee;
@@ -78,50 +81,53 @@ public class EnterprizeManager implements Serializable{
     @EJB
     EmployeeFacadeLocal employeeFacade;
     
-     
-    
+//    @Inject
+//    private Conversation conversation;
+////    
+//    @Inject
+//    private TransmittingBean trans;
   //  private String currrentDep;
     
     
     //Department vars
-    @NotBlank(message = "{notBlankDepartment.message}")
-    @Size(min = 2,max = 45,message = "{departmentNameLength.message}")
-    @NotNull
-    @UniqueDepartment
-    private String departmentName;
-    
-    @Size(max = 255,message = "{departmentDescriptionLength.message}")
-    private String description;
+//    @NotBlank(message = "{notBlankDepartment.message}")
+//    @Size(min = 2,max = 45,message = "{departmentNameLength.message}")
+//    @NotNull
+//    @UniqueDepartment
+//    private String departmentName;
+//    
+//    @Size(max = 255,message = "{departmentDescriptionLength.message}")
+//    private String description;
     
     
     
     //JobTitle vars
-    @NotBlank(message = "{notBlankJobTitle.message}")
-    @UniqueJobTitle
-    @Size(min = 2,max = 45,message = "{jobTitleNameLength.message}")
-    private String jobTitle;
-    
-    
-    @Digits(integer = 300000,fraction = 0)
-    @Size(min = 2, max = 45)
-    private String jobTitleSalary;
-    
-    private String jobTitleDepartment;
+//    @NotBlank(message = "{notBlankJobTitle.message}")
+//    @UniqueJobTitle
+//    @Size(min = 2,max = 45,message = "{jobTitleNameLength.message}")
+//    private String jobTitle;
+//    
+//    
+//    @Digits(integer = 300000,fraction = 0)
+//    @Size(min = 2, max = 45)
+//    private String salary;
+//    
+//    private String jobTitleDepartment;
     
     //Employee vars
-    private String firstname;
-    private String lastname;
-    private String account;
-    private String password;
-    private List<String> emails;
-    private Map<PhoneType,String> phoneNumbers;
-    private PhoneType phoneType;
-    private String phoneMobile;
-    private String phoneWorkMobile;
-    private String phoneWork;
-    private EmployeeRole employeeRole; // может нужно String
-    private String employeeDepartment;
-    private String employeeJobTitle;
+//    private String firstname;
+//    private String lastname;
+//    private String account;
+//    private String password;
+//    private List<String> emails;
+//    private Map<PhoneType,String> phoneNumbers;
+//    private PhoneType phoneType;
+//    private String phoneMobile;
+//    private String phoneWorkMobile;
+//    private String phoneWork;
+//    private EmployeeRole employeeRole; // может нужно String
+//    private String employeeDepartment;
+//    private String employeeJobTitle;
     
     
     @PostConstruct
@@ -130,7 +136,7 @@ public class EnterprizeManager implements Serializable{
          selectedDepartments = new ArrayList<>();
          selectedJobTitles = new ArrayList<>();
         // departmentList  =  departmentFacade.findAll();
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Новый бин",""));
+        // FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Новый бин","enterprize"));
     }
     
      /**
@@ -141,42 +147,6 @@ public class EnterprizeManager implements Serializable{
      
     }
 
-    public String getJobTitleDepartment() {
-        return jobTitleDepartment;
-    }
-
-    public void setJobTitleDepartment(String jobTitleDepartment) {
-        this.jobTitleDepartment = jobTitleDepartment;
-    }
-
-    
-    
-    public String getJobTitle() {
-        return jobTitle;
-    }
-
-    public void setJobTitle(String jobTitle) {
-        this.jobTitle = jobTitle;
-    }
-
-    public String getSalary() {
-        return jobTitleSalary;
-    }
-
-    public void setSalary(String salary) {
-        this.jobTitleSalary = salary;
-    }
-
-    
-    
-    
-//     public String getCurrrentDep() {
-//        return currrentDep;
-//    }
-//
-//    public void setCurrrentDep(String currrentDep) {
-//        this.currrentDep = currrentDep;
-//    }
 
     public DataTable getDepDataTable() {
         return depDataTable;
@@ -195,23 +165,7 @@ public class EnterprizeManager implements Serializable{
         this.selectedDepartments = selectedDepartments;
     }
 
-    
-    
-    public String getDepartmentName() {
-        return departmentName;
-    }
 
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public List<JobTitle> getJobTitleList() {
         return jobTitleList;
@@ -230,15 +184,6 @@ public class EnterprizeManager implements Serializable{
     }
      
    
-    public void createDepartmentListener(ActionEvent ae){
-       
-     //   RequestContext.getCurrentInstance().update(":dataTableForm:dataTable");
-        departmentFacade.createDepartment(departmentName, description);
-        departmentList = null;//обнуляем чтобы считать новый из базы????????????????????????????
-        departmentName = null;
-        description = null;
-    }
-    
     public void onCreateDepartmentListener(SelectEvent se){
         Department dep = (Department)se.getObject();
       //  departmentName = dep.getDepartmentName();
@@ -246,7 +191,11 @@ public class EnterprizeManager implements Serializable{
       if(dep != null){  
         departmentFacade.create(dep);
         departmentList = null;//обнуляем чтобы считать новый из базы????????????????????????????
-      }       
+     //   jobTitleList = null; попробовать это всавить так как update действует только для текущего view    
+         FacesMessage facesMessage = new FacesMessage("Создано подразделение", dep.getDepartmentName());
+        FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+      
+      }                        // для обновления выпадающего списка department в jobTitleTab
 // departmentName = null;
       //  description = null;
         
@@ -259,7 +208,14 @@ public class EnterprizeManager implements Serializable{
       if(dep != null){
            departmentFacade.updateDepartment(dep);
            departmentList = null;//обнуляем чтобы считать новый из базы????????????????????????????
-       } 
+           jobTitleList = null; // для того чтобы изменения также отобразились в таблице должностей
+//           FacesMessage facesMessage = new FacesMessage("Изменена должность","№ " + dep.getId().toString());
+//           FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+      
+      
+      }                         // так как подразделение часть сущности подразделение  
+      
+      
         
       //  departmentFacade.createDepartment(dep.getDepartmentName(), dep.getDescription());
         
@@ -268,44 +224,43 @@ public class EnterprizeManager implements Serializable{
         
     }
     
-    
-    
-    public void createJobTitleListener(ActionEvent ae){
+    public void onCreateJobTitleListener(SelectEvent se){
+         JobTitle job = (JobTitle)se.getObject();
+      
+      if(job != null){  
+        jobTitleFacade.create(job);
+        departmentList = null;//обнуляем чтобы считать новый из базы????????????????????????????
+        jobTitleList = null;   
+        FacesMessage facesMessage = new FacesMessage("Создана должность", job.getJobTitleName());
+        FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+      
+      }                        // для обновления выпадающего списка department в jobTitleTab
        
-        jobTitleFacade.createJobTitle(jobTitle, jobTitleSalary, jobTitleDepartment);
-        jobTitleList = null;
-        jobTitle = null;
-        jobTitleSalary = null;
-    //    RequestContext.getCurrentInstance().update(":dataTableForm:dataTable");
-       // departmentFacade.createDepartment(departmentName, description);
-       // departmentList = null;//обнуляем чтобы считать новый из базы????????????????????????????
-       // departmentName = null;
-       // description = null;
     }
+ 
     
-    
-    public String departmentInfo(){
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String,String> map =  fc.getExternalContext().getRequestParameterMap();
-       // currrentDep  = map.get("depName");
-        return "departmentInfo";
+    public void onEditJobTitleListener(SelectEvent se){
+        JobTitle job = (JobTitle)se.getObject();
+        
+        if(job != null){
+            jobTitleFacade.updateJobTitle(job);
+            
+            jobTitleList = null; // для того чтобы изменения также отобразились в таблице должностей
+            FacesMessage facesMessage = new FacesMessage("Изменена должность","№ " + job.getId().toString());
+            FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+            
+        }
         
     }
-  
-     
-    public void getAllDepartmentActionListener(ActionEvent event) {
-        departmentList = departmentFacade.findAll();
-      } 
-    
-    public void departmentJobsListener(ActionEvent event){
-     //  dropDownJobTitleList  
-     //  this.jobsForDepartment = jobTitleFacade. 
+    public void onCreateEmployeeListener(SelectEvent se){
+        
+        
     }
-    
-     
-    
-    
-     
+     public void onEditEmployeeListener(SelectEvent se){
+        
+        
+    }
+
      public List<Department> getAllDepartment() {
         if(departmentList == null){
            departmentList = departmentFacade.findAll();
@@ -337,11 +292,16 @@ public class EnterprizeManager implements Serializable{
       //   RequestContext.getCurrentInstance().update(":dataTableForm:dataTable");
          if(!(selectedDepartments.isEmpty())){
               departmentFacade.deleteDepartmentList(selectedDepartments);
-              departmentList = null;     
-              jobTitleList = null;      
-           }else
+              departmentList = null;      
+              jobTitleList = null; // обнуляем чтобы обновился список подразделений во вкладке jobTitle       
+              FacesMessage facesMessage = new FacesMessage("Удалены подразделения", "количество: " + selectedDepartments.size());
+              FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+           
+         
+         }else
            {
-            FacesMessage message = new FacesMessage("Не выбрано ни одно подразделение для удаления");
+           // TODO: Изменить сообщения на двойные составные
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Не выбрано ни одно подразделение для удаления", "Отметьте подразделения для удаления в левом столбце");
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage("messages", message);
            }
@@ -351,156 +311,176 @@ public class EnterprizeManager implements Serializable{
      public void deleteJobTitleListener(ActionEvent event){
          
        //  RequestContext.getCurrentInstance().update(":dataTableForm:dataTable");
-         if(!(selectedJobTitles.isEmpty())){
-              jobTitleFacade.deleteJobTitleList(selectedJobTitles);
-              jobTitleList = null;
-              
-           }else
-           {
-            FacesMessage message = new FacesMessage("Не выбрана ни одна должность для удаления");
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage("messages", message);
-           }
+         if (!(selectedJobTitles.isEmpty())) {
+             jobTitleFacade.deleteJobTitleList(selectedJobTitles);
+             jobTitleList = null;
+             FacesMessage facesMessage = new FacesMessage("Удалены должности", "количество: " + selectedJobTitles.size());
+             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+         } else {
+             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Не выбрана ни одна должность для удаления", "Отметьте должности для удаления в левом столбце");
+             FacesContext context = FacesContext.getCurrentInstance();
+             context.addMessage("messages", message);
+         }
     
      
      }
      
-     
-     public void onRowEdit(RowEditEvent event) {
-
-        Department dep = (Department) event.getObject();
-        String startDepartment = dep.getDepartmentName();
+    public void deleteEmployeeListener(ActionEvent ae){
         
         
-        if(dep.getDepartmentName().isEmpty()){
-           FacesMessage facesMessage = new FacesMessage("Введите название подразделения", "Поле не должно быть пустым");
-           FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-           departmentList = null; 
-        }else
-        {
-            List<Department> departmentFromDB = departmentFacade.getDepartmentByName(dep.getDepartmentName());
-            if((departmentFromDB.isEmpty()) || (departmentFromDB.get(0).getDepartmentName().equals(startDepartment))){
-              //  if(dep.getDepartmentName().)   сделать чтобы измененния отображались если только что то реально изменено
-                departmentFacade.updateDepartment(dep);
-                FacesMessage facesMessage = new FacesMessage("Запись обновлена", dep.getDepartmentName());
-                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-                departmentList = null;
-            } else {
-                FacesMessage facesMessage = new FacesMessage("Подразделение с таким именем уже существует", dep.getDepartmentName());
-                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-                departmentList = null;
-            }
-       } 
-     }
-     
-     /**
-      * 
-      * @param event 
-      */
-      
-     public void onRowEditJob(RowEditEvent event) {
-
-        JobTitle job = (JobTitle) event.getObject();
-        String startJobTitle = job.getJobTitleName();
-        
-        
-        if (job.getJobTitleName().isEmpty()) {
-            FacesMessage facesMessage = new FacesMessage("Введите название должности", "Поле не может быть пустым");
-            FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-            jobTitleList = null;
-        } else {
-             List<JobTitle> jobTitleFromDB = jobTitleFacade.getJobTitleByName(job.getJobTitleName());  
-             
-            if ((jobTitleFromDB.isEmpty()) || (jobTitleFromDB.get(0).getJobTitleName().equals(startJobTitle))){
-                jobTitleFacade.updateJobTitle(job);
-                FacesMessage facesMessage = new FacesMessage("Запись обновлена", job.getJobTitleName());
-                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-                jobTitleList = null;
-            } else {
-                FacesMessage facesMessage = new FacesMessage("Должность с таким именем уже существует", job.getJobTitleName());
-                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-                jobTitleList = null;
-            }
-
-        }
-
     }
      
      
      
      
      
-    public void onRowCancel(RowEditEvent event) {
-//        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Car) event.getObject()).getId());
-//        FacesContext.getCurrentInstance().addMessage(null, msg);
+//     
+//     public void onRowEdit(RowEditEvent event) {
+//
+//        Department dep = (Department) event.getObject();
+//        String startDepartment = dep.getDepartmentName();
+//        
+//        
+//        if(dep.getDepartmentName().isEmpty()){
+//           FacesMessage facesMessage = new FacesMessage("Введите название подразделения", "Поле не должно быть пустым");
+//           FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+//           departmentList = null; 
+//        }else
+//        {
+//            List<Department> departmentFromDB = departmentFacade.getDepartmentByName(dep.getDepartmentName());
+//            if((departmentFromDB.isEmpty()) || (departmentFromDB.get(0).getDepartmentName().equals(startDepartment))){
+//              //  if(dep.getDepartmentName().)   сделать чтобы измененния отображались если только что то реально изменено
+//                departmentFacade.updateDepartment(dep);
+//                FacesMessage facesMessage = new FacesMessage("Запись обновлена", dep.getDepartmentName());
+//                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+//                departmentList = null;
+//            } else {
+//                FacesMessage facesMessage = new FacesMessage("Подразделение с таким именем уже существует", dep.getDepartmentName());
+//                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+//                departmentList = null;
+//            }
+//       } 
+//     }
+//     
+//     /**
+//      * 
+//      * @param event 
+//      */
+//      
+//     public void onRowEditJob(RowEditEvent event) {
+//
+//        JobTitle job = (JobTitle) event.getObject();
+//        String startJobTitle = job.getJobTitleName();
+//        
+//        
+//        if (job.getJobTitleName().isEmpty()) {
+//            FacesMessage facesMessage = new FacesMessage("Введите название должности", "Поле не может быть пустым");
+//            FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+//            jobTitleList = null;
+//        } else {
+//             List<JobTitle> jobTitleFromDB = jobTitleFacade.getJobTitleByName(job.getJobTitleName());  
+//             
+//            if ((jobTitleFromDB.isEmpty()) || (jobTitleFromDB.get(0).getJobTitleName().equals(startJobTitle))){
+//                jobTitleFacade.updateJobTitle(job);
+//                FacesMessage facesMessage = new FacesMessage("Запись обновлена", job.getJobTitleName());
+//                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+//                jobTitleList = null;
+//            } else {
+//                FacesMessage facesMessage = new FacesMessage("Должность с таким именем уже существует", job.getJobTitleName());
+//                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+//                jobTitleList = null;
+//            }
+//
+//        }
+//
+//    }
+//     
+//     
+     
+     
+//     
+//    public void onRowCancel(RowEditEvent event) {
+////        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Car) event.getObject()).getId());
+////        FacesContext.getCurrentInstance().addMessage(null, msg);
+//    
+//          
+//    }
+//    
+//     public void onRowCancelJob(RowEditEvent event) {
+////        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Car) event.getObject()).getId());
+////        FacesContext.getCurrentInstance().addMessage(null, msg);
+//    
+//          
+//    }
+// 
+//    public void onRowSelect(SelectEvent event) {
+//
+////       
+////         Department dep = (Department)event.getObject();
+////         
+////         
+////         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Подразделение выделено",dep.getDepartmentName()));
+////         
+//    }
     
-          
-    }
-    
-     public void onRowCancelJob(RowEditEvent event) {
-//        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Car) event.getObject()).getId());
-//        FacesContext.getCurrentInstance().addMessage(null, msg);
-    
-          
-    }
  
-    public void onRowSelect(SelectEvent event) {
-
-//       
-//         Department dep = (Department)event.getObject();
-//         
-//         
-//         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Подразделение выделено",dep.getDepartmentName()));
-//         
-    }
-    
- 
-    public void addEmployeeDialog()
-    {
-        RequestContext.getCurrentInstance().openDialog("addEmployeeDialog");
-        
-    }
+//    public void addEmployeeDialog()
+//    {
+//        RequestContext.getCurrentInstance().openDialog("addEmployeeDialog");
+//        
+//    }
     
       public void openCreateDepartmentDialog(Object o){
      
+          Map<String,Object> options = new HashMap<>();
+          options.put("modal", true);
+          options.put("contentHeight",250);
+          
+          
         if(o != null){  
-          Department depForEdit = (Department)o;
+         // Department depForEdit = (Department)o;
            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isNew", Boolean.FALSE);
           FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("dep", o); 
-          RequestContext.getCurrentInstance().openDialog("addDepartmentDialog");  
+          RequestContext.getCurrentInstance().openDialog("addDepartmentDialog",options,null);  
         }else{  
            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isNew", Boolean.TRUE);
-           RequestContext.getCurrentInstance().openDialog("addDepartmentDialog"); 
+           RequestContext.getCurrentInstance().openDialog("addDepartmentDialog",options,null); 
         }   
       }
     
-     public void openCreateDepartmentDialog(){
-      
-//      Department depForC   
-//      FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("dep", o);        
-//      RequestContext.getCurrentInstance().openDialog("addDepartmentDialog");  
+      public void openCreateJobTitleDialog(Object o){
+          Map<String,Object> options = new HashMap<>();
+          options.put("modal", true);
+          options.put("contentHeight",300);
+          if (o != null) {
+              //  JobTitle jobTitle = (JobTitle)o; 
+              FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isNew", Boolean.FALSE);
+              FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("job", o);
+              RequestContext.getCurrentInstance().openDialog("addJobTitleDialog", options, null);
+          } else {
+              FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isNew", Boolean.TRUE);
+              RequestContext.getCurrentInstance().openDialog("addJobTitleDialog", options, null);
+          }
+          
         
-      } 
+      }   
       
-      
-      
-      
-      
-    private String message;
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-      
-      
-    
-    
-    public void closeDialog(){
-        RequestContext.getCurrentInstance().closeDialog("close");
+    public void openCreateEmployeeDialog(Object o){
+      //TODO: open employee dialog  
+         Map<String,Object> options = new HashMap<>();
+          options.put("modal", true);
+          options.put("contentHeight",750);
+           
+        if(o != null){  
+         // Department depForEdit = (Department)o;
+          FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isNew", Boolean.FALSE);
+          FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("emp", o); 
+          RequestContext.getCurrentInstance().openDialog("addEmployeeDialog",options,null);  
+        }else{  
+           FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isNew", Boolean.TRUE);
+           RequestContext.getCurrentInstance().openDialog("addEmployeeDialog",options,null); 
+        }    
+        
     }
     
     public List<Department> getDepartmentList() {
@@ -538,126 +518,13 @@ public class EnterprizeManager implements Serializable{
         this.selectedEmployee = selectedEmployee;
     }
 
-    public EmployeeRole getEmployeeRole() {
-        return employeeRole;
-    }
-
-    public void setEmployeeRole(EmployeeRole employeeRole) {
-        this.employeeRole = employeeRole;
-    }
-
-    public String getJobTitleSalary() {
-        return jobTitleSalary;
-    }
-
-    public void setJobTitleSalary(String jobTitleSalary) {
-        this.jobTitleSalary = jobTitleSalary;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public List<String> getEmails() {
-        return emails;
-    }
-
-    public void setEmails(List<String> emails) {
-        this.emails = emails;
-    }
-
-    public Map<PhoneType, String> getPhoneNumbers() {
-        return phoneNumbers;
-    }
-
-    public void setPhoneNumbers(Map<PhoneType, String> phoneNumbers) {
-        this.phoneNumbers = phoneNumbers;
-    }
-
-    public PhoneType getPhoneType() {
-        return phoneType;
-    }
-
-    public void setPhoneType(PhoneType phoneType) {
-        this.phoneType = phoneType;
-    }
-
-    public String getPhoneMobile() {
-        return phoneMobile;
-    }
-
-    public void setPhoneMobile(String phoneMobile) {
-        this.phoneMobile = phoneMobile;
-    }
-
-    public String getPhoneWorkMobile() {
-        return phoneWorkMobile;
-    }
-
-    public void setPhoneWorkMobile(String phoneWorkMobile) {
-        this.phoneWorkMobile = phoneWorkMobile;
-    }
-
-    public String getPhoneWork() {
-        return phoneWork;
-    }
-
-    public void setPhoneWork(String phoneWork) {
-        this.phoneWork = phoneWork;
-    }
-
-    public String getEmployeeDepartment() {
-        return employeeDepartment;
-    }
-
-    public void setEmployeeDepartment(String employeeDepartment) {
-        this.employeeDepartment = employeeDepartment;
-    }
-
-    public String getEmployeeJobTitle() {
-        return employeeJobTitle;
-    }
-
-    public void setEmployeeJobTitle(String employeeJobTitle) {
-        this.employeeJobTitle = employeeJobTitle;
-    }
- 
-    
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account;
-    }
-
-    public List<JobTitle> getJobsForDepartment() {
-        return jobsForDepartment;
-    }
-
-    public void setJobsForDepartment(List<JobTitle> jobsForDepartment) {
-        this.jobsForDepartment = jobsForDepartment;
-    }
+//    public List<JobTitle> getJobsForDepartment() {
+//        return jobsForDepartment;
+//    }
+//
+//    public void setJobsForDepartment(List<JobTitle> jobsForDepartment) {
+//        this.jobsForDepartment = jobsForDepartment;
+//    }
 
     
      

@@ -109,7 +109,7 @@ public class DepartmentManager implements Serializable{
 
         Department dep = this.editingDepartment;   // редактируемое подразделение полученное в @PostConstruct из БД
         String editableDepartmentName = dep.getDepartmentName(); // исходное редактируемое имя подразделения из БД
-        String editableDepartmentDescription = dep.getDescription();
+        String editableDepartmentDescription = dep.getDescription(); // исходное редактируемое описание подразделения из БД
         // Проверяем есть ли введенное название подразделения в БД
         List<Department> departmentFromDB = departmentFacade.getDepartmentByName(departmentName); // 
 
@@ -124,7 +124,9 @@ public class DepartmentManager implements Serializable{
             if (this.departmentName.equals(editableDepartmentName)) { // если имя подразделения не поменялось при редактированиии
                 if (this.departmentDescription.equals(editableDepartmentDescription)/*&&(   )*/) { // и описание тоже не поменялось  
                     // переходим на исходную панель без изменений(признак этого dep = null)
-                    RequestContext.getCurrentInstance().closeDialog(null); 
+                    FacesMessage message = new FacesMessage("Изменений не внесено");
+                     FacesContext.getCurrentInstance().addMessage(null, message);    
+                   //RequestContext.getCurrentInstance().closeDialog(null); 
                 } else {   // поменялось описание подразделения или еще что -то в случае нескольких параметров
                     dep.setDepartmentName(departmentName);  //  задаем имя подразделения 
                     dep.setDescription(departmentDescription); // и описание

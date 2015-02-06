@@ -32,7 +32,8 @@ import javax.validation.constraints.Size;
 @Table(name = "JOBTITLE")
 @NamedQueries({@NamedQuery(name = "JobTitle.findJobTitleNameByName", query = "SELECT j.jobTitleName FROM JobTitle j WHERE j.jobTitleName = :jobTitleName"),
                @NamedQuery(name = "JobTitle.findAllJobTitle", query = "SELECT j FROM JobTitle j"),
-               @NamedQuery(name = "JobTitle.findJobTitleByName", query = "SELECT j FROM JobTitle j WHERE j.jobTitleName = :jobTitleName")})
+               @NamedQuery(name = "JobTitle.findJobTitleByName", query = "SELECT j FROM JobTitle j WHERE j.jobTitleName = :jobTitleName"),
+               @NamedQuery(name = "JobTitle.findJobTitlesByDepartmentName", query = "SELECT j FROM JobTitle j WHERE j.department.departmentName = :departmentName")}) // TODO: Query implementation
 public class JobTitle implements Serializable,Comparable<JobTitle> {
     private static final long serialVersionUID = 1L;
     @Id
@@ -128,7 +129,7 @@ public class JobTitle implements Serializable,Comparable<JobTitle> {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+        //  Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof JobTitle)) {
             return false;
         }

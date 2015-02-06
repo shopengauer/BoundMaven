@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title><p:outputLabel rendered="#{jobTitleManager.editingJobTitle == null}"  value="Создать должность"/>
+            <p:outputLabel rendered="#{jobTitleManager.editingJobTitle != null}"  value="Редактировать должность"/></title>
+         <style type="text/css">
+            .ui-widget {
+                font-size: 90%;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h:form> 
+            
+            <h:panelGrid columns="2" cellpadding="3" cellspacing="3"> 
+                <p:outputLabel for="jobTitleName" value="#{msgs.jobtitle}"/>
+                <p:inputText id="jobTitleName" value="#{jobTitleManager.formJobTitleName}"/>
+                <p:outputLabel for="jobTitleSalary" value="Индекс"/>  
+                <p:inputText id ="jobTitleSalary" value="#{jobTitleManager.formSalary}"/>
+                <p:outputLabel for="depJobTitleSelect" value="#{msgs.department}"/>                  
+                <p:selectOneMenu id ="depJobTitleSelect" value = "#{jobTitleManager.formDepartmentName}">
+                    <f:selectItems value="#{enterprize.allDepartment}" var = "dep" 
+                                   itemLabel="#{dep.departmentName}"
+                                   itemValue="#{dep.departmentName}"/>
+
+                </p:selectOneMenu>
+
+                <p:commandButton id = "createJobTitleBtn" update=":#{p:component('messages')}" process="@form" rendered="#{jobTitleManager.editingJobTitle == null}" value="#{msgs.create}" actionListener="#{jobTitleManager.closeCreateJobTitleDialog}"/> 
+                <p:commandButton id = "editJobTitleBtn" update=":#{p:component('messages')}" process="@form" rendered="#{jobTitleManager.editingJobTitle != null}" value="Изменить" actionListener="#{jobTitleManager.closeEditJobTitleDialog}"/>
+                <p:commandButton id = "cancelJobTitleBtn" value="#{msgs.cancel}" process="@this" rendered="#{jobTitleManager.editingJobTitle == null}" actionListener="#{jobTitleManager.closeCancelCreateJobTitleDialog}" /> 
+                <p:commandButton id = "cancelJobTitleEditBtn" value="#{msgs.cancel}" process="@this" rendered="#{jobTitleManager.editingJobTitle != null}" actionListener="#{jobTitleManager.closeCancelEditJobTitleDialog}"/>
+            </h:panelGrid>
+         <p:messages id="messages"/> 
+        </h:form>  
+    </h:body>
+</html>
+

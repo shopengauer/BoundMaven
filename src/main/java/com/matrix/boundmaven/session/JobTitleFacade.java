@@ -79,17 +79,31 @@ public class JobTitleFacade extends AbstractFacade<JobTitle> implements JobTitle
 
     @Override
     public void updateJobTitle(JobTitle jobTitle) {
-    
-    JobTitle job = em.merge(jobTitle);
-    job.getCtime().setUpdateTime(new Date());
-    
-    
-    
-    
+
+        JobTitle job = em.merge(jobTitle);
+       // job.getCtime().setUpdateTime(new Date());
+
     }
-    
-    
-    
+
+    @Override
+    public void create(JobTitle jobTitle) {
+        List<Department> depList = departmentFacade.getDepartmentByName(jobTitle.getDepartment().getDepartmentName());
+        Department dep =  depList.get(0);
+        jobTitle.setDepartment(dep);
+        dep.getJobTitles().add(jobTitle); // добавляем должность в List подразделений
+        em.persist(jobTitle); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<JobTitle> getJobTitleListByDepartmentName(String departmentName) {
+        
+         TypedQuery<JobTitle> query = em.createNamedQuery("JobTitle.findJobTitlesByDepartmentName",JobTitle.class);
+       
+         
+         return  query.setParameter("departmentName", departmentName).getResultList();
+        
+    }
+   
     
     
     

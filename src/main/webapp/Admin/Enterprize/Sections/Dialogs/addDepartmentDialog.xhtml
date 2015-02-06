@@ -21,8 +21,8 @@
                 <p:inputText id="depName" placeholder="" value="#{departmentManager.departmentName}"/>
                 <p:outputLabel for="depDesc" value="#{msgs.desc}"/>  
                 <p:inputText id ="depDesc" placeholder="" value="#{departmentManager.departmentDescription}"/>
-                <p:commandButton id = "createDepBtn" update="messages" rendered="#{departmentManager.editingDepartment == null}" value="#{msgs.create}" actionListener="#{departmentManager.closeCreateDepartmentDialog}"/> 
-                <p:commandButton id = "editDepBtn" update="messages" rendered="#{departmentManager.editingDepartment != null}" value="#{msgs.edit}" actionListener="#{departmentManager.closeEditDepartmentDialog}"/>
+                <p:commandButton id = "createDepBtn" update="messages" process="@form" rendered="#{departmentManager.editingDepartment == null}" value="#{msgs.create}" actionListener="#{departmentManager.closeCreateDepartmentDialog}"/> 
+                <p:commandButton id = "editDepBtn" update="messages" process="@form" rendered="#{departmentManager.editingDepartment != null}" value="Изменить" actionListener="#{departmentManager.closeEditDepartmentDialog}"/>
                 <p:commandButton id = "cancelDepBtn" value="#{msgs.cancel}" rendered="#{departmentManager.editingDepartment == null}" actionListener="#{departmentManager.closeCancelCreateDepartmentDialog}" process="@this"/> 
                 <p:commandButton id = "cancelDepEditBtn" value="#{msgs.cancel}" rendered="#{departmentManager.editingDepartment != null}" actionListener="#{departmentManager.closeCancelEditDepartmentDialog}" process="@this"/>
             </h:panelGrid>

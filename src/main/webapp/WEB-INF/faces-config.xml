@@ -54,6 +54,15 @@
         <from-outcome>addDepartmentDialog</from-outcome>
         <to-view-id>/Admin/Enterprize/Sections/Dialogs/addDepartmentDialog.xhtml</to-view-id>
     </navigation-case>
+    <navigation-case>
+        <from-outcome>addJobTitleDialog</from-outcome>
+        <to-view-id>/Admin/Enterprize/Sections/Dialogs/addJobTitleDialog.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+        <from-outcome>addEmployeeDialog</from-outcome>
+        <to-view-id>/Admin/Enterprize/Sections/Dialogs/addEmployeeDialog.xhtml</to-view-id>
+    </navigation-case>
+    
     
 </navigation-rule>
  

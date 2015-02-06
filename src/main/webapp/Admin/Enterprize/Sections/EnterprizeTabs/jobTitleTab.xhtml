@@ -10,24 +10,22 @@
     </h:head>
     <h:body>
         <ui:composition>
-            <p:dataTable id="dataTable2" var="job" value="#{enterprize.allJobTitles}" paginator="true" widgetVar="dataTable2WidgetVar" rows="10"  rowsPerPageTemplate="5,10,20,30"  selection="#{enterprize.selectedJobTitles}" rowKey="#{job.id}" editable="true">  
-                <!--                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"-->
-
+            <p:dataTable id="jobDataTable" var="job" value="#{enterprize.allJobTitles}" paginator="true" rows="10" rowsPerPageTemplate="5,10,20,30"  selection="#{enterprize.selectedJobTitles}" rowKey="#{job.id}" editable="true">  
+                
                 <f:facet name="header">
-                                    #{msgs.jobtitle}
+                   
+                    <p:commandButton id = "createJobTitleBtn" value="Добавить должность" process="@this" actionListener="#{enterprize.openCreateJobTitleDialog(null)}" icon="ui-icon-plusthick" style="margin-left: 20px">
+                        <p:ajax event="dialogReturn" listener="#{enterprize.onCreateJobTitleListener}" update = ":#{p:component('jobDataTable')},:#{p:component('messages')}"/>
+                    </p:commandButton>               
+                    <p:commandButton id = "deleteJobTitleBtn" value="Удалить должность" 
+                                     actionListener="#{enterprize.deleteJobTitleListener}" process = ":#{p:component('jobDataTable')},@this"
+                                     icon="ui-icon-minusthick" style="margin-left: 20px" update=":#{p:component('messages')},:#{p:component('jobDataTable')}"/>
                 </f:facet>
-                <!---->
-                <p:ajax event="rowEdit" listener="#{enterprize.onRowEditJob}" update=":#{p:component('messages')},:#{p:component('dataTable2')}"/>
-                <p:ajax event="rowEditCancel" listener="#{enterprize.onRowCancelJob}" update=":#{p:component('messages')},:#{p:component('dataTable2')}"/>
-                <!--<p:ajax event="rowSelect" listener="{enterprize.onRowSelect}" update=":{p:component('messages')}"/>--> 
-
+                
                 <p:column  id="selJobId" selectionMode="multiple" style="width:16px;text-align:center"/>
 
                 <p:column headerText="id">
                     <h:outputText value="#{job.id}"/>
-                    <!--                                    <p:link value="" outcome="jobTitleInfo">
-                                                            <f:param name="jobTitleName" value="{job.jobTitleName}"/>
-                                                        </p:link>-->
                 </p:column>
 
                 <p:column headerText="#{msgs.jobtitle}">
@@ -47,12 +45,6 @@
                 <p:column headerText="#{msgs.department}">
 
                     <h:outputText value="#{job.department.departmentName}"/>
-
-
-                    <!--                                    <p:cellEditor>
-                                                            <f:facet name="output"><h:outputText value="{job.department.departmentName}"/></f:facet>
-                                                            <f:facet name="input"><p:inputText value="{job.department.departmentName}" style="width:100%"/></f:facet>
-                                                        </p:cellEditor> --> 
                 </p:column>
 
 
@@ -65,48 +57,15 @@
                 </p:column>
 
 
+                <p:column>
+                    <!--Колонка редактирования должности-->
+                    <p:commandLink id = "editJobDiag" value="Изменить" actionListener="#{enterprize.openCreateJobTitleDialog(job)}" process="@this" update=":#{p:component('messages')}">
+                        <p:ajax event="dialogReturn" listener="#{enterprize.onEditJobTitleListener}" update = ":#{p:component('jobDataTable')}" />
+                    </p:commandLink> 
+                              
+                </p:column> 
 
-                <p:column style="width:32px" disabledSelection="true">
-                    <p:rowEditor/>
-                </p:column>                            
-
-                <!--                   <f:facet name="footer">
-                                    <p:commandButton id = "delDepBtn"  actionListener="{enterprize.deleteDepartmentListener}" update=":{p:component('dataTable')},:{p:component('messages')}"  
-                                                         value="{msgs.delete}"/> 
-                                    </f:facet> 
-                -->
             </p:dataTable>
-
-            <h:panelGrid columns="8"  > 
-                <p:inputText id="jobName" 
-                             placeholder="#{msgs.jobtitle}" 
-                             value="#{enterprize.jobTitle}"/> 
-                <p:inputText id ="jobSalary" 
-                             placeholder="#{msgs.sal}" 
-                             value="#{enterprize.salary}"/>
-
-                <p:selectOneMenu id = "jobTitleDepartment" value="#{enterprize.jobTitleDepartment}">
-                    <!--<f:selectItem value=""--> 
-                    <f:selectItems value="#{enterprize.allDepartment}" 
-                                   var ="dep"
-                                   itemValue="#{dep.departmentName}" 
-                                   itemLabel="#{dep.departmentName}"/>
-                </p:selectOneMenu>
-
-
-                <p:commandButton id = "createJobBtn" 
-                                 update=":#{p:component('dataTable2')},:#{p:component('jobName')},:#{p:component('jobSalary')},:#{p:component('messages')}"  
-                                 value="#{msgs.create}" 
-                                 actionListener="#{enterprize.createJobTitleListener}"
-                                 process="@this jobName jobSalary jobTitleDepartment"/> 
-                <p:commandButton id = "delJobBtn"  
-                                 actionListener="#{enterprize.deleteJobTitleListener}" 
-                                 update=":#{p:component('dataTable2')},:#{p:component('messages')}"  
-                                 value="#{msgs.delete}" 
-                                 process=":#{p:component('dataTable2')},@this"/> 
-            </h:panelGrid>
-
-
         </ui:composition>
     </h:body>
 </html>

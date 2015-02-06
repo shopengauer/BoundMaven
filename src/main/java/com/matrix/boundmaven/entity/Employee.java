@@ -26,6 +26,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -37,6 +39,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "EMPLOYEE")
+//@NamedQueries({@NamedQuery(name = "Employee.findAllDepartmentsByJobTitle", query = "SELECT e")})
 public class Employee implements Serializable {
     
     private static final long serialVersionUID = 1L;
@@ -303,7 +306,7 @@ public class Employee implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+        //   Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Employee)) {
             return false;
         }

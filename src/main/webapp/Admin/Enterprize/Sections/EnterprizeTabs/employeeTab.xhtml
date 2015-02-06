@@ -10,7 +10,7 @@
     </h:head>
     <h:body>
         <ui:composition>
-            <p:dataTable id = "dataTable3"
+            <p:dataTable id = "empDataTable"
                          var="emp"
                          value="#{enterprize.allEmployees}"
                          rowKey="#{emp.id}" editable="true"
@@ -20,10 +20,20 @@
                          rowsPerPageTemplate="5,10,20,30" >
 
 
-                <f:facet name="header">
-                                #{msgs.employee}
-                </f:facet>
+        <f:facet name="header">
+             <p:commandButton id = "openCreateEmployeeDialogBtn" value="Добавить работника" process="@this" actionListener="#{enterprize.openCreateEmployeeDialog(null)}" icon="ui-icon-plusthick" style="margin-left: 20px">
+                <p:ajax event="dialogReturn" listener="#{enterprize.onCreateEmployeeListener}" update = ":#{p:component('empDataTable')},:#{p:component('messages')}"/>
+            </p:commandButton>               
 
+            <p:commandButton id = "deleteEmployeeBtn" value="Удалить работника" process = ":#{p:component('empDataTable')},@this"
+                             actionListener="#{enterprize.deleteEmployeeListener}" 
+                             icon="ui-icon-minusthick" style="margin-left: 20px" update=":#{p:component('messages')},:#{p:component('empDataTable')}"/> 
+
+        </f:facet>
+
+               
+                
+                
                 <p:column id ="selEmpId" selectionMode="multiple" style="width:16px;text-align:center"/>
 
 
@@ -74,13 +84,18 @@
 
 
                 <p:column style="width:32px" disabledSelection="true">
-                    <p:rowEditor/>
+                    <p:commandLink id ="openEditEmployeeDiag" value="Изменить" 
+                                   actionListener="#{enterprize.openCreateEmployeeDialog(emp)}" process ="@this">
+                        <p:ajax event="dialogReturn" listener="#{enterprize.onEditEmployeeListener}" 
+                                update =":#{p:component('empDataTable')}"/> 
+                       
+                    </p:commandLink>
                 </p:column>
 
 
             </p:dataTable>
 
-            <p:outputLabel for = "person" value="Person:"/>
+<!--            <p:outputLabel for = "person" value="Person:"/>
             <h:panelGrid columns="5" id="person">
                 <ui:remove> </ui:remove>
 
@@ -89,14 +104,14 @@
                 <p:inputText id ="account"  placeholder="#{msgs.account}"  value="#{enterprize.account}"/>
                 <p:inputText id ="password" placeholder="#{msgs.pw}" value="#{enterprize.password}"/>
 
-                <!--                            <p:selectOneMenu id ="selectPhoneType">
+                                            <p:selectOneMenu id ="selectPhoneType">
                                                 <p:ajax listener = "" update = ""/>
                                                 <f:selectItem itemLabel="#{msgs.phone}" itemValue="" noSelectionOption="true"/>
                                                 <f:selectItems value="#{enterprize.allPhoneTypes}"/>
-                                            </p:selectOneMenu>-->
+                                            </p:selectOneMenu>
 
                 <p:selectOneMenu id ="selectEmployeeRole">
-                    <!--<p:ajax listener = "" update = ""/>-->
+                    <p:ajax listener = "" update = ""/>
                     <f:selectItem itemLabel="Role" itemValue="" noSelectionOption="true"/>
                     <f:selectItems value="#{enterprize.employeeRoleConstants}"/>
                 </p:selectOneMenu>
@@ -120,7 +135,7 @@
             <p:selectOneMenu id = "selectEmpJob" value="#{enterprize.employeeJobTitle}">
 
                 <f:selectItem itemLabel="#{msgs.jobtitle}" itemValue="" noSelectionOption="true" />
-                <!--<f:selectItems value="#{enterprize.jobsForDepartment}" var ="job" itemValue="#{job.jobTitle}" itemLabel="#{job.jobTitle}"/>-->
+                <f:selectItems value="#{enterprize.jobsForDepartment}" var ="job" itemValue="#{job.jobTitle}" itemLabel="#{job.jobTitle}"/>
             </p:selectOneMenu>
 
 
@@ -134,14 +149,9 @@
                              actionListener="#{enterprize.deleteJobTitleListener}"
                              update=":#{p:component('dataTable2')},:#{p:component('messages')}"
                              value="#{msgs.delete}"
-                             process=":#{p:component('dataTable2')},@this"/>
+                             process=":#{p:component('dataTable2')},@this"/>-->
 
-            <p:commandButton actionListener="#{enterprize.addEmployeeDialog}" value="OK" process="@this">
-                <p:ajax event="dialogReturn"/>
-            </p:commandButton>
-
-
-        </ui:composition>
+            </ui:composition>
     </h:body>
 </html>
 

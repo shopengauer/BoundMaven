@@ -30,7 +30,8 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "DEPARTMENT")
 @NamedQueries({@NamedQuery(name = "Department.findAllDepartmentsName" ,query = "SELECT d.departmentName FROM Department d"),
-               @NamedQuery(name = "Department.findDepartmentByName" ,query = "SELECT d FROM Department d WHERE d.departmentName = :departmentName")})
+               @NamedQuery(name = "Department.findDepartmentByName" ,query = "SELECT d FROM Department d WHERE d.departmentName = :departmentName"),
+              })
 public class Department implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -129,7 +130,7 @@ public class Department implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+        //   Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Department)) {
             return false;
         }
