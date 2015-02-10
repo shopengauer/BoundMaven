@@ -126,7 +126,7 @@ public class JobTitleManager implements Serializable{
             
         } else // если подразделение уже существует
         {
-            if (this.formJobTitleName.equals(editableJobTitleName)) { // если имя подразделения не поменялось при редактированиии
+            if (this.formJobTitleName.equals(editableJobTitleName)) { // если имя должности не поменялось при редактированиии
                 if (this.formSalary.equals(editableJobTitleSalary)&&
                         (this.formDepartmentName.equals(editableJobTitleDepartment.getDepartmentName()))) { // и описание тоже не поменялось  
                     // переходим на исходную панель без изменений(признак этого dep = null)

@@ -10,5 +10,26 @@ package com.matrix.boundmaven.entity;
  * @author Василий
  */
 public enum EmployeeRole {
-  VIEWER,EDITOR,ADMIN  
+  
+    VIEWER("Просмотр"),
+    EDITOR("Редактирование"),
+    ADMIN("Администрирование");  
+
+    private EmployeeRole(String label) {
+        this.label = label;
+    }
+ 
+     
+     private String label;
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+  
+   
+  
 }

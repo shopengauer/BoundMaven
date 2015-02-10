@@ -32,7 +32,7 @@ import javax.validation.constraints.Size;
 @Table(name = "JOBTITLE")
 @NamedQueries({@NamedQuery(name = "JobTitle.findJobTitleNameByName", query = "SELECT j.jobTitleName FROM JobTitle j WHERE j.jobTitleName = :jobTitleName"),
                @NamedQuery(name = "JobTitle.findAllJobTitle", query = "SELECT j FROM JobTitle j"),
-               @NamedQuery(name = "JobTitle.findJobTitleByName", query = "SELECT j FROM JobTitle j WHERE j.jobTitleName = :jobTitleName"),
+               @NamedQuery(name = "JobTitle.findJobTitleByName", query = "SELECT j FROM JobTitle j WHERE j.jobTitleName = :jobTitleName"),//TODO: изменить запрос на поиск должности только для конкретного отдела
                @NamedQuery(name = "JobTitle.findJobTitlesByDepartmentName", query = "SELECT j FROM JobTitle j WHERE j.department.departmentName = :departmentName")}) // TODO: Query implementation
 public class JobTitle implements Serializable,Comparable<JobTitle> {
     private static final long serialVersionUID = 1L;

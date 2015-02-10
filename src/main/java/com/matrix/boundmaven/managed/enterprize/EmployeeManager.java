@@ -14,16 +14,20 @@ import com.matrix.boundmaven.session.EmployeeFacadeLocal;
 import com.matrix.boundmaven.session.JobTitleFacadeLocal;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
@@ -45,15 +49,20 @@ public class EmployeeManager implements Serializable{
     @EJB
     JobTitleFacadeLocal jobTitleFacade;
     
+    @NotBlank(message = "{notBlankFirstname.message}")
     private String formFirstname;
+    @NotBlank(message = "{notBlankLastname.message}")
     private String formLastname;
+    @NotBlank(message = "{notBlankAccount.message}")
     private String formAccount;
+    @NotBlank(message = "{notBlankPassword.message}")
     private String formPassword;
     
     @Size(min = 0,max = 1)
-    private List<String> formEmails = new ArrayList<>();;
+    private List<String> formEmails;
     
     @Email
+    @NotBlank
     private String formEmail;
     
     private Map<PhoneType,String> phoneNumbers;
@@ -61,9 +70,18 @@ public class EmployeeManager implements Serializable{
     private String formPhoneMobile;
     private String formPhoneWorkMobile;
     private String formPhoneWork;
+    
+    @NotBlank(message = "{notBlankEmployeeRole.message}")
     private EmployeeRole formEmployeeRole; // может нужно String
+    
+    @NotBlank(message = "{notBlankEmployeeRole.message}")
+    private String formStringEmployeeRole;
+    
+    @NotBlank(message = "{notBlankDepartment.message}")
     private String formEmployeeDepartment;
+//    @NotBlank(message = "{notBlankJobTitle.message}")
     private String formEmployeeJobTitle;
+    
     private List<JobTitle> jobtitlesForDepartmentList;
     
     private Employee editingEmployee;  // переданное подразделение для редактирования
@@ -88,7 +106,7 @@ public class EmployeeManager implements Serializable{
             this.formPhoneMobile = employeeForEdit.getPhoneNumbers().get(PhoneType.HOMEMOBILE);
             this.formPhoneWorkMobile = employeeForEdit.getPhoneNumbers().get(PhoneType.WORKMOBILE);
             this.formPhoneWork = employeeForEdit.getPhoneNumbers().get(PhoneType.WORK);
-            this.formEmployeeRole = employeeForEdit.getEmployeeRole(); // может нужно String
+            this.formStringEmployeeRole = employeeForEdit.getEmployeeRole().name(); // может нужно String
             this.formEmployeeDepartment = employeeForEdit.getDepartment().getDepartmentName();
             this.formEmployeeJobTitle = employeeForEdit.getJobTitle().getJobTitleName();
                    
@@ -98,11 +116,12 @@ public class EmployeeManager implements Serializable{
             this.formLastname =  null;
             this.formAccount = null;
             this.formPassword = null;
-           //  formEmails = new ArrayList<>(); // создаем Email ArrayList 
-           //  formEmails.add("Kukusa");
+             formEmails = new ArrayList<>(); // создаем Email ArrayList 
+            // formEmails.add("Kukusa");
             this.formPhoneMobile = null;
             this.formPhoneWorkMobile = null;
             this.formPhoneWork = null;
+            phoneNumbers = new HashMap<>();
             this.formEmployeeRole = null; // может нужно String
             this.formEmployeeDepartment = null;
             this.formEmployeeJobTitle = null;
@@ -119,10 +138,6 @@ public class EmployeeManager implements Serializable{
     public EmployeeManager() {
     }
 
-   
-    
-    
-    
     
     
     
@@ -135,19 +150,20 @@ public class EmployeeManager implements Serializable{
        return PhoneType.values();
     } 
     
-    public void getJobTitlesForDepartmentListener(){
+    public void getJobTitlesForDepartmentListener(ValueChangeEvent event){
    //  String departmentName = (String)se.getObject();
-     jobtitlesForDepartmentList = jobTitleFacade.getJobTitleListByDepartmentName(this.formEmployeeDepartment);
+      String empDep = (String)event.getNewValue();
+      jobtitlesForDepartmentList = jobTitleFacade.getJobTitleListByDepartmentName(empDep);
        
     }
     
     public void closeCreateEmployeeDialog(){
-        
+        //TODO: closeCreateEmployeeDialog() 
     }
 
     
     public void closeEditEmployeeDialog(){
-        
+        //TODO: closeEditEmployeeDialog() 
     }
     
     public void closeCancelCreateEmployeeDialog() {
@@ -269,9 +285,46 @@ public class EmployeeManager implements Serializable{
     public void setFormEmail(String formEmail) {
         this.formEmail = formEmail;
     }
+
+    public String getFormStringEmployeeRole() {
+        return formStringEmployeeRole;
+    }
+
+    public void setFormStringEmployeeRole(String formStringEmployeeRole) {
+        this.formStringEmployeeRole = formStringEmployeeRole;
+    }
     
     
     
+   public void addEmailToList(){
+      
+       if(formEmails.size() < 3 && !formEmails.contains(formEmail)){
+           this.formEmails.add(formEmail);
+           formEmail = null;
+       }
+       else{
+           FacesMessage message = new FacesMessage("Количество адресов не должно превышать 3 или уже существует");
+           FacesContext.getCurrentInstance().addMessage("growl", message);
+//           FacesContext.getCurrentInstance().addMessage(formEmail, message);
+           formEmail = null;
+       }
+       
+   } 
     
+   public void deleteEmailToList(String email){
+      
+       if(formEmails.size() > 0 ){
+           this.formEmails.remove(email);
+           formEmail = null;
+        
+       }
+       else{
+           FacesMessage message = new FacesMessage("Количество адресов не должно превышать 3 или уже существует");
+           FacesContext.getCurrentInstance().addMessage("growl", message);
+//           FacesContext.getCurrentInstance().addMessage(formEmail, message);
+           formEmail = null;
+       }
+       
+   }  
     
 }

@@ -5,10 +5,32 @@
  */
 package com.matrix.boundmaven.entity;
 
+import java.util.logging.Logger;
+
 /**
  *
  * @author Vasiliy
  */
 public enum PhoneType {
-   WORK,WORKMOBILE,HOMEMOBILE
+   WORK("Рабочий"),
+   WORKMOBILE("Рабочий мобильный"),
+   HOMEMOBILE("Домашний мобильный");
+    
+   private PhoneType(String phoneType){
+       this.phoneType = phoneType;
+   }
+   
+   private String phoneType;
+
+    public String getPhoneType() {
+        return phoneType;
+    }
+
+    public void setPhoneType(String phoneType) {
+        this.phoneType = phoneType;
+    }
+   
+   
+   
+   
 }

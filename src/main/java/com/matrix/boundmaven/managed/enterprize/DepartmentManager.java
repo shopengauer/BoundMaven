@@ -124,6 +124,7 @@ public class DepartmentManager implements Serializable{
             if (this.departmentName.equals(editableDepartmentName)) { // если имя подразделения не поменялось при редактированиии
                 if (this.departmentDescription.equals(editableDepartmentDescription)/*&&(   )*/) { // и описание тоже не поменялось  
                     // переходим на исходную панель без изменений(признак этого dep = null)
+                    FacesContext.getCurrentInstance().getApplication().getMessageBundle();
                     FacesMessage message = new FacesMessage("Изменений не внесено");
                      FacesContext.getCurrentInstance().addMessage(null, message);    
                    //RequestContext.getCurrentInstance().closeDialog(null); 

@@ -16,8 +16,12 @@
     </h:head>
     <h:body>
         <h:form> 
-            
-            <h:panelGrid columns="2" cellpadding="3" cellspacing="3"> 
+            <p:growl id ="messages"/>
+            <p:panelGrid columns="2"  layout="grid"> 
+                <f:facet name="header">
+                    <p:outputLabel value="Введите данные"/>
+                </f:facet>
+
                 <p:outputLabel for="jobTitleName" value="#{msgs.jobtitle}"/>
                 <p:inputText id="jobTitleName" value="#{jobTitleManager.formJobTitleName}"/>
                 <p:outputLabel for="jobTitleSalary" value="Индекс"/>  
@@ -30,12 +34,14 @@
 
                 </p:selectOneMenu>
 
-                <p:commandButton id = "createJobTitleBtn" update=":#{p:component('messages')}" process="@form" rendered="#{jobTitleManager.editingJobTitle == null}" value="#{msgs.create}" actionListener="#{jobTitleManager.closeCreateJobTitleDialog}"/> 
-                <p:commandButton id = "editJobTitleBtn" update=":#{p:component('messages')}" process="@form" rendered="#{jobTitleManager.editingJobTitle != null}" value="Изменить" actionListener="#{jobTitleManager.closeEditJobTitleDialog}"/>
-                <p:commandButton id = "cancelJobTitleBtn" value="#{msgs.cancel}" process="@this" rendered="#{jobTitleManager.editingJobTitle == null}" actionListener="#{jobTitleManager.closeCancelCreateJobTitleDialog}" /> 
-                <p:commandButton id = "cancelJobTitleEditBtn" value="#{msgs.cancel}" process="@this" rendered="#{jobTitleManager.editingJobTitle != null}" actionListener="#{jobTitleManager.closeCancelEditJobTitleDialog}"/>
-            </h:panelGrid>
-         <p:messages id="messages"/> 
+                <f:facet name="footer">   
+                    <p:commandButton id = "createJobTitleBtn" update=":#{p:component('messages')}" process="@form" rendered="#{jobTitleManager.editingJobTitle == null}" value="#{msgs.create}" actionListener="#{jobTitleManager.closeCreateJobTitleDialog}"/> 
+                    <p:commandButton id = "editJobTitleBtn" update=":#{p:component('messages')}" process="@form" rendered="#{jobTitleManager.editingJobTitle != null}" value="Изменить" actionListener="#{jobTitleManager.closeEditJobTitleDialog}"/>
+                    <p:commandButton id = "cancelJobTitleBtn" value="#{msgs.cancel}" process="@this" rendered="#{jobTitleManager.editingJobTitle == null}" actionListener="#{jobTitleManager.closeCancelCreateJobTitleDialog}" /> 
+                    <p:commandButton id = "cancelJobTitleEditBtn" value="#{msgs.cancel}" process="@this" rendered="#{jobTitleManager.editingJobTitle != null}" actionListener="#{jobTitleManager.closeCancelEditJobTitleDialog}"/>
+                </f:facet>
+            </p:panelGrid>
+            <!--<p:messages id="messages"/>--> 
         </h:form>  
     </h:body>
 </html>

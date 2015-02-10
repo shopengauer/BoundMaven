@@ -451,7 +451,7 @@ public class EnterprizeManager implements Serializable{
       public void openCreateJobTitleDialog(Object o){
           Map<String,Object> options = new HashMap<>();
           options.put("modal", true);
-          options.put("contentHeight",300);
+          options.put("contentHeight",250);
           if (o != null) {
               //  JobTitle jobTitle = (JobTitle)o; 
               FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("isNew", Boolean.FALSE);
@@ -466,10 +466,10 @@ public class EnterprizeManager implements Serializable{
       }   
       
     public void openCreateEmployeeDialog(Object o){
-      //TODO: open employee dialog  
+       
          Map<String,Object> options = new HashMap<>();
           options.put("modal", true);
-          options.put("contentHeight",750);
+          options.put("contentHeight",500);
            
         if(o != null){  
          // Department depForEdit = (Department)o;

@@ -7,6 +7,11 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Department tab</title>
+        <style>
+            
+        </style>
+    
+    
     </h:head>
     <h:body>
         <ui:composition>
@@ -16,8 +21,8 @@
 
                     <p:commandButton id = "callAddDepDiag" process="@this" value="Добавить подразделение" 
                                      actionListener="#{enterprize.openCreateDepartmentDialog(null)}"   
-                                     icon="ui-icon-plusthick" style="margin-left: 20px"> 
-
+                                     style="margin-left: 20px" icon="ui-icon-plusthick"> 
+                         
                         <p:ajax event="dialogReturn" listener="#{enterprize.onCreateDepartmentListener}"  update=":#{p:component('messages')},:#{p:component('depDataTable')}"/>
                     </p:commandButton> 
 
@@ -60,7 +65,7 @@
 
                 <p:column headerText="">
                     <p:commandLink id = "editDepDiag" process="@this" 
-                                   value="Изменить" update = ":#{p:component('messages')}" 
+                                   styleClass="ui-icon ui-icon-pencil" update = ":#{p:component('messages')}" 
                                    actionListener="#{enterprize.openCreateDepartmentDialog(dep)}" 
                                    style="margin-left: 20px"> 
                         <p:ajax event="dialogReturn" listener="#{enterprize.onEditDepartmentListener}" 

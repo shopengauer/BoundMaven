@@ -72,17 +72,24 @@
 
 
                 <p:column headerText="#{msgs.employeeRole}">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{emp.employeeRole}"/></f:facet>
-                        <f:facet name="input">
-                            <p:selectOneMenu value="#{enterprize.employeeRole}">
-                                <f:selectItems var="empRole" value="#{enterprize.employeeRoleConstants}" itemLabel="#{empRole}" itemValue="#{empRole}"/>
-                            </p:selectOneMenu>
-                        </f:facet>
-                    </p:cellEditor>
+                       <h:outputText value="#{emp.employeeRole.label}"/> 
                 </p:column>
 
-
+                <p:column headerText="#{msgs.email}">
+                    <p:dataList id ="emailsList" value="#{emp.emails}" var = "e" type="unordered" itemType="none">
+                        <p:outputLabel value="#{e}"/>
+                    </p:dataList>   
+                </p:column>  
+                
+                <p:column headerText="Phones">
+                    <p:dataList id ="phonesList" value="#{emp.phoneNumbers.entrySet}" var = "p" type="unordered" itemType="none">
+                        <p:outputLabel value="#{emp.phoneNumbers.get(p)}"/>
+                    </p:dataList>
+                </p:column>
+                
+                
+                
+                
                 <p:column style="width:32px" disabledSelection="true">
                     <p:commandLink id ="openEditEmployeeDiag" value="Изменить" 
                                    actionListener="#{enterprize.openCreateEmployeeDialog(emp)}" process ="@this">

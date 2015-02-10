@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Создать сотрудника</title>
         <style type="text/css">
             .ui-widget {
                 font-size: 90%;
@@ -33,9 +33,13 @@
     </h:head>
     <h:body styleClass="panelgrid">
         <h:form>
-            <h:panelGrid columns="2" id="person" cellpadding="3" cellspacing="3" styleClass="panelgrid">
+            <p:growl id="messages"/>
+           
+            <p:panelGrid columns="2" id="person" styleClass="panelgrid" layout="grid">
                 <ui:remove> </ui:remove>
 
+                <f:facet name="header">Введите информацию о сотруднике</f:facet>
+                
                 <p:outputLabel for ="firstName" value="#{msgs.firstname}"/>
                 <p:inputText id="firstName" value="#{employeeManager.formFirstname}"/>
                 <p:outputLabel for ="lastName" value="#{msgs.lastname}"/>
@@ -46,9 +50,9 @@
                 <p:password id ="password" value="#{employeeManager.formPassword}"/>
 
                 <p:outputLabel for = "selectEmployeeRole" value = "Роль"/>
-                <p:selectOneMenu id ="selectEmployeeRole" value="#{employeeManager.formEmployeeRole}" style="width:200px">
+                <p:selectOneMenu id ="selectEmployeeRole" value="#{employeeManager.formStringEmployeeRole}" style="width:200px">
                     <f:selectItem itemLabel="" itemValue="" noSelectionOption="true"/>
-                    <f:selectItems value="#{employeeManager.employeeRoleConstants}"/>
+                    <f:selectItems var="role" itemLabel="#{role.label}" itemValue="#{role.label}" value="#{employeeManager.employeeRoleConstants}"/>
                 </p:selectOneMenu>
 
 
@@ -66,44 +70,43 @@
                 <ui:remove></ui:remove>
                 
                 <p:outputLabel value="Электронная почта" for = "emails"/>
-                <p:inputText id ="emails" value="#{employeeManager.formEmail}" required="true"/>
-                <p:commandButton id ="addEmailBtn" value="Добавить адрес" update="emailsList messages" process="emails @this">
-                   <p:collector value="#{employeeManager.formEmail}" unique="true" addTo="#{employeeManager.formEmails}"/>
-                </p:commandButton>
+                <p:inputText id ="emails" value="#{employeeManager.formEmail}"/>
+                <p:commandButton id ="addEmailBtn" value="Добавить адрес" actionListener="#{employeeManager.addEmailToList}" update="emailsList messages mess" process="emails @this"/>
+                  
+                
                 
                 <p:dataList id ="emailsList" value="#{employeeManager.formEmails}" var = "t" type="unordered" itemType="none">
-                    <p:commandLink  process="@this" update ="emailsList" styleClass="ui-icon ui-icon-close" style="float:left;margin-right:10px">
-                        <p:collector value="#{t}" removeFrom="#{employeeManager.formEmails}" unique="true"/>
-                       
-                    </p:commandLink>
+                    <p:commandLink  process="@this" update ="emailsList" actionListener="#{employeeManager.deleteEmailToList(t)}" styleClass="ui-icon ui-icon-close" style="float:left;margin-right:10px"/>
                     <p:outputLabel value="#{t}"/>
-                    
                 </p:dataList>                    
                                  
                                  
                                  
                     <p:outputLabel value="#{msgs.department}" for ="selectEmpDep"/>
-                    <p:selectOneMenu id = "selectEmpDep" value="#{employeeManager.formEmployeeDepartment}" style="width:200px">
-                        <p:ajax event = "change" process = "@this" listener="#{employeeManager.getJobTitlesForDepartmentListener}" update = "selectEmpJob"/>
-                        <f:selectItem itemLabel="" itemValue="" noSelectionOption="true"/>
+                    <p:selectOneMenu id = "selectEmpDep" valueChangeListener="#{employeeManager.getJobTitlesForDepartmentListener}"  value="#{employeeManager.formEmployeeDepartment}" style="width:200px">
+                    <p:ajax event = "change" update = "selectEmpJob"/>    
+              <!--<p:ajax event = "change" process = "@this" listener="#{employeeManager.getJobTitlesForDepartmentListener}" update = "selectEmpJob"/>-->
+                        <f:selectItem  itemLabel="" itemValue="" noSelectionOption="true"/>
                         <f:selectItems value="#{enterprize.allDepartment}" var ="dep" itemValue="#{dep.departmentName}"
                                        itemLabel="#{dep.departmentName}"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel value="#{msgs.jobtitle}" for ="selectEmpJob"/>
-
                     <p:selectOneMenu id = "selectEmpJob" value="#{employeeManager.formEmployeeJobTitle}" style="width:200px">
-                        <f:selectItem itemLabel="" itemValue="" noSelectionOption="true" />
+                        <!--<f:selectItem itemLabel="" itemValue="" noSelectionOption="true" />-->
                         <f:selectItems value="#{employeeManager.jobtitlesForDepartmentList}" var ="job" itemValue="#{job.jobTitleName}" itemLabel="#{job.jobTitleName}"/>
                     </p:selectOneMenu>
-               
-                <p:commandButton id = "createEmployeeBtn" rendered="#{employeeManager.editingEmployee == null}" update=":#{p:component('messages')}" value="#{msgs.create}" process="@form" actionListener="#{employeeManager.closeCreateEmployeeDialog}"/>
-                <p:commandButton id = "editEmployeeBtn" rendered="#{employeeManager.editingEmployee != null}" update=":#{p:component('messages')}" process="@form"   value="Изменить" actionListener="#{employeeManager.closeEditEmployeeDialog}"/>
-                <p:commandButton id = "cancelEmployeeCreateBtn" value="#{msgs.cancel}" process="@this" rendered="#{employeeManager.editingEmployee == null}" actionListener="#{employeeManager.closeCancelCreateEmployeeDialog}"/> 
-                <p:commandButton id = "cancelEmployeeEditBtn" value="#{msgs.cancel}" process="@this" rendered="#{employeeManager.editingEmployee != null}" actionListener="#{employeeManager.closeCancelEditEmployeeDialog}"/>
-
-            </h:panelGrid>
-            <p:messages id="messages"/> 
+                    
+                    <f:facet name="footer"> 
+                        <p:row>
+                            <p:commandButton id = "createEmployeeBtn"  icon="ui-icon-check" rendered="#{employeeManager.editingEmployee == null}" update=":#{p:component('messages')}" value="#{msgs.create}" process="@form" actionListener="#{employeeManager.closeCreateEmployeeDialog}"/>
+                            <p:commandButton id = "editEmployeeBtn" rendered="#{employeeManager.editingEmployee != null}" update=":#{p:component('messages')}" process="@form"   value="Изменить" actionListener="#{employeeManager.closeEditEmployeeDialog}"/>
+                            <p:commandButton id = "cancelEmployeeCreateBtn" value="#{msgs.cancel}" process="@this" rendered="#{employeeManager.editingEmployee == null}" actionListener="#{employeeManager.closeCancelCreateEmployeeDialog}"/> 
+                            <p:commandButton id = "cancelEmployeeEditBtn" value="#{msgs.cancel}" process="@this" rendered="#{employeeManager.editingEmployee != null}" actionListener="#{employeeManager.closeCancelEditEmployeeDialog}"/>
+                        </p:row>
+                    </f:facet>
+            </p:panelGrid>
+            <p:message id="mess" for="emails"/> 
         </h:form>
     </h:body>
 </html>
