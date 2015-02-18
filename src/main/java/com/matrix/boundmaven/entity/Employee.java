@@ -39,6 +39,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "EMPLOYEE")
+@NamedQueries({@NamedQuery(name = "Employee.findAllEmployeeByAccount",query = "SELECT e FROM Employee e WHERE e.account = :account")})
 //@NamedQueries({@NamedQuery(name = "Employee.findAllDepartmentsByJobTitle", query = "SELECT e")})
 public class Employee implements Serializable {
     

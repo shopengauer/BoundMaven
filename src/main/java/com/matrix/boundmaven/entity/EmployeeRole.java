@@ -30,6 +30,15 @@ public enum EmployeeRole {
         this.label = label;
     }
   
-   
+   public static EmployeeRole fromString(String label) {
+    if (label != null) {
+      for (EmployeeRole b : EmployeeRole.values()) {
+        if (label.equalsIgnoreCase(b.label)) {
+          return b;
+        }
+      }
+    }
+    return null;
+  }
   
 }

@@ -10,10 +10,13 @@ import com.matrix.boundmaven.entity.Employee;
 import com.matrix.boundmaven.entity.EmployeeRole;
 import com.matrix.boundmaven.entity.JobTitle;
 import com.matrix.boundmaven.entity.PhoneType;
+import com.matrix.boundmaven.entity.Time;
+import com.matrix.boundmaven.session.DepartmentFacadeLocal;
 import com.matrix.boundmaven.session.EmployeeFacadeLocal;
 import com.matrix.boundmaven.session.JobTitleFacadeLocal;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +51,9 @@ public class EmployeeManager implements Serializable{
     
     @EJB
     JobTitleFacadeLocal jobTitleFacade;
+    
+    @EJB
+    DepartmentFacadeLocal departmentFacadeLocal;
     
     @NotBlank(message = "{notBlankFirstname.message}")
     private String formFirstname;
@@ -159,6 +165,49 @@ public class EmployeeManager implements Serializable{
     
     public void closeCreateEmployeeDialog(){
         //TODO: closeCreateEmployeeDialog() 
+        Employee emp = new Employee();
+          List<Employee> employeeListFromDB = employeeFacade.getAllEmployeeByAccount(this.formAccount);
+
+        if (employeeListFromDB.isEmpty()) {  // проверяем есть ли в базе данных такая должность
+            emp.setFirstName(this.formFirstname); // если еще нет такой должности
+            emp.setLastName(this.formLastname);
+            emp.setAccount(this.formAccount);
+            emp.setPassword(this.formPassword);
+            emp.setEmails(this.formEmails);
+            phoneNumbers.put(PhoneType.HOMEMOBILE,formPhoneMobile);
+            phoneNumbers.put(PhoneType.HOMEMOBILE,formPhoneWorkMobile);
+            phoneNumbers.put(PhoneType.HOMEMOBILE,formPhoneWork);
+            emp.setPhoneNumbers(phoneNumbers);
+         //   formEmployeeRole
+            emp.setEmployeeRole(PhoneType.valueOf(EmployeeRole.class, EmployeeRole.fromString(formStringEmployeeRole).toString()));
+            
+            Department cd = departmentFacadeLocal.getDepartmentByName(formEmployeeDepartment).get(0);
+            emp.setDepartment(cd);
+            //cd.getEmployees().add(emp);
+            
+            JobTitle cj = jobTitleFacade.getJobTitleByName(formEmployeeJobTitle).get(0);
+            emp.setJobTitle(cj);
+            //cj.getEmployees().add(emp);
+           
+            Time time = new Time();
+            time.setInsertTime(new Date());
+            emp.setCtime(time);
+            RequestContext.getCurrentInstance().closeDialog(emp);
+            
+//            job.setDepartment(departmentFacade.getDepartmentByName(this.formDepartmentName).get(0));  
+//            Time time = new Time();
+//            time.setInsertTime(new Date());
+//            job.setCtime(time);
+//            RequestContext.getCurrentInstance().closeDialog(job);
+        } else {
+            FacesMessage facesMessage = new FacesMessage("Сотрудник с таким аккаунтом уже существует", emp.getAccount());
+            FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+
+        }
+        
+        
+        
+        
     }
 
     

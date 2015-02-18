@@ -27,5 +27,14 @@ public class FactoryFacade extends AbstractFacade<Factory> implements FactoryFac
     public FactoryFacade() {
         super(Factory.class);
     }
+
+    @Override
+    public void create(Factory entity) {
+        super.create(entity); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+    
+    
     
 }

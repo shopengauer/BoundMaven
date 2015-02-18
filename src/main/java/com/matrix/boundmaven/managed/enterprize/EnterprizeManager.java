@@ -253,7 +253,14 @@ public class EnterprizeManager implements Serializable{
         
     }
     public void onCreateEmployeeListener(SelectEvent se){
+        Employee emp = (Employee)se.getObject();
         
+        if(emp != null){
+          employeeFacade.create(emp);
+          employeeList = null;
+          FacesMessage facesMessage = new FacesMessage("Создан сотрудник", emp.getAccount());
+          FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+        }
         
     }
      public void onEditEmployeeListener(SelectEvent se){

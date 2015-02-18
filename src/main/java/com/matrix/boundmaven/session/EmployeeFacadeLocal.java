@@ -31,5 +31,7 @@ public interface EmployeeFacadeLocal {
     int count();
 
     List<String> getAllDepartmentsName();
+
+    List<Employee> getAllEmployeeByAccount(String account);
     
 }
