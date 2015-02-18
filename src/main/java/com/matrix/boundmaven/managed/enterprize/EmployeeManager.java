@@ -85,7 +85,7 @@ public class EmployeeManager implements Serializable{
     
     @NotBlank(message = "{notBlankDepartment.message}")
     private String formEmployeeDepartment;
-//    @NotBlank(message = "{notBlankJobTitle.message}")
+    @NotBlank(message = "{notBlankJobTitle.message}")
     private String formEmployeeJobTitle;
     
     private List<JobTitle> jobtitlesForDepartmentList;

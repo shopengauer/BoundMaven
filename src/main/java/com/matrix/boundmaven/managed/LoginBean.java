@@ -6,17 +6,25 @@
 package com.matrix.boundmaven.managed;
 
 
+import com.matrix.boundmaven.session.EmployeeFacadeLocal;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.ConversationScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
+import org.primefaces.context.RequestContext;
  
  
 /**
@@ -24,7 +32,7 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author Vasiliy
  */
 @Named(value = "login")
-@SessionScoped
+@ViewScoped 
 public class LoginBean implements Serializable {
 
     /**
@@ -32,9 +40,22 @@ public class LoginBean implements Serializable {
      */
     
    // private User user;
+   
+    @EJB
+    private EmployeeFacadeLocal employeeFacade;
+    
+    
     private boolean login;
     HttpSession session;
-    
+    private String param;
+
+    public String getParam() {
+        return param;
+    }
+
+    public void setParam(String param) {
+        this.param = param;
+    }
     
 //    @EJB
  //   UserFacadeLocal userFacade;
@@ -110,6 +131,8 @@ public class LoginBean implements Serializable {
       //  user.setLastname("");
         HttpSession session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false);
        
+        
+        
         try{
            System.out.println(session.getCreationTime());
             session.invalidate();
@@ -123,6 +146,24 @@ public class LoginBean implements Serializable {
         
     }
     
+     
     
+    
+    
+     public void openMyDialog(){
+        
+        Map<String,List<String>> map = new HashMap<>();
+        List<String> list = new ArrayList<>();
+        list.add(param);
+        map.put("param", list);
+        
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("flash", "qwerty");
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("data",list);
+        RequestContext.getCurrentInstance().openDialog("dialog",null,map);
+    
+     
+     
+     }
+
     
 }

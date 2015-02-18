@@ -13,12 +13,12 @@
             <p:layout fullPage="true">
 
                 <p:layoutUnit position="north">
-                    <ui:include src="Sections/Forms/loginForm.xhtml"/> 
+                    <p:link value="Admin" outcome="/Admin/admin.xhtml"/>
                 </p:layoutUnit>
 
                 <p:layoutUnit position="center">
-                    <p:link value="Admin" outcome="/Admin/admin.xhtml"/>
-                     
+                    
+                     <ui:include src="Sections/Forms/loginForm.xhtml"/> 
                 </p:layoutUnit>    
 
                 <p:layoutUnit position="south">

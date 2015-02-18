@@ -13,12 +13,17 @@
             <f:view locale="#{locale.locale}" xmlns:f="http://xmlns.jcp.org/jsf/core">
                 <h:form>
                     <p:messages autoUpdate="true"/> 
-                    <h:panelGrid columns="5" cellpadding="2" cellspacing="2"> 
-                        <p:inputText id = "inputName" value="#{login.account}" placeholder="#{msgs.account}" autocomplete="false"/> 
-                        <p:password id ="inputPassword" value="#{login.password}" placeholder="#{msgs.pw}"/>    
+                    <p:panelGrid columns="2"  layout="grid" style="width: 500px; position: absolute; left: 40%; top: 40%"> 
+                        <f:facet name="header">
+                            <p:outputLabel value="Enter"/>
+                        </f:facet>
+                        <p:outputLabel value="#{msgs.account}"/>
+                        <p:inputText id = "inputName" value="#{login.account}" placeholder="" autocomplete="false"/> 
+                        <p:outputLabel value="#{msgs.pw}"/>
+                        <p:password id ="inputPassword" value="#{login.password}" placeholder=""/>    
                         <p:commandLink id="loginBtn" ajax="false" value="#{msgs.login}" action="#{login.validateUser}"/>
                         <p:link id="registerBtn" value="#{msgs.register}" outcome="register"/>  
-                    </h:panelGrid>
+                    </p:panelGrid>
                 </h:form>
             </f:view>
         </ui:composition>
